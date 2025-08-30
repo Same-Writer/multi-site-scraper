@@ -69,7 +69,7 @@ Orchestration     Validation           Site Mapping        [Future Scrapers]
 ## Project Structure
 
 ```
-workarea-ui-scraper/
+multi-site-scraper/
 ├── config/
 │   ├── default.json          # System configuration
 │   └── searches.json         # Unified search definitions (SOURCE OF TRUTH)
@@ -110,8 +110,8 @@ The framework is designed for Docker-first deployment with all dependencies incl
 
 1. **Clone the repository:**
 ```bash
-git clone <your-repo-url>
-cd workarea-ui-scraper
+git clone git@github.com:Same-Writer/multi-site-scraper.git
+cd multi-site-scraper
 ```
 
 2. **Set up configuration files with your credentials:**
@@ -445,7 +445,7 @@ This project is designed to be extended and maintained by AI agents. See `README
 Use this prompt to have an AI agent familiarize themselves with the project:
 
 ```
-Hello, I'm going to get started making changes to the code in workarea-ui-scraper. Can you please read over the README_AGENT.md document to add the context of this project to your current context window?
+Hello, I'm going to get started making changes to the code in multi-site-scraper. Can you please read over the README_AGENT.md document to add the context of this project to your current context window?
 ```
 
 This will ensure the AI agent understands:
