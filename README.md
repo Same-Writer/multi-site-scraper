@@ -106,32 +106,82 @@ The framework is designed for Docker-first deployment with all dependencies incl
 - Docker Desktop installed on your system
 - Download from [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 
-#### Quick Start
+#### Initial Setup
 
-1. **Build the Docker image:**
+1. **Clone the repository:**
+```bash
+git clone <your-repo-url>
+cd workarea-ui-scraper
+```
+
+2. **Set up configuration files with your credentials:**
+
+   **For Email Notifications (Optional):**
+   ```bash
+   cp config/default.example.json config/default.json
+   ```
+   Then edit `config/default.json` and replace:
+   - `YOUR_EMAIL@gmail.com` with your actual Gmail address
+   - `YOUR_APP_PASSWORD` with your Gmail App Password (see [Gmail App Password Setup](#gmail-app-password-setup))
+
+   **For Facebook Marketplace (Optional):**
+   ```bash
+   cp sites/facebook-marketplace.example.json sites/facebook-marketplace.json
+   ```
+   Then edit `sites/facebook-marketplace.json` and replace:
+   - `YOUR_FACEBOOK_EMAIL@gmail.com` with your Facebook login email
+   - `YOUR_FACEBOOK_PASSWORD` with your Facebook password
+
+   **⚠️ SECURITY NOTE:** The actual credential files (`config/default.json` and `sites/facebook-marketplace.json`) are automatically ignored by git and will never be committed to your repository.
+
+3. **Build the Docker image:**
 ```bash
 docker-compose build
 ```
 
-2. **Run all enabled searches:**
+4. **Run all enabled searches:**
 ```bash
 docker-compose run --rm scraper node src/index.js
 ```
 
-3. **Run a specific search:**
+5. **Run a specific search:**
 ```bash
 docker-compose run --rm scraper node src/index.js "BMW Z3"
 ```
 
-4. **Run a specific search on a specific site:**
+6. **Run a specific search on a specific site:**
 ```bash
 docker-compose run --rm scraper node src/index.js "BMW Z3" craigslist
 ```
 
-5. **Check results:**
+7. **Check results:**
 ```bash
 ls -la output/
 ```
+
+#### Gmail App Password Setup
+
+To use email notifications, you'll need to set up a Gmail App Password:
+
+1. **Enable 2-Factor Authentication** on your Google account
+2. **Generate an App Password:**
+   - Go to [Google Account Settings](https://myaccount.google.com/)
+   - Navigate to Security → 2-Step Verification → App passwords
+   - Select "Mail" and your device
+   - Copy the generated 16-character password
+3. **Use the App Password** in your `config/default.json` file (not your regular Gmail password)
+
+#### Configuration Security
+
+- **✅ Safe to commit:** `*.example.json` files (contain no real credentials)
+- **❌ Never commit:** `config/default.json` and `sites/facebook-marketplace.json` (contain your actual credentials)
+- **🔒 Protected by .gitignore:** Your credential files are automatically excluded from git commits
+
+#### Running Without Credentials
+
+- **Craigslist only:** Works without any credential setup
+- **Email notifications:** Set `"enabled": false` in your config to disable
+- **Facebook Marketplace:** Set `"enabled": false` for Facebook sites in your search configurations
 
 ### Local Installation (Alternative)
 

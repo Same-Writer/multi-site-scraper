@@ -1,0 +1,243 @@
+{
+  "name": "Facebook Marketplace",
+  "baseUrl": "https://www.facebook.com",
+  "authentication": {
+    "required": true,
+    "note": "Facebook authentication enabled with improved login procedure and error handling.",
+    "loginUrl": "https://www.facebook.com/login",
+    "credentials": {
+      "username": "YOUR_FACEBOOK_EMAIL@gmail.com",
+      "password": "YOUR_FACEBOOK_PASSWORD"
+    },
+    "selectors": {
+      "emailInput": "#email",
+      "passwordInput": "#pass",
+      "loginButton": "[name='login']",
+      "successIndicator": "[data-pagelet='LeftRail']",
+      "alternativeSuccessIndicators": [
+        "[role='main']",
+        "[data-testid='facebook']",
+        "div[data-pagelet='LeftRail']"
+      ]
+    },
+    "waitAfterLogin": 5000,
+    "loginTimeout": 45000,
+    "maxRetries": 2
+  },
+  "searchConfig": {
+    "mazda_miata": {
+      "url": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=mazda%20miata",
+      "selectors": {
+        "listingContainer": "a[href*='/marketplace/item/'], a[href*='/item/'], div[data-testid*='marketplace'], div[role='article'], [data-testid='marketplace-item']",
+        "title": "span",
+        "price": "span",
+        "location": "span",
+        "link": ".",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "span",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "price",
+          "selector": "span",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "span",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": ".",
+          "attribute": "href",
+          "required": false
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": false,
+        "scrollToLoad": false,
+        "maxScrolls": 0,
+        "scrollDelay": 2000
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["miata", "mx-5", "mazda"],
+          "exclude": ["parts", "salvage", "junk", "broken"]
+        }
+      }
+    },
+    "porsche_911": {
+      "url": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=porsche%20911",
+      "selectors": {
+        "listingContainer": "a[href*='/marketplace/item/'], a[href*='/item/'], div[data-testid*='marketplace'], div[role='article'], [data-testid='marketplace-item']",
+        "title": "span",
+        "price": "span",
+        "location": "span",
+        "link": ".",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "span",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "price",
+          "selector": "span",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "span",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": ".",
+          "attribute": "href",
+          "required": false
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "scrollToLoad": true,
+        "maxScrolls": 3,
+        "scrollDelay": 2000
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 200000
+        },
+        "keywords": {
+          "include": ["911", "porsche"],
+          "exclude": ["parts", "salvage", "replica", "kit car"]
+        }
+      }
+    },
+    "bmw_z3": {
+      "url": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3",
+      "selectors": {
+        "listingContainer": "div[data-pagelet='MarketplaceSearchResultsPagelet'] a[role='link'], a[href*='/marketplace/item/'], div[aria-label*='Collection of Marketplace items']",
+        "title": "span",
+        "price": "span",
+        "location": "span",
+        "link": ".",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "*",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "price",
+          "selector": "*",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "*",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "url",
+          "selector": ".",
+          "attribute": "href",
+          "required": false
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": false,
+        "scrollToLoad": false,
+        "maxScrolls": 0,
+        "scrollDelay": 2000
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["z3", "bmw"],
+          "exclude": ["parts", "salvage", "junk", "broken"]
+        }
+      }
+    }
+  },
+  "waitConditions": {
+    "initialLoad": "div[data-pagelet='MarketplaceSearchResultsPagelet'] a[role='link'], a[href*='/marketplace/item/'], div[aria-label*='Collection of Marketplace items'], div[role='main']",
+    "timeout": 30000
+  },
+  "rateLimit": {
+    "requestDelay": 3000,
+    "maxConcurrent": 1,
+    "randomDelay": true,
+    "delayRange": [2000, 5000]
+  },
+  "antiDetection": {
+    "enabled": true,
+    "userAgentRotation": true,
+    "viewportRandomization": true,
+    "mouseMovements": true,
+    "scrollBehavior": "human",
+    "cookieHandling": true,
+    "sessionPersistence": true
+  },
+  "changeDetection": {
+    "enabled": true,
+    "storageFile": "data/facebook_change_history.json",
+    "notifyOnChanges": ["price", "title", "description", "images"]
+  }
+}

@@ -1,5 +1,5 @@
-const ModularScrapingEngine = require('./src/core/ModularScrapingEngine');
-const ScraperFactory = require('./src/scrapers/ScraperFactory');
+const ModularScrapingEngine = require('../src/core/ModularScrapingEngine');
+const ScraperFactory = require('../src/scrapers/ScraperFactory');
 const fs = require('fs');
 
 async function testModularArchitecture() {
