@@ -1,0 +1,26 @@
+{
+  "name": "workarea-ui-scraper",
+  "version": "1.0.0",
+  "description": "A modular UI-based web scraping framework with email notifications",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest"
+  },
+  "keywords": ["scraping", "ui", "automation", "notifications"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "csv-writer": "^1.6.0",
+    "nodemailer": "^6.9.0",
+    "fs-extra": "^11.1.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0",
+    "jest": "^29.0.0"
+  }
+}

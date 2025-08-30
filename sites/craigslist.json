@@ -1,0 +1,280 @@
+{
+  "name": "Craigslist",
+  "baseUrl": "https://sfbay.craigslist.org",
+  "searchConfig": {
+    "bmw_z3": {
+      "url": "https://sfbay.craigslist.org/search/sss?query=bmw%20z3#search=2~gallery~0",
+      "selectors": {
+        "listingContainer": ".cl-search-result",
+        "title": "a",
+        "price": ".priceinfo, .price, [class*='price']",
+        "location": ".supertitle, .location, [class*='location']",
+        "date": ".meta, .date, [class*='date']",
+        "link": "a",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "a",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": "*",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "*",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "date",
+          "selector": "*",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": "a",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false,
+        "clickSelector": "a",
+        "waitForSelector": ".postingtitletext",
+        "dataFields": [
+          {
+            "name": "detailedTitle",
+            "selector": ".postingtitletext .text",
+            "attribute": "text",
+            "required": false
+          },
+          {
+            "name": "detailedPrice",
+            "selector": ".postingtitletext .price",
+            "attribute": "text",
+            "required": false,
+            "transform": "extractPrice"
+          },
+          {
+            "name": "description",
+            "selector": "#postingbody",
+            "attribute": "text",
+            "required": false,
+            "transform": "cleanDescription"
+          },
+          {
+            "name": "postingDate",
+            "selector": ".postinginfos .date",
+            "attribute": "datetime",
+            "required": false
+          },
+          {
+            "name": "postingId",
+            "selector": ".postinginfos .postingid",
+            "attribute": "text",
+            "required": false,
+            "transform": "extractPostingId"
+          },
+          {
+            "name": "allImages",
+            "selector": ".gallery img, .iw img",
+            "attribute": "src",
+            "required": false,
+            "multiple": true
+          },
+          {
+            "name": "attributes",
+            "selector": ".attrgroup span",
+            "attribute": "text",
+            "required": false,
+            "multiple": true
+          },
+          {
+            "name": "mapLocation",
+            "selector": ".mapaddress",
+            "attribute": "text",
+            "required": false
+          },
+          {
+            "name": "replyEmail",
+            "selector": ".reply-email-address",
+            "attribute": "text",
+            "required": false
+          }
+        ],
+        "changeDetection": {
+          "enabled": true,
+          "trackFields": ["detailedTitle", "detailedPrice", "description", "allImages"],
+          "hashFields": ["description", "allImages"]
+        }
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".next",
+        "maxPages": 5
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["z3", "bmw"],
+          "exclude": ["parts", "salvage", "junk"]
+        }
+      }
+    },
+    "mazda_miata": {
+      "url": "https://sfbay.craigslist.org/search/sss?query=mazda%20miata#search=2~gallery~0",
+      "selectors": {
+        "listingContainer": ".cl-search-result",
+        "title": "a",
+        "price": ".priceinfo, .price, [class*='price']",
+        "location": ".supertitle, .location, [class*='location']",
+        "date": ".meta, .date, [class*='date']",
+        "link": "a",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "a",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": "*",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "*",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "date",
+          "selector": "*",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": "a",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".next",
+        "maxPages": 5
+      }
+    },
+    "porsche_911": {
+      "url": "https://sfbay.craigslist.org/search/sss?query=porsche%20911#search=2~gallery~0",
+      "selectors": {
+        "listingContainer": ".result-row",
+        "title": ".result-title a",
+        "price": ".result-price",
+        "location": ".result-hood",
+        "date": ".result-date",
+        "link": ".result-title a",
+        "image": ".result-image img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": ".result-title a",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": ".result-price",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": ".result-hood",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "date",
+          "selector": ".result-date",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": ".result-title a",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": ".result-image img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".next",
+        "maxPages": 5
+      }
+    }
+  },
+  "waitConditions": {
+    "initialLoad": ".result-row, .cl-search-result, .gallery .result-row, li.result-row",
+    "timeout": 15000
+  },
+  "rateLimit": {
+    "requestDelay": 2000,
+    "maxConcurrent": 1
+  },
+  "changeDetection": {
+    "enabled": true,
+    "storageFile": "data/change_history.json",
+    "notifyOnChanges": ["price", "title", "description", "images"]
+  }
+}

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  scraper:
+    build: .
+    container_name: workarea-ui-scraper
+    volumes:
+      - ./output:/usr/src/app/output
+      - ./logs:/usr/src/app/logs
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    # Uncomment the following lines if you want to run interactively
+    # stdin_open: true
+    # tty: true

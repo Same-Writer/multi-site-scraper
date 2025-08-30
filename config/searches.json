@@ -1,0 +1,168 @@
+{
+  "searches": {
+    "BMW Z3": {
+      "description": "BMW Z3 roadster and coupe listings",
+      "scrapeSettings": {
+        "runFrequency": "hourly",
+        "maxListingsPerSite": 10,
+        "enabled": true,
+        "priority": "high"
+      },
+      "filters": {
+        "priceRange": {
+          "min": 1000,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["z3", "bmw"],
+          "exclude": ["parts", "salvage", "junk", "scrap"]
+        },
+        "excludeWanted": true
+      },
+      "notifications": {
+        "enabled": true,
+        "triggers": {
+          "newListing": true,
+          "priceDropPercent": 10,
+          "priceDropAmount": 1000,
+          "listingUpdated": false,
+          "keywordMatch": ["m coupe", "manual", "low miles"]
+        },
+        "emailSettings": {
+          "to": ["user@example.com"],
+          "subject": "BMW Z3 Alert: {{trigger}} - {{title}}",
+          "maxEmailsPerHour": 5
+        }
+      },
+      "sites": {
+        "craigslist": {
+          "enabled": true,
+          "searchUrl": "https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0",
+          "siteConfig": "craigslist",
+          "searchKey": "bmw_z3"
+        },
+        "facebook_marketplace": {
+          "enabled": true,
+          "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3",
+          "siteConfig": "facebook-marketplace",
+          "searchKey": "bmw_z3"
+        }
+      }
+    },
+    "Mazda Miata": {
+      "description": "Mazda Miata (MX-5) convertible listings",
+      "scrapeSettings": {
+        "runFrequency": "daily",
+        "maxListingsPerSite": 3,
+        "enabled": false,
+        "priority": "medium"
+      },
+      "filters": {
+        "priceRange": {
+          "min": 2000,
+          "max": 30000
+        },
+        "keywords": {
+          "include": ["miata", "mx-5", "mx5", "mazda"],
+          "exclude": ["parts", "salvage", "junk", "hardtop only"]
+        },
+        "excludeWanted": true
+      },
+      "notifications": {
+        "enabled": true,
+        "triggers": {
+          "newListing": true,
+          "priceDropPercent": 15,
+          "priceDropAmount": 500,
+          "listingUpdated": false,
+          "keywordMatch": ["na", "nb", "low miles", "garage kept"]
+        },
+        "emailSettings": {
+          "to": ["user@example.com"],
+          "subject": "Mazda Miata Alert: {{trigger}} - {{title}}",
+          "maxEmailsPerHour": 3
+        }
+      },
+      "sites": {
+        "craigslist": {
+          "enabled": true,
+          "searchUrl": "https://sfbay.craigslist.org/search/cta?max_price=3005&purveyor=owner&query=mazda%20miata#search=2~gallery~0",
+          "siteConfig": "craigslist",
+          "searchKey": "mazda_miata"
+        },
+        "facebook_marketplace": {
+          "enabled": true,
+          "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=mazda%20miata",
+          "siteConfig": "facebook-marketplace", 
+          "searchKey": "mazda_miata"
+        }
+      }
+    },
+    "Porsche 911": {
+      "description": "Porsche 911 sports car listings",
+      "scrapeSettings": {
+        "runFrequency": "every_30_minutes",
+        "maxListingsPerSite": 10,
+        "enabled": false,
+        "priority": "high"
+      },
+      "filters": {
+        "priceRange": {
+          "min": 15000,
+          "max": 200000
+        },
+        "keywords": {
+          "include": ["911", "porsche"],
+          "exclude": ["parts", "salvage", "replica", "kit car"]
+        },
+        "excludeWanted": true
+      },
+      "notifications": {
+        "enabled": true,
+        "triggers": {
+          "newListing": true,
+          "priceDropPercent": 5,
+          "priceDropAmount": 2000,
+          "listingUpdated": true,
+          "keywordMatch": ["turbo", "gt3", "carrera", "targa", "cabriolet"]
+        },
+        "emailSettings": {
+          "to": ["user@example.com"],
+          "subject": "Porsche 911 Alert: {{trigger}} - {{title}}",
+          "maxEmailsPerHour": 10
+        }
+      },
+      "sites": {
+        "craigslist": {
+          "enabled": true,
+          "searchUrl": "https://sfbay.craigslist.org/search/sss?query=porsche%20911#search=2~gallery~0",
+          "siteConfig": "craigslist",
+          "searchKey": "porsche_911"
+        },
+        "facebook_marketplace": {
+          "enabled": false,
+          "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=porsche%20911",
+          "siteConfig": "facebook-marketplace",
+          "searchKey": "porsche_911"
+        }
+      }
+    }
+  },
+  "globalSettings": {
+    "outputDirectory": "output",
+    "logLevel": "info",
+    "csvFormat": {
+      "includeHeaders": true,
+      "dateFormat": "ISO",
+      "filenameTemplate": "{{searchName}}_{{siteName}}_{{timestamp}}.csv"
+    },
+    "changeDetection": {
+      "enabled": true,
+      "storageFile": "data/change_history.json"
+    },
+    "rateLimiting": {
+      "requestDelay": 2000,
+      "maxConcurrentScrapes": 2
+    }
+  }
+}
