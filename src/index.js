@@ -1,6 +1,7 @@
 const SearchManager = require('./core/SearchManager');
 const Logger = require('./core/Logger');
 const config = require('../config/default.json');
+const EmailNotifier = require('./core/EmailNotifier');
 
 // Global logger instance
 let logger = null;
@@ -12,6 +13,22 @@ async function main() {
     logger.info('Initializing Workarea UI Scraper...');
     
     console.log('Initializing Workarea UI Scraper...');
+
+    // Check for test-email command first
+    const args = process.argv.slice(2);
+    if (args[0] === 'test-email') {
+      const recipient = args[1];
+      if (!recipient) {
+        console.error('Please provide a recipient email address for the test.');
+        process.exit(1);
+      }
+
+      console.log(`Sending test email to ${recipient}...`);
+      const emailNotifier = new EmailNotifier(config);
+      await emailNotifier.initialize();
+      await emailNotifier.sendTestEmail(recipient);
+      return; // Exit after sending test email
+    }
     
     // Initialize the search manager
     const searchManager = new SearchManager();
@@ -22,9 +39,6 @@ async function main() {
     
     logger.info('Workarea UI Scraper initialized successfully');
     console.log('Workarea UI Scraper initialized successfully');
-
-    // Check command line arguments for specific search
-    const args = process.argv.slice(2);
     
     if (args.length > 0) {
       const searchName = args[0];
@@ -45,7 +59,7 @@ async function main() {
             console.log('\nSample results:');
             result.results.slice(0, 3).forEach((item, index) => {
               console.log(`\n${index + 1}. ${item.title}`);
-              console.log(`   Price: $${item.price || 'Not specified'}`);
+              console.log(`   Price: ${item.price || 'Not specified'}`);
               console.log(`   Location: ${item.location || 'Not specified'}`);
               console.log(`   URL: ${item.url}`);
             });

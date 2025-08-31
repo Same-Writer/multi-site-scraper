@@ -29,7 +29,7 @@
           "keywordMatch": ["m coupe", "manual", "low miles"]
         },
         "emailSettings": {
-          "to": ["user@example.com"],
+
           "subject": "BMW Z3 Alert: {{trigger}} - {{title}}",
           "maxEmailsPerHour": 5
         }
@@ -78,7 +78,7 @@
           "keywordMatch": ["na", "nb", "low miles", "garage kept"]
         },
         "emailSettings": {
-          "to": ["user@example.com"],
+
           "subject": "Mazda Miata Alert: {{trigger}} - {{title}}",
           "maxEmailsPerHour": 3
         }
@@ -127,7 +127,7 @@
           "keywordMatch": ["turbo", "gt3", "carrera", "targa", "cabriolet"]
         },
         "emailSettings": {
-          "to": ["user@example.com"],
+
           "subject": "Porsche 911 Alert: {{trigger}} - {{title}}",
           "maxEmailsPerHour": 10
         }

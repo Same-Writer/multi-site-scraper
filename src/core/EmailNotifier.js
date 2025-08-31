@@ -6,6 +6,7 @@ class EmailNotifier {
   constructor(config) {
     this.config = config;
     this.transporter = null;
+    this.initialize();
   }
 
   async initialize() {
@@ -15,18 +16,13 @@ class EmailNotifier {
     }
 
     try {
-      // Create transporter
-      this.transporter = nodemailer.createTransporter({
+      this.transporter = nodemailer.createTransport({
         host: this.config.email.smtp.host,
         port: this.config.email.smtp.port,
         secure: this.config.email.smtp.secure,
-        auth: {
-          user: this.config.email.auth.user,
-          pass: this.config.email.auth.pass
-        }
+        auth: this.config.email.auth,
       });
 
-      // Verify connection
       await this.transporter.verify();
       console.log('Email transporter initialized successfully');
     } catch (error) {
@@ -35,50 +31,49 @@ class EmailNotifier {
     }
   }
 
-  async sendNotification(searchName, notification, subject) {
-    // PLACEHOLDER IMPLEMENTATION
-    console.log('\n=== EMAIL NOTIFICATION (PLACEHOLDER) ===');
-    console.log(`Search: ${searchName}`);
-    console.log(`Trigger: ${notification.trigger}`);
-    console.log(`New matches found: ${notification.count}`);
-    
-    if (notification.listings && notification.listings.length > 0) {
-      console.log('\nNew listings:');
-      notification.listings.forEach((match, index) => {
-        console.log(`${index + 1}. ${match.title || 'No title'}`);
-        console.log(`   Price: ${match.price ? '$' + match.price : 'Not specified'}`);
-        console.log(`   Location: ${match.location || 'Not specified'}`);
-        console.log(`   URL: ${match.url || 'No URL'}`);
-        console.log('');
-      });
+  async sendNotification(searchName, notification, notificationConfig) {
+    if (!this.config.email.enabled || !this.transporter) {
+      console.log('Email notifications are disabled or transporter is not initialized.');
+      return;
     }
-    
-    console.log('=== END EMAIL NOTIFICATION ===\n');
 
-    // If email is actually enabled and configured, send real email
-    if (this.config && this.config.email && this.config.email.enabled && this.transporter) {
-      try {
-        await this.sendRealEmail(notification.listings, searchName, subject);
-      } catch (error) {
-        console.error('Failed to send email notification:', error.message);
-      }
+    // Use recipients from credentials.json if available, otherwise fall back to config
+    const to = notificationConfig.emailSettings.to || 
+               this.config.email.recipients || 
+               this.config.email.to || 
+               [];
+    
+    if (!to || to.length === 0) {
+      console.log(`No email recipients configured for search: ${searchName}`);
+      return;
+    }
+
+    const subject = (notificationConfig.emailSettings.subject || 'New Matches Found - {searchName}')
+      .replace('{searchName}', searchName)
+      .replace('{trigger}', notification.trigger)
+      .replace('{{trigger}}', notification.trigger)
+      .replace('{{title}}', notification.listings[0]?.title || 'Multiple listings');
+
+    try {
+      await this.sendRealEmail(notification.listings, searchName, subject, to);
+    } catch (error) {
+      console.error(`Failed to send email notification for search "${searchName}":`, error.message);
     }
   }
 
-  async sendRealEmail(newMatches, siteName) {
+  async sendRealEmail(newMatches, searchName, subject, to) {
     if (!this.transporter) {
       console.log('Email transporter not available');
       return;
     }
 
-    const subject = this.config.email.subject.replace('{siteName}', siteName);
-    const htmlContent = await this.generateEmailContent(newMatches, siteName);
+    const htmlContent = await this.generateEmailContent(newMatches, searchName);
 
     const mailOptions = {
       from: this.config.email.from,
-      to: this.config.email.to,
+      to: to.join(','),
       subject: subject,
-      html: htmlContent
+      html: htmlContent,
     };
 
     try {
@@ -167,40 +162,39 @@ class EmailNotifier {
     `;
   }
 
-  async testEmailConfiguration() {
-    if (!this.config.email.enabled) {
-      console.log('Email is disabled - skipping test');
-      return false;
+  async sendTestEmail(recipient) {
+    if (!this.config.email.enabled || !this.transporter) {
+      console.log('Email notifications are disabled or transporter is not initialized.');
+      return;
     }
 
-    if (!this.transporter) {
-      console.log('Email transporter not initialized');
-      return false;
-    }
-
-    try {
-      await this.transporter.verify();
-      console.log('Email configuration test passed');
-      return true;
-    } catch (error) {
-      console.error('Email configuration test failed:', error.message);
-      return false;
-    }
-  }
-
-  // Method to send test email
-  async sendTestEmail() {
     const testMatches = [
       {
-        title: 'Test BMW Z3 Listing',
-        price: 15000,
-        location: 'San Francisco',
-        date: new Date().toISOString(),
-        url: 'https://example.com/test-listing'
+        title: 'Test Listing: 2023 Awesome Car',
+        price: 25000,
+        location: 'Virtual City',
+        date: new Date().toLocaleDateString(),
+        url: '#',
+        imageUrl: 'https://via.placeholder.com/200'
+      },
+      {
+        title: 'Test Listing: Another Great Find',
+        price: 12500,
+        location: 'Digital Town',
+        date: new Date().toLocaleDateString(),
+        url: '#',
+        imageUrl: 'https://via.placeholder.com/200'
       }
     ];
 
-    await this.sendNotification(testMatches, 'Test Site');
+    const subject = 'Test Email from Scraper';
+    
+    try {
+      await this.sendRealEmail(testMatches, 'Test Site', subject, [recipient]);
+      console.log(`Test email sent successfully to ${recipient}`);
+    } catch (error) {
+      console.error(`Failed to send test email to ${recipient}:`, error.message);
+    }
   }
 }
 

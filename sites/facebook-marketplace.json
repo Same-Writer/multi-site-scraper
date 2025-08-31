@@ -5,10 +5,7 @@
     "required": true,
     "note": "Facebook authentication enabled with improved login procedure and error handling.",
     "loginUrl": "https://www.facebook.com/login",
-    "credentials": {
-      "username": "YOUR_FACEBOOK_EMAIL@gmail.com",
-      "password": "YOUR_FACEBOOK_PASSWORD"
-    },
+    "credentials": {},
     "selectors": {
       "emailInput": "#email",
       "passwordInput": "#pass",

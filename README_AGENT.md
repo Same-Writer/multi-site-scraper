@@ -183,7 +183,8 @@ The codebase implements a **modular web scraping framework** with the following 
 ```
 workarea-ui-scraper/
 ├── config/
-│   ├── default.json          # System configuration
+│   ├── default.json          # System configuration (SMTP settings, logging)
+│   ├── credentials.json      # Email auth & site credentials (CREATE THIS)
 │   └── searches.json         # Unified search definitions (SOURCE OF TRUTH)
 ├── sites/
 │   ├── craigslist.json       # Craigslist scraper configuration
@@ -193,7 +194,7 @@ workarea-ui-scraper/
 │   │   ├── SearchManager.js  # Main orchestration
 │   │   ├── ModularScrapingEngine.js # Scraping coordination
 │   │   ├── CsvExporter.js    # Data export
-│   │   ├── EmailNotifier.js  # Notifications
+│   │   ├── EmailNotifier.js  # Email notifications
 │   │   └── ChangeDetector.js # Change tracking
 │   ├── scrapers/             # Site-specific scrapers
 │   │   ├── BaseScraper.js    # Abstract base class
@@ -220,7 +221,6 @@ workarea-ui-scraper/
 - Docker containerization
 
 **Partially Implemented:**
-- Email notifications (placeholder implementation)
 - Advanced change detection triggers
 - Detailed scraping for individual listings
 
@@ -253,7 +253,53 @@ workarea-ui-scraper/
 - Add new transformation functions to `BaseScraper.js`
 - Implement additional export formats beyond CSV
 
-### Recent Architectural Improvements (August 25, 2025)
+### Recent Architectural Improvements (August 31, 2025)
+
+**Email Integration & Credentials Consolidation (August 31, 2025):**
+- **Problem Solved**: Previous AI agent session was stopped mid-way through implementing email functionality and consolidating credentials
+- **Solution Implemented**: Complete email notification system with consolidated credentials architecture
+- **Key Changes**:
+  - `config/credentials.json`: New consolidated credentials file containing email authentication and site credentials
+  - `src/core/SearchManager.js`: Enhanced `_loadCredentials()` method to load and merge credentials with system configuration
+  - `src/core/EmailNotifier.js`: Fixed critical bug (`createTransporter` → `createTransport`), enhanced recipient resolution, improved template processing
+  - Removed redundant `*.example.json` files (credentials.example.json, default.example.json, facebook-marketplace.example.json)
+  - Updated documentation with Gmail App Password setup instructions
+- **Results**: Fully functional email notifications with Gmail SMTP, HTML templates, and automatic triggers
+- **Test Results**: Successfully sent test email with message ID `<2c497ac8-58b8-f0bb-6ba5-07b2193dbd1b@gmail.com>` and BMW Z3 search notification with message ID `<ae14f9eb-bb9f-5708-3f18-d315b6334949@gmail.com>`
+
+**Email System Features:**
+- **Gmail SMTP Integration**: Uses Gmail's SMTP server with App Password authentication
+- **HTML Email Templates**: Rich email formatting with listing details, prices, and images
+- **Automatic Triggers**: Sends emails for new listings, keyword matches, and price changes
+- **Consolidated Credentials**: Single `credentials.json` file for all authentication (email + site credentials)
+- **Rate Limiting**: Configurable limits to prevent spam (e.g., max 5 emails per hour)
+- **Template Variables**: Dynamic subject lines with placeholders like `{{trigger}}` and `{{title}}`
+- **Security**: Credentials file automatically ignored by git, never committed to repository
+
+**Credentials Architecture:**
+```json
+{
+  "email": {
+    "auth": {
+      "user": "user@gmail.com",
+      "pass": "gmail-app-password"
+    },
+    "recipients": ["recipient@example.com"]
+  },
+  "sites": {
+    "facebook_marketplace": {
+      "username": "facebook-email@gmail.com",
+      "password": "facebook-password"
+    }
+  }
+}
+```
+
+**Configuration Integration:**
+- `SearchManager.js` automatically loads `credentials.json` on startup
+- Merges credentials with system configuration using lodash
+- Provides fallback handling when credentials file is missing
+- Email recipients resolved from: `notificationConfig.emailSettings.to` → `config.email.recipients` → `config.email.to`
 
 **Debug Logging System (August 25, 2025):**
 - **Problem Solved**: Need for comprehensive debug logging and easy access to log files for troubleshooting

@@ -1,15 +1,16 @@
 # Workarea UI Scraper Framework
 
-A modular, Docker-based web scraping framework with unified search-centric configuration, flexible selector handling, and CSV export capabilities. Built for extensibility and resilience against website structure changes.
+A modular, Docker-based web scraping framework with unified search-centric configuration, flexible selector handling, email notifications, and CSV export capabilities. Built for extensibility and resilience against website structure changes.
 
 ## Features
 
 - **Modular Architecture**: Factory pattern with site-specific scrapers extending a common base class
 - **Unified Search Configuration**: Single source of truth (`config/searches.json`) for all searches with multi-site support
+- **Consolidated Credentials**: Single `credentials.json` file for all authentication and email settings
+- **Email Notifications**: Fully functional Gmail SMTP notifications with HTML templates
 - **Flexible Selector System**: Gracefully handles HTML structure changes with multi-selector fallback
 - **Docker-First Design**: Portable deployment with consistent execution across environments
 - **CSV Export**: Automatic data export with duplicate detection and change tracking
-- **Email Notifications**: Configurable email alerts for new matches and price changes
 - **Advanced Anti-Detection**: User agent rotation, random delays, stealth headers, human-like interactions
 - **Command-Line Interface**: Run specific searches or all enabled searches
 - **Change Detection**: Historical tracking for trend analysis and notifications
@@ -18,17 +19,14 @@ A modular, Docker-based web scraping framework with unified search-centric confi
 
 **Fully Operational:**
 - **Craigslist Scraper**: Production-ready with flexible selector handling (updated August 2025)
+- **Facebook Marketplace Scraper**: Production-ready with dynamic content loading and authentication (updated August 2025)
+- **Email Notifications**: Fully functional Gmail SMTP with HTML templates and automatic triggers
 - **BMW Z3 Search**: Enabled, high priority, hourly frequency
-- **Mazda Miata Search**: Enabled, medium priority, daily frequency
+- **Mazda Miata Search**: Configured but disabled
 - **Porsche 911 Search**: Configured but disabled
 - **CSV Export**: With duplicate detection and timestamped files
 - **Change Detection**: Tracks price changes and listing updates
 - **Docker Deployment**: Complete containerization with docker-compose
-
-**Partially Implemented:**
-- **Facebook Marketplace Scraper**: Basic implementation, needs refinement
-- **Email Notifications**: Placeholder implementation with console output
-- **Detailed Scraping**: Framework exists, disabled by default
 
 ## Architecture Overview
 
@@ -47,10 +45,10 @@ Orchestration     Validation           Site Mapping        [Future Scrapers]
 ### Core Components
 
 1. **SearchManager.js**: Primary orchestration class
-   - Loads unified search configurations
+   - Loads unified search configurations and consolidated credentials
    - Coordinates multi-site scraping for each search
    - Applies search-level filters and transformations
-   - Manages CSV export and notification processing
+   - Manages CSV export and email notification processing
 
 2. **ModularScrapingEngine.js**: Core scraping orchestrator
    - Uses factory pattern to instantiate appropriate scrapers
@@ -59,19 +57,21 @@ Orchestration     Validation           Site Mapping        [Future Scrapers]
 
 3. **Site-Specific Scrapers**: Independent implementations
    - **CraigslistScraper.js**: Button-based pagination, flexible selectors
-   - **FacebookMarketplaceScraper.js**: Scroll-based pagination, authentication
+   - **FacebookMarketplaceScraper.js**: Scroll-based pagination, authentication, dynamic content loading
    - **BaseScraper.js**: Abstract base class with common functionality
 
-4. **ScraperFactory.js**: Dynamic scraper instantiation
-   - Maps site names to scraper classes
-   - Provides registry of supported sites
+4. **EmailNotifier.js**: Email notification system
+   - Gmail SMTP integration with App Password authentication
+   - HTML email templates with listing details and images
+   - Configurable triggers and rate limiting
 
 ## Project Structure
 
 ```
 multi-site-scraper/
 ├── config/
-│   ├── default.json          # System configuration
+│   ├── default.json          # System configuration (SMTP settings, logging)
+│   ├── credentials.json      # Email auth & site credentials (CREATE THIS)
 │   └── searches.json         # Unified search definitions (SOURCE OF TRUTH)
 ├── sites/
 │   ├── craigslist.json       # Craigslist scraper configuration
@@ -81,7 +81,7 @@ multi-site-scraper/
 │   │   ├── SearchManager.js  # Main orchestration
 │   │   ├── ModularScrapingEngine.js # Scraping coordination
 │   │   ├── CsvExporter.js    # Data export
-│   │   ├── EmailNotifier.js  # Notifications
+│   │   ├── EmailNotifier.js  # Email notifications
 │   │   └── ChangeDetector.js # Change tracking
 │   ├── scrapers/             # Site-specific scrapers
 │   │   ├── BaseScraper.js    # Abstract base class
@@ -114,47 +114,57 @@ git clone git@github.com:Same-Writer/multi-site-scraper.git
 cd multi-site-scraper
 ```
 
-2. **Set up configuration files with your credentials:**
+2. **Create your credentials file:**
 
-   **For Email Notifications (Optional):**
-   ```bash
-   cp config/default.example.json config/default.json
+   Create `config/credentials.json` with your authentication details:
+
+   ```json
+   {
+     "email": {
+       "auth": {
+         "user": "your-email@gmail.com",
+         "pass": "your-app-password"
+       },
+       "recipients": [
+         "recipient@example.com"
+       ]
+     },
+     "sites": {
+       "facebook_marketplace": {
+         "username": "your-facebook-email@gmail.com",
+         "password": "your-facebook-password"
+       }
+     }
+   }
    ```
-   Then edit `config/default.json` and replace:
-   - `YOUR_EMAIL@gmail.com` with your actual Gmail address
-   - `YOUR_APP_PASSWORD` with your Gmail App Password (see [Gmail App Password Setup](#gmail-app-password-setup))
 
-   **For Facebook Marketplace (Optional):**
-   ```bash
-   cp sites/facebook-marketplace.example.json sites/facebook-marketplace.json
-   ```
-   Then edit `sites/facebook-marketplace.json` and replace:
-   - `YOUR_FACEBOOK_EMAIL@gmail.com` with your Facebook login email
-   - `YOUR_FACEBOOK_PASSWORD` with your Facebook password
+   **⚠️ SECURITY NOTE:** The `credentials.json` file is automatically ignored by git and will never be committed to your repository.
 
-   **⚠️ SECURITY NOTE:** The actual credential files (`config/default.json` and `sites/facebook-marketplace.json`) are automatically ignored by git and will never be committed to your repository.
+3. **Set up Gmail App Password (for email notifications):**
 
-3. **Build the Docker image:**
+   See [Gmail App Password Setup](#gmail-app-password-setup) below for detailed instructions.
+
+4. **Build the Docker image:**
 ```bash
 docker-compose build
 ```
 
-4. **Run all enabled searches:**
+5. **Run all enabled searches:**
 ```bash
 docker-compose run --rm scraper node src/index.js
 ```
 
-5. **Run a specific search:**
+6. **Run a specific search:**
 ```bash
 docker-compose run --rm scraper node src/index.js "BMW Z3"
 ```
 
-6. **Run a specific search on a specific site:**
+7. **Run a specific search on a specific site:**
 ```bash
 docker-compose run --rm scraper node src/index.js "BMW Z3" craigslist
 ```
 
-7. **Check results:**
+8. **Check results:**
 ```bash
 ls -la output/
 ```
@@ -163,25 +173,58 @@ ls -la output/
 
 To use email notifications, you'll need to set up a Gmail App Password:
 
-1. **Enable 2-Factor Authentication** on your Google account
-2. **Generate an App Password:**
+1. **Enable 2-Factor Authentication** on your Google account:
    - Go to [Google Account Settings](https://myaccount.google.com/)
-   - Navigate to Security → 2-Step Verification → App passwords
-   - Select "Mail" and your device
-   - Copy the generated 16-character password
-3. **Use the App Password** in your `config/default.json` file (not your regular Gmail password)
+   - Navigate to Security → 2-Step Verification
+   - Follow the setup process if not already enabled
+
+2. **Generate an App Password:**
+   - In Google Account Settings, go to Security → 2-Step Verification
+   - Scroll down to "App passwords" and click it
+   - Select "Mail" as the app and your device type
+   - Click "Generate"
+   - Copy the generated 16-character password (it will look like: `abcd efgh ijkl mnop`)
+
+3. **Use the App Password** in your `config/credentials.json` file:
+   ```json
+   {
+     "email": {
+       "auth": {
+         "user": "your-email@gmail.com",
+         "pass": "abcd efgh ijkl mnop"
+       }
+     }
+   }
+   ```
+
+   **Important:** Use the App Password, not your regular Gmail password!
+
+4. **Test email functionality:**
+```bash
+docker-compose run --rm scraper node -e "
+const SearchManager = require('./src/core/SearchManager');
+const EmailNotifier = require('./src/core/EmailNotifier');
+(async () => {
+  const sm = new SearchManager();
+  await new Promise(r => setTimeout(r, 1000));
+  const notifier = new EmailNotifier(sm.config);
+  await new Promise(r => setTimeout(r, 2000));
+  await notifier.sendTestEmail('your-email@gmail.com');
+})();
+"
+```
 
 #### Configuration Security
 
-- **✅ Safe to commit:** `*.example.json` files (contain no real credentials)
-- **❌ Never commit:** `config/default.json` and `sites/facebook-marketplace.json` (contain your actual credentials)
-- **🔒 Protected by .gitignore:** Your credential files are automatically excluded from git commits
+- **✅ Safe to commit:** Configuration files without credentials
+- **❌ Never commit:** `config/credentials.json` (contains your actual credentials)
+- **🔒 Protected by .gitignore:** Your credential file is automatically excluded from git commits
 
 #### Running Without Credentials
 
 - **Craigslist only:** Works without any credential setup
-- **Email notifications:** Set `"enabled": false` in your config to disable
-- **Facebook Marketplace:** Set `"enabled": false` for Facebook sites in your search configurations
+- **Email notifications:** System will detect missing credentials and disable email notifications
+- **Facebook Marketplace:** System will detect missing credentials and skip Facebook sites
 
 ### Local Installation (Alternative)
 
@@ -195,7 +238,9 @@ To use email notifications, you'll need to set up a Gmail App Password:
 npm install
 ```
 
-3. Run locally:
+3. Create your `config/credentials.json` file (see Docker setup above)
+
+4. Run locally:
 ```bash
 node src/index.js "BMW Z3"
 ```
@@ -223,6 +268,7 @@ docker-compose run --rm scraper node src/index.js "Mazda Miata"
 #### Run a Search on a Specific Site
 ```bash
 docker-compose run --rm scraper node src/index.js "BMW Z3" craigslist
+docker-compose run --rm scraper node src/index.js "BMW Z3" facebook_marketplace
 ```
 
 ### Programmatic Usage
@@ -274,8 +320,8 @@ This is the **single source of truth** for all searches:
           "keywordMatch": ["m coupe", "manual", "low miles"]
         },
         "emailSettings": {
-          "to": ["user@example.com"],
-          "subject": "BMW Z3 Alert: {{trigger}} - {{title}}"
+          "subject": "BMW Z3 Alert: {{trigger}} - {{title}}",
+          "maxEmailsPerHour": 5
         }
       },
       "sites": {
@@ -284,8 +330,39 @@ This is the **single source of truth** for all searches:
           "searchUrl": "https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3",
           "siteConfig": "craigslist",
           "searchKey": "bmw_z3"
+        },
+        "facebook_marketplace": {
+          "enabled": true,
+          "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3",
+          "siteConfig": "facebook-marketplace",
+          "searchKey": "bmw_z3"
         }
       }
+    }
+  }
+}
+```
+
+### Credentials Configuration (`config/credentials.json`)
+
+Create this file with your authentication details:
+
+```json
+{
+  "email": {
+    "auth": {
+      "user": "your-email@gmail.com",
+      "pass": "your-gmail-app-password"
+    },
+    "recipients": [
+      "recipient1@example.com",
+      "recipient2@example.com"
+    ]
+  },
+  "sites": {
+    "facebook_marketplace": {
+      "username": "your-facebook-email@gmail.com",
+      "password": "your-facebook-password"
     }
   }
 }
@@ -323,6 +400,73 @@ Each site has its own configuration defining selectors, data fields, and scrapin
 }
 ```
 
+## Email Notifications
+
+The system includes a fully functional email notification system with the following features:
+
+### Features
+- **Gmail SMTP Integration**: Uses Gmail's SMTP server with App Password authentication
+- **HTML Email Templates**: Rich email formatting with listing details, prices, and images
+- **Automatic Triggers**: Sends emails for new listings, keyword matches, and price changes
+- **Rate Limiting**: Configurable limits to prevent spam (e.g., max 5 emails per hour)
+- **Template Variables**: Dynamic subject lines with placeholders like `{{trigger}}` and `{{title}}`
+
+### Email Content
+Each notification email includes:
+- Search name and trigger reason
+- Listing details (title, price, location, date)
+- Direct links to listings
+- Listing images (when available)
+- Professional HTML formatting
+
+### Configuration
+Email settings are split between two files:
+
+**Global Settings** (`config/default.json`):
+```json
+{
+  "email": {
+    "enabled": true,
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "secure": false
+    },
+    "from": "your-email@gmail.com"
+  }
+}
+```
+
+**Credentials** (`config/credentials.json`):
+```json
+{
+  "email": {
+    "auth": {
+      "user": "your-email@gmail.com",
+      "pass": "your-app-password"
+    },
+    "recipients": ["recipient@example.com"]
+  }
+}
+```
+
+**Per-Search Settings** (`config/searches.json`):
+```json
+{
+  "notifications": {
+    "enabled": true,
+    "triggers": {
+      "newListing": true,
+      "keywordMatch": ["manual", "low miles"]
+    },
+    "emailSettings": {
+      "subject": "BMW Z3 Alert: {{trigger}} - {{title}}",
+      "maxEmailsPerHour": 5
+    }
+  }
+}
+```
+
 ## Adding New Searches
 
 To add a new search, update `config/searches.json`:
@@ -343,6 +487,16 @@ To add a new search, update `config/searches.json`:
         "keywords": {
           "include": ["civic", "honda"],
           "exclude": ["parts", "salvage", "accident"]
+        }
+      },
+      "notifications": {
+        "enabled": true,
+        "triggers": {
+          "newListing": true,
+          "keywordMatch": ["si", "type r", "manual"]
+        },
+        "emailSettings": {
+          "subject": "Honda Civic Alert: {{trigger}} - {{title}}"
         }
       },
       "sites": {
@@ -384,6 +538,17 @@ Then add the search configuration to `sites/craigslist.json`:
 
 ## Recent Improvements (August 2025)
 
+### Email Integration & Credentials Consolidation
+- **Consolidated Credentials**: Single `credentials.json` file for all authentication
+- **Functional Email Notifications**: Gmail SMTP with HTML templates and automatic triggers
+- **Enhanced Security**: App Password authentication with proper credential isolation
+
+### Facebook Marketplace Dynamic Content Loading
+- **Problem Solved**: Facebook Marketplace returning 0 results despite successful authentication
+- **Root Cause**: Facebook loads content dynamically after scrolling
+- **Solution**: Scroll-based pagination triggers dynamic content loading
+- **Results**: Successfully extracting 10+ BMW Z3 listings with complete data
+
 ### Flexible Selector System
 - **Problem Solved**: Craigslist changed HTML structure, breaking scraper
 - **Solution**: Multi-selector fallback system that tries multiple possible selectors
@@ -393,11 +558,6 @@ Then add the search configuration to `sites/craigslist.json`:
 - Fixed dynamic search configuration to use correct search keys
 - Improved error reporting and debugging capabilities
 - Better validation of site configurations
-
-### Resilience Improvements
-- Scrapers now handle HTML structure changes automatically
-- Enhanced debugging information for selector failures
-- Improved anti-detection measures
 
 ## Debugging and Troubleshooting
 
@@ -410,12 +570,20 @@ docker-compose run --rm scraper sh -c "DEBUG=true node src/index.js 'BMW Z3'"
 
 ### Common Issues
 
-#### 1. No Results Found
+#### 1. Email Not Sending
+- **Cause**: Missing or incorrect Gmail App Password
+- **Solution**: 
+  1. Verify 2FA is enabled on your Google account
+  2. Generate a new App Password
+  3. Use the App Password (not your regular password) in `credentials.json`
+  4. Test with: `docker-compose run --rm scraper node src/index.js "BMW Z3" craigslist`
+
+#### 2. No Results Found
 - **Cause**: Website structure changed or selectors outdated
 - **Solution**: Check `sites/*.json` for updated selectors
 - **Debug**: Enable debug mode to see selector matching details
 
-#### 2. Container Issues
+#### 3. Container Issues
 - **Cause**: Code changes not reflected in container
 - **Solution**: Always rebuild after code changes:
 ```bash
@@ -423,16 +591,19 @@ docker-compose build
 docker-compose run --rm scraper node src/index.js "BMW Z3"
 ```
 
-#### 3. Selector Failures
-- **Cause**: Website HTML structure changed
-- **Solution**: The flexible selector system should handle this automatically
-- **Manual Fix**: Update selectors in `sites/*.json` if needed
+#### 4. Facebook Authentication Issues
+- **Cause**: Incorrect Facebook credentials or 2FA challenges
+- **Solution**: 
+  1. Verify credentials in `config/credentials.json`
+  2. Temporarily disable 2FA or use app-specific password
+  3. Check for CAPTCHA or security challenges
 
 ### Logs and Output
 
 - **CSV Files**: Generated in `output/` directory with timestamps
 - **Console Output**: Shows scraping progress and results
 - **Debug Information**: Available with `DEBUG=true` environment variable
+- **Email Confirmations**: Message IDs displayed when emails are sent successfully
 
 ## Working with AI Agents
 
@@ -454,22 +625,6 @@ This will ensure the AI agent understands:
 - Critical development workflows (especially Docker usage)
 - Extension points for adding new features
 
-#### Having an AI Agent Update Documentation
-
-When an AI agent makes significant changes, use this prompt to ensure proper documentation:
-
-```
-Great! I'm done making changes for now. Please do the following in the README_AGENT.md file:
-- Make appropriate architectural updates, if not already documented by previous execution
-- Please document any corrections that I made to your operation that may affect decision making of subsequent agents
-- Please give me a few bullet points summarizing what you updated in README_AGENT.md
-```
-
-This ensures:
-- Architecture documentation stays current
-- Critical Docker workflow instructions are preserved
-- Future AI agents have proper context for development
-
 #### Key Points for AI Agent Instructions
 
 1. **Always start with README_AGENT.md**: This document contains critical context about the project's architecture, recent changes, and development patterns.
@@ -479,41 +634,29 @@ This ensures:
    - Testing should always use Docker commands
    - Failing to rebuild leads to testing outdated code
 
-3. **Documentation Updates**: After making changes, AI agents should:
-   - Update the "Current Architecture Overview" section
-   - Document new components and their purpose
-   - Explain architectural decisions and rationale
-   - Preserve the modular, extensible nature of the system
-
-4. **Preserve Project Intent**: The core vision and architectural principles should remain consistent across AI agent sessions.
-
-### AI Agent Development Workflow
-
-1. **Context Loading**: Read `README_AGENT.md` for full project context
-2. **Docker Testing**: Use `docker-compose run --rm scraper` for all testing
-3. **Code Changes**: Make targeted improvements following existing patterns
-4. **Container Rebuild**: Always `docker-compose build` after code changes
-5. **Verification**: Test changes with Docker to ensure they work
-6. **Documentation**: Update `README_AGENT.md` with architectural changes
+3. **Credentials Security**: The consolidated `credentials.json` system:
+   - Contains all authentication details in one file
+   - Is automatically ignored by git
+   - Should never be committed to the repository
 
 ## Data Output
 
 ### CSV Export
 - **Location**: `output/` directory
-- **Format**: Timestamped filenames (e.g., `bmw_z3_craigslist_2025-08-25T04:44:55.404Z.csv`)
+- **Format**: Timestamped filenames (e.g., `bmw_z3_craigslist_2025-08-31T17:51:39.695Z.csv`)
 - **Features**: Duplicate detection, change tracking, configurable headers
 - **Fields**: Title, Price, Location, Date, URL, Image URL, Scraped At, Source
+
+### Email Notifications
+- **HTML Templates**: Professional formatting with listing details and images
+- **Automatic Triggers**: New listings, keyword matches, price changes
+- **Rate Limiting**: Configurable limits to prevent spam
+- **Gmail Integration**: Uses SMTP with App Password authentication
 
 ### Change Detection
 - Tracks price changes and listing updates
 - Enables trend analysis and change-based notifications
 - Historical data comparison for long-term monitoring
-
-### Email Notifications
-- Configurable triggers (new listings, price drops, keyword matches)
-- Template-based email formatting with placeholders
-- Rate limiting to prevent spam
-- Currently implemented as console output (placeholder)
 
 ## Extending the Framework
 
@@ -528,6 +671,7 @@ This ensures:
 3. Register scraper in `ScraperFactory.js`
 4. Create site configuration file in `sites/` directory
 5. Update search configurations to reference new site
+6. Add credentials to `config/credentials.json` if authentication is required
 
 ### Key Extension Points
 
@@ -541,10 +685,10 @@ This ensures:
 
 - **puppeteer**: Browser automation and JavaScript rendering
 - **csv-writer**: CSV file generation with headers
+- **nodemailer**: Email sending with SMTP support
 - **fs-extra**: Enhanced file system operations
+- **lodash**: Utility functions for object manipulation
 - **moment**: Date/time handling and formatting
-- **crypto**: MD5 hashing for change detection
-- **path**: File path utilities
 
 ## License
 
@@ -552,14 +696,24 @@ MIT License
 
 ---
 
-## Current Search Results
+## Current System Status
 
-The framework is actively scraping and has successfully extracted recent listings:
+The framework is fully functional:
 
-- **BMW Z3**: 10+ active listings with titles, URLs, and images
-- **Mazda Miata**: Configured and ready for daily scraping
-- **CSV Export**: Working with timestamped files in `output/` directory
-- **Change Detection**: Tracking new listings and price changes
-- **Notifications**: Console-based alerts for keyword matches
+- ✅ **Email Notifications**: Gmail SMTP with HTML templates and automatic triggers
+- ✅ **Craigslist Scraper**: Resilient to HTML structure changes with flexible selectors
+- ✅ **Facebook Marketplace Scraper**: Dynamic content loading with authentication
+- ✅ **Consolidated Credentials**: Single `credentials.json` file for all authentication
+- ✅ **CSV Export**: Timestamped files with duplicate detection
+- ✅ **Change Detection**: Historical tracking and trend analysis
+- ✅ **Docker Deployment**: Complete containerization with docker-compose
 
-The system is production-ready and resilient against website structure changes.
+### Recent Successful Test Results
+
+**BMW Z3 Search (August 31, 2025):**
+- ✅ 10 listings successfully scraped from Craigslist
+- ✅ Email notification sent with message ID: `<ae14f9eb-bb9f-5708-3f18-d315b6334949@gmail.com>`
+- ✅ CSV export: `bmw_z3_craigslist_2025-08-31T17:51:39.695Z.csv`
+- ✅ All data properly filtered and formatted
+
+The system is actively monitoring for BMW Z3 listings and will automatically send email notifications when new matches are found or when keyword matches occur.

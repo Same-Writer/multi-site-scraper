@@ -16,7 +16,7 @@ output/*
 !output/.gitkeep
 
 # Configuration files with credentials (keep .example files in repo)
-config/default.json
+config/credentials.json
 sites/facebook-marketplace.json
 
 # Node.js
@@ -29,6 +29,8 @@ yarn-error.log*
 logs/*
 !logs/.gitkeep
 *.log
+debug.log
+scraper.log
 
 # Runtime data
 pids

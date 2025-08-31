@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const _ = require('lodash');
 const ModularScrapingEngine = require('./ModularScrapingEngine');
 const CsvExporter = require('./CsvExporter');
 const EmailNotifier = require('./EmailNotifier');
@@ -7,6 +8,7 @@ const ChangeDetector = require('./ChangeDetector');
 
 class SearchManager {
   constructor() {
+    this.config = null;
     this.searchesConfig = null;
     this.siteConfigs = new Map();
     this.logger = null;
@@ -19,48 +21,61 @@ class SearchManager {
 
   async loadConfigurations() {
     try {
-      if (this.logger) this.logger.debug('Loading search configurations...');
-      
-      // Load the unified searches configuration
-      const searchesPath = path.join(__dirname, '../../config/searches.json');
-      this.searchesConfig = await fs.readJson(searchesPath);
-      
-      if (this.logger) this.logger.debug('Loaded searches configuration', { 
-        searchCount: Object.keys(this.searchesConfig.searches).length,
-        path: searchesPath 
-      });
-      
+      if (this.logger) this.logger.debug('Loading configurations...');
+
+      // Load default config
+      const defaultConfigPath = path.join(__dirname, '../../config/default.json');
+      this.config = await fs.readJson(defaultConfigPath);
+
       // Load site configurations
       const sitesDir = path.join(__dirname, '../../sites');
       const siteFiles = await fs.readdir(sitesDir);
-      
       for (const file of siteFiles) {
         if (file.endsWith('.json')) {
           const siteName = path.basename(file, '.json');
           const siteConfig = await fs.readJson(path.join(sitesDir, file));
           this.siteConfigs.set(siteName, siteConfig);
-          
-          if (this.logger) this.logger.debug('Loaded site configuration', { 
-            siteName, 
-            configKeys: Object.keys(siteConfig.searchConfig || {}).length 
-          });
         }
       }
-      
-      console.log('Search configurations loaded successfully');
-      if (this.logger) this.logger.info('Search configurations loaded successfully', {
-        totalSearches: Object.keys(this.searchesConfig.searches).length,
-        totalSites: this.siteConfigs.size
-      });
-      
+
+      // Load credentials and merge
+      const credentials = await this._loadCredentials();
+      if (credentials) {
+        this.config = _.merge(this.config, credentials);
+      }
+
+      // Load the unified searches configuration
+      const searchesPath = path.join(__dirname, '../../config/searches.json');
+      this.searchesConfig = await fs.readJson(searchesPath);
+
+      if (this.logger) {
+        this.logger.info('Configurations loaded successfully');
+      }
+
       this.logAvailableSearches();
     } catch (error) {
       console.error('Error loading configurations:', error);
-      if (this.logger) this.logger.error('Error loading configurations', { 
-        error: error.message, 
-        stack: error.stack 
-      });
+      if (this.logger) this.logger.error('Error loading configurations', { error: error.message });
       throw error;
+    }
+  }
+
+  async _loadCredentials() {
+    const credentialsPath = path.join(__dirname, '../../config/credentials.json');
+    try {
+      if (await fs.pathExists(credentialsPath)) {
+        if (this.logger) this.logger.debug('Loading credentials...');
+        const credentials = await fs.readJson(credentialsPath);
+        if (this.logger) this.logger.debug('Loaded credentials successfully.');
+        return credentials;
+      } else {
+        if (this.logger) this.logger.warn('credentials.json not found. Running without authentication for sites that require it.');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error loading credentials.json:', error);
+      if (this.logger) this.logger.error('Error loading credentials.json', { error: error.message });
+      return null;
     }
   }
 
@@ -76,7 +91,7 @@ class SearchManager {
       console.log(`  Frequency: ${config.scrapeSettings.runFrequency}`);
       console.log(`  Priority: ${config.scrapeSettings.priority}`);
       console.log(`  Active sites: ${enabledSites.join(', ') || 'none'}`);
-      console.log(`  Price range: $${config.filters.priceRange.min} - $${config.filters.priceRange.max}`);
+      console.log(`  Price range: ${config.filters.priceRange.min} - ${config.filters.priceRange.max}`);
       console.log(`  Notifications: ${config.notifications.enabled ? 'enabled' : 'disabled'}`);
     });
   }
@@ -111,7 +126,8 @@ class SearchManager {
 
     const allResults = [];
     const sitesToRun = siteName ? 
-      [[siteName, searchConfig.sites[siteName]]] : 
+      [[siteName, searchConfig.sites[siteName]]]
+      : 
       Object.entries(searchConfig.sites).filter(([_, config]) => config.enabled);
 
     for (const [currentSiteName, siteSearchConfig] of sitesToRun) {
@@ -123,10 +139,15 @@ class SearchManager {
       try {
         console.log(`\n--- Scraping ${currentSiteName} for ${searchName} ---`);
         
-        const siteConfig = this.getSiteConfig(siteSearchConfig.siteConfig);
+        let siteConfig = this.getSiteConfig(siteSearchConfig.siteConfig);
         if (!siteConfig) {
           console.error(`Site configuration "${siteSearchConfig.siteConfig}" not found`);
           continue;
+        }
+
+        // Merge credentials into site config
+        if (this.config.sites && this.config.sites[currentSiteName]) {
+          siteConfig = _.merge(siteConfig, { authentication: { credentials: this.config.sites[currentSiteName] } });
         }
 
         // Create a dynamic search configuration for this site
@@ -143,13 +164,7 @@ class SearchManager {
         };
 
         // Run the scrape using the new modular engine
-        const engine = new ModularScrapingEngine({
-          scraping: {
-            headless: true,
-            timeout: 30000,
-            viewport: { width: 1280, height: 720 }
-          }
-        });
+        const engine = new ModularScrapingEngine(this.config);
         
         const results = await engine.scrapeUrl(
           siteSearchConfig.searchUrl,
@@ -299,7 +314,7 @@ class SearchManager {
 
   async processNotifications(searchName, notificationConfig, results) {
     try {
-      const notifier = new EmailNotifier(notificationConfig.emailSettings);
+      const notifier = new EmailNotifier(this.config);
       
       // Process different notification triggers
       const notifications = [];
@@ -336,11 +351,7 @@ class SearchManager {
 
       // Send notifications
       for (const notification of notifications) {
-        const subject = notificationConfig.emailSettings.subject
-          .replace('{{trigger}}', notification.trigger)
-          .replace('{{title}}', notification.listings[0]?.title || 'Multiple listings');
-
-        await notifier.sendNotification(searchName, notification, subject);
+        await notifier.sendNotification(searchName, notification, notificationConfig);
       }
 
     } catch (error) {

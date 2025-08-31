@@ -15,18 +15,15 @@
     "timestampFormat": "YYYY-MM-DD_HH-mm-ss"
   },
   "email": {
-    "enabled": false,
+    "enabled": true,
     "smtp": {
       "host": "smtp.gmail.com",
       "port": 587,
       "secure": false
     },
-    "auth": {
-      "user": "your-email@gmail.com",
-      "pass": "your-app-password"
-    },
-    "from": "your-email@gmail.com",
-    "to": ["recipient@example.com"],
+    "auth": {},
+    "from": "search-notifier@gmail.com",
+    "to": [],
     "subject": "New Matches Found - {siteName}",
     "template": "default"
   },
