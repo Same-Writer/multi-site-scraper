@@ -247,10 +247,8 @@ class FacebookMarketplaceScraper extends BaseScraper {
     // Step 3: Wait for multiple indicators that the page has loaded properly
     await this.waitForPageStabilization();
 
-    // Step 4: Validate page layout and content
-    await this.validatePageLayout(searchKey);
-
-    console.log('Facebook Marketplace search page loaded successfully');
+    // Step 4: Skip initial validation - will validate after pagination
+    console.log('Facebook Marketplace search page loaded successfully (validation will occur after pagination)');
   }
 
   /**
@@ -415,6 +413,134 @@ class FacebookMarketplaceScraper extends BaseScraper {
   }
 
   /**
+   * Smart validation that runs after pagination to check if Facebook's layout has changed
+   */
+  async validatePageLayoutAfterPagination(searchConfig) {
+    console.log('Validating Facebook Marketplace layout after pagination...');
+    
+    try {
+      const validationResults = await this.page.evaluate((config) => {
+        const results = {
+          listingContainerCount: 0,
+          hasValidContent: false,
+          contentQuality: 'unknown',
+          sampleContainerContent: [],
+          layoutChangeIndicators: {
+            hasMainContent: document.querySelector('[role="main"]') !== null,
+            hasMarketplaceElements: document.querySelector('div[data-pagelet*="Marketplace"], div[aria-label*="Collection"]') !== null,
+            pageTitle: document.title,
+            currentUrl: window.location.href
+          }
+        };
+
+        // Check for listing containers using the configured selector
+        const containers = document.querySelectorAll(config.selectors.listingContainer);
+        results.listingContainerCount = containers.length;
+
+        // Sample first few containers to assess content quality
+        for (let i = 0; i < Math.min(5, containers.length); i++) {
+          const container = containers[i];
+          const textContent = container.textContent?.trim() || '';
+          
+          const sample = {
+            index: i,
+            hasText: textContent.length > 0,
+            textLength: textContent.length,
+            hasImages: container.querySelector('img') !== null,
+            textPreview: textContent.substring(0, 100),
+            isNavigationElement: textContent.match(/^(Create new listing|Property Rentals|Electronics|Entertainment|Classifieds|Marketplace|Vehicles|Home)/i),
+            hasMarketplaceUrl: container.href?.includes('/marketplace/item/') || container.querySelector('a[href*="/marketplace/item/"]') !== null,
+            hasPriceIndicator: textContent.match(/\$[\d,]+/),
+            hasLocationIndicator: textContent.match(/\b[A-Z]{2}\b|miles|,\s*CA\b/i)
+          };
+          
+          results.sampleContainerContent.push(sample);
+        }
+
+        // Assess content quality
+        const validListings = results.sampleContainerContent.filter(sample => 
+          sample.hasText && 
+          sample.textLength > 20 && 
+          !sample.isNavigationElement &&
+          (sample.hasMarketplaceUrl || sample.hasPriceIndicator)
+        );
+
+        const navigationElements = results.sampleContainerContent.filter(sample => 
+          sample.isNavigationElement
+        );
+
+        if (validListings.length > navigationElements.length) {
+          results.hasValidContent = true;
+          results.contentQuality = 'good';
+        } else if (validListings.length > 0) {
+          results.hasValidContent = true;
+          results.contentQuality = 'mixed';
+        } else {
+          results.hasValidContent = false;
+          results.contentQuality = validListings.length === 0 && navigationElements.length > 0 ? 'navigation-only' : 'poor';
+        }
+
+        return results;
+      }, searchConfig);
+
+      // Analyze validation results and provide user feedback
+      if (validationResults.listingContainerCount === 0) {
+        console.warn('⚠️  FACEBOOK LAYOUT ALERT: No listing containers found after pagination!');
+        console.warn('   This may indicate that Facebook has changed their page structure.');
+        console.warn(`   Current selector: "${searchConfig.selectors.listingContainer}"`);
+        console.warn('   The scraper will continue but may not extract any data.');
+        return;
+      }
+
+      if (!validationResults.hasValidContent) {
+        if (validationResults.contentQuality === 'navigation-only') {
+          console.warn('⚠️  FACEBOOK LAYOUT ALERT: Only navigation elements detected!');
+          console.warn('   Facebook may have changed their listing layout.');
+          console.warn('   Current selectors are capturing navigation instead of actual listings.');
+          console.warn('   Sample content found:', validationResults.sampleContainerContent.map(s => `"${s.textPreview}"`).join(', '));
+        } else {
+          console.warn('⚠️  FACEBOOK LAYOUT ALERT: Poor content quality detected!');
+          console.warn('   Found containers but they don\'t appear to contain valid listing data.');
+        }
+        console.warn('   The scraper will attempt to continue but results may be unreliable.');
+        return;
+      }
+
+      // Success cases with helpful feedback
+      if (validationResults.contentQuality === 'good') {
+        console.log(`✅ Facebook Marketplace validation successful: Found ${validationResults.listingContainerCount} listing containers with high-quality content`);
+      } else if (validationResults.contentQuality === 'mixed') {
+        console.log(`⚠️  Facebook Marketplace validation mixed: Found ${validationResults.listingContainerCount} containers with mixed content quality`);
+        console.log('   Some containers may be navigation elements. Results may need filtering.');
+      }
+
+      // Additional layout change detection
+      if (!validationResults.layoutChangeIndicators.hasMainContent) {
+        console.warn('⚠️  FACEBOOK LAYOUT ALERT: Main content area missing - Facebook may have changed their page structure');
+      }
+      
+      if (!validationResults.layoutChangeIndicators.hasMarketplaceElements) {
+        console.warn('⚠️  FACEBOOK LAYOUT ALERT: Marketplace-specific elements missing - page structure may have changed');
+      }
+
+    } catch (error) {
+      console.error('❌ Facebook Marketplace validation failed:', error.message);
+      console.warn('   Validation errors may indicate Facebook layout changes.');
+      console.warn('   The scraper will attempt to continue but please monitor results carefully.');
+      
+      // Take a debug screenshot for troubleshooting
+      try {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const screenshotPath = `debug-facebook-validation-after-pagination-${timestamp}.png`;
+        await this.page.screenshot({ path: screenshotPath, fullPage: true });
+        console.log(`   Debug screenshot saved: ${screenshotPath}`);
+      } catch (screenshotError) {
+        console.warn('   Could not take debug screenshot:', screenshotError.message);
+      }
+    }
+  }
+
+  /**
    * Handle Facebook Marketplace scroll-based pagination
    */
   async handlePagination(paginationConfig) {
@@ -531,6 +657,9 @@ class FacebookMarketplaceScraper extends BaseScraper {
       if (searchConfig.pagination?.enabled && searchConfig.pagination?.scrollToLoad) {
         console.log('Handling Facebook Marketplace pagination with scrolling...');
         await this.handlePagination(searchConfig.pagination);
+        
+        // Post-pagination validation to ensure content has loaded properly
+        await this.validatePageLayoutAfterPagination(searchConfig);
       }
 
       // Extract all data using page.evaluate to avoid DOM handle issues

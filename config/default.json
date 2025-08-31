@@ -27,6 +27,11 @@
     "subject": "New Matches Found - {siteName}",
     "template": "default"
   },
+  "changeDetection": {
+    "enabled": true,
+    "storageFile": "./data/change_history.json",
+    "notifyOnChanges": ["price", "title", "description"]
+  },
   "logging": {
     "level": "debug",
     "file": "./logs/scraper.log",
