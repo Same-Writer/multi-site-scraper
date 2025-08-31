@@ -6,8 +6,8 @@
     "note": "Facebook authentication enabled with improved login procedure and error handling.",
     "loginUrl": "https://www.facebook.com/login",
     "credentials": {
-      "username": "your-fb-email@gmail.com",
-      "password": "your-fb-password"
+      "username": "YOUR_FACEBOOK_EMAIL@gmail.com",
+      "password": "YOUR_FACEBOOK_PASSWORD"
     },
     "selectors": {
       "emailInput": "#email",
@@ -154,7 +154,7 @@
     "bmw_z3": {
       "url": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3",
       "selectors": {
-        "listingContainer": "div[data-pagelet='MarketplaceSearchResultsPagelet'] a[role='link'], a[href*='/marketplace/item/'], div[aria-label*='Collection of Marketplace items']",
+        "listingContainer": "a[href*='/marketplace/item/']",
         "title": "span",
         "price": "span",
         "location": "span",
@@ -199,10 +199,10 @@
         "enabled": false
       },
       "pagination": {
-        "enabled": false,
-        "scrollToLoad": false,
-        "maxScrolls": 0,
-        "scrollDelay": 2000
+        "enabled": true,
+        "scrollToLoad": true,
+        "maxScrolls": 5,
+        "scrollDelay": 3000
       },
       "filters": {
         "priceRange": {
@@ -217,7 +217,7 @@
     }
   },
   "waitConditions": {
-    "initialLoad": "div[data-pagelet='MarketplaceSearchResultsPagelet'] a[role='link'], a[href*='/marketplace/item/'], div[aria-label*='Collection of Marketplace items'], div[role='main']",
+    "initialLoad": "a[href*='/marketplace/item/'], div[role='main']",
     "timeout": 30000
   },
   "rateLimit": {
