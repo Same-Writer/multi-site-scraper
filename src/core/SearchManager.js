@@ -207,7 +207,7 @@ class SearchManager {
     };
   }
 
-  createDynamicSearchConfig(searchConfig, siteSearchConfig, siteConfig) {
+   createDynamicSearchConfig(searchConfig, siteSearchConfig, siteConfig) {
     // Get the specific search configuration from the site config using the searchKey
     const baseConfig = siteConfig.searchConfig[siteSearchConfig.searchKey];
     
@@ -223,6 +223,8 @@ class SearchManager {
         dataFields: fallbackConfig.dataFields,
         detailedScraping: fallbackConfig.detailedScraping,
         pagination: fallbackConfig.pagination,
+        initialSearchParams: fallbackConfig.initialSearchParams,
+        urlModifiers: fallbackConfig.urlModifiers,
         filters: {
           priceRange: searchConfig.filters.priceRange,
           keywords: searchConfig.filters.keywords
@@ -237,6 +239,8 @@ class SearchManager {
       dataFields: baseConfig.dataFields,
       detailedScraping: baseConfig.detailedScraping,
       pagination: baseConfig.pagination,
+      initialSearchParams: baseConfig.initialSearchParams,
+      urlModifiers: baseConfig.urlModifiers,
       filters: {
         priceRange: searchConfig.filters.priceRange,
         keywords: searchConfig.filters.keywords

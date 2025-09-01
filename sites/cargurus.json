@@ -1,0 +1,191 @@
+{
+  "name": "CarGurus",
+  "baseUrl": "https://www.cargurus.com",
+  "searchConfig": {
+    "corvette_manual": {
+      "baseUrl": "https://www.cargurus.com/",
+      "initialSearchParams": {
+        "condition": "used",
+        "make": "chevrolet",
+        "model": "corvette",
+        "zip": "94040"
+      },
+      "urlModifiers": "transmissionTypes=MANUAL&maxMileage=50000",
+      "selectors": {
+        "conditionSelect": "select[name='condition'], [data-testid='condition-select'], #condition, select[data-ng-model*='condition'], select[ng-model*='condition']",
+        "makeSelect": "select[name='make'], [data-testid='make-select'], #make, select[data-ng-model*='make'], select[ng-model*='make']",
+        "modelSelect": "select[name='model'], [data-testid='model-select'], #model, select[data-ng-model*='model'], select[ng-model*='model']",
+        "zipInput": "input[name='zip'], [data-testid='zip-input'], #zip, input[data-ng-model*='zip'], input[ng-model*='zip']",
+        "searchButton": "button[type='submit'], [data-testid='search-button'], .search-button, input[type='submit'], button[data-ng-click*='search'], button[ng-click*='search']",
+        "listingContainer": ".cg-dealFinder-result-wrap, [data-testid='listing-row'], .listing-row, .srp-list-item, [data-testid*='listing'], .listing-item"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": ".cg-dealFinder-result-model, [data-testid='listing-title'], .listing-title, h3 a, h4 a",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": ".cg-dealFinder-result-price, [data-testid='listing-price'], .listing-price, .price-section",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "mileage",
+          "selector": ".cg-dealFinder-result-mileage, [data-testid='listing-mileage'], .listing-mileage",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "location",
+          "selector": ".cg-dealFinder-result-distance, [data-testid='listing-location'], .listing-location, .dealer-distance",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "dealer",
+          "selector": ".cg-dealFinder-result-dealerName, [data-testid='dealer-name'], .dealer-name",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": ".cg-dealFinder-result-wrap a, [data-testid='listing-link'], .listing-title a, h3 a, h4 a",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": ".cg-dealFinder-result-image img, [data-testid='listing-image'], .listing-image img",
+          "attribute": "src",
+          "required": false
+        },
+        {
+          "name": "rating",
+          "selector": ".cg-dealFinder-result-dealerRating, [data-testid='dealer-rating'], .dealer-rating",
+          "attribute": "text",
+          "required": false
+        }
+      ],
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".cg-pagination-next, [data-testid='pagination-next'], .pagination-next, .next-page",
+        "maxPages": 3
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 100000
+        },
+        "keywords": {
+          "include": ["corvette"],
+          "exclude": ["salvage", "parts", "damaged"]
+        }
+      }
+    },
+    "bmw_z3": {
+      "baseUrl": "https://www.cargurus.com/",
+      "initialSearchParams": {
+        "condition": "used",
+        "make": "bmw",
+        "model": "z3",
+        "zip": "94040"
+      },
+      "urlModifiers": "maxMileage=100000",
+      "selectors": {
+        "conditionSelect": "select[name='condition'], [data-testid='condition-select'], #condition",
+        "makeSelect": "select[name='make'], [data-testid='make-select'], #make",
+        "modelSelect": "select[name='model'], [data-testid='model-select'], #model",
+        "zipInput": "input[name='zip'], [data-testid='zip-input'], #zip",
+        "searchButton": "button[type='submit'], [data-testid='search-button'], .search-button, input[type='submit']",
+        "listingContainer": ".cg-dealFinder-result-wrap, [data-testid='listing-row'], .listing-row, .srp-list-item"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": ".cg-dealFinder-result-model, [data-testid='listing-title'], .listing-title, h3 a, h4 a",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": ".cg-dealFinder-result-price, [data-testid='listing-price'], .listing-price, .price-section",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "mileage",
+          "selector": ".cg-dealFinder-result-mileage, [data-testid='listing-mileage'], .listing-mileage",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "location",
+          "selector": ".cg-dealFinder-result-distance, [data-testid='listing-location'], .listing-location, .dealer-distance",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "dealer",
+          "selector": ".cg-dealFinder-result-dealerName, [data-testid='dealer-name'], .dealer-name",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": ".cg-dealFinder-result-wrap a, [data-testid='listing-link'], .listing-title a, h3 a, h4 a",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": ".cg-dealFinder-result-image img, [data-testid='listing-image'], .listing-image img",
+          "attribute": "src",
+          "required": false
+        },
+        {
+          "name": "rating",
+          "selector": ".cg-dealFinder-result-dealerRating, [data-testid='dealer-rating'], .dealer-rating",
+          "attribute": "text",
+          "required": false
+        }
+      ],
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".cg-pagination-next, [data-testid='pagination-next'], .pagination-next, .next-page",
+        "maxPages": 3
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["z3", "bmw"],
+          "exclude": ["salvage", "parts", "damaged"]
+        }
+      }
+    }
+  },
+  "waitConditions": {
+    "initialLoad": ".cg-dealFinder-result-wrap, [data-testid='listing-row'], .listing-row, .srp-list-item",
+    "timeout": 15000
+  },
+  "rateLimit": {
+    "requestDelay": 3000,
+    "maxConcurrent": 1
+  },
+  "changeDetection": {
+    "enabled": true,
+    "storageFile": "data/cargurus_change_history.json",
+    "notifyOnChanges": ["price", "title", "mileage", "dealer"]
+  }
+}

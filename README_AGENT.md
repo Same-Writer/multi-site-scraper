@@ -253,7 +253,23 @@ workarea-ui-scraper/
 - Add new transformation functions to `BaseScraper.js`
 - Implement additional export formats beyond CSV
 
-### Recent Architectural Improvements (August 31, 2025)
+### Recent Architectural Improvements (September 1, 2025)
+
+**CarGurus Scraper Implementation (September 1, 2025):**
+- **Problem Solved**: Need to support CarGurus as a new site for vehicle listings with form-based initial search and URL-based filtering
+- **Solution Implemented**: Complete CarGurus scraper with two-phase navigation architecture
+- **Key Changes**:
+  - `src/scrapers/CarGurusScraper.js`: New scraper extending BaseScraper with unique two-phase navigation (form submission + URL modifiers)
+  - `sites/cargurus.json`: New site configuration with corvette_manual and bmw_z3 search configurations
+  - `src/scrapers/ScraperFactory.js`: Registered CarGurus scraper in factory pattern
+  - `config/searches.json`: Added CarGurus as site option for BMW Z3 search and new Chevrolet Corvette search
+- **Architecture**: 
+  - **Phase 1**: Navigate to CarGurus base URL, fill form fields (condition, make, model, zip), submit form
+  - **Phase 2**: Apply additional URL-based filters (transmission type, mileage, etc.)
+  - **Data Extraction**: Standard listing data (title, price, mileage, location, dealer, URL, image, rating)
+  - **Anti-Detection**: Inherits all BaseScraper stealth measures with human-like form interactions
+- **Configuration Structure**: Supports `initialSearchParams` for form fields and `urlModifiers` for additional filters
+- **Current Status**: Implementation complete with full integration, requires real-world testing and selector refinement
 
 **Email Integration & Credentials Consolidation (August 31, 2025):**
 - **Problem Solved**: Previous AI agent session was stopped mid-way through implementing email functionality and consolidating credentials
