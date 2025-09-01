@@ -1,7 +1,7 @@
 {
   "searches": {
     "BMW Z3": {
-      "description": "BMW Z3 roadster and coupe listings",
+      "description": "BMW Z3 coupe listings",
       "scrapeSettings": {
         "runFrequency": "hourly",
         "maxListingsPerSite": 10,
@@ -10,7 +10,7 @@
       },
       "filters": {
         "priceRange": {
-          "min": 1000,
+          "min": 0,
           "max": 50000
         },
         "keywords": {
@@ -50,7 +50,7 @@
       }
     },
     "Mazda Miata": {
-      "description": "Mazda Miata (MX-5) convertible listings",
+      "description": "BMW 340i Listings",
       "scrapeSettings": {
         "runFrequency": "daily",
         "maxListingsPerSite": 3,
@@ -86,15 +86,15 @@
       "sites": {
         "craigslist": {
           "enabled": true,
-          "searchUrl": "https://sfbay.craigslist.org/search/cta?max_price=3005&purveyor=owner&query=mazda%20miata#search=2~gallery~0",
+          "searchUrl": "https://sfbay.craigslist.org/search/cta?auto_transmission=1&postal=94040&query=bmw%20340i%20-dodge%20-nissan&search_distance=500#search=2~gallery~0",
           "siteConfig": "craigslist",
-          "searchKey": "mazda_miata"
+          "searchKey": "bmw_340i"
         },
         "facebook_marketplace": {
           "enabled": true,
-          "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=mazda%20miata",
+          "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search?query=340i%20manual",
           "siteConfig": "facebook-marketplace", 
-          "searchKey": "mazda_miata"
+          "searchKey": "bmw_340i"
         }
       }
     },
