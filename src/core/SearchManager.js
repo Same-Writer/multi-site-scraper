@@ -189,7 +189,7 @@ class SearchManager {
 
         // Process notifications
         if (searchConfig.notifications.enabled && filteredResults.length > 0) {
-          await this.processNotifications(searchName, searchConfig.notifications, filteredResults);
+          await this.processNotifications(searchName, currentSiteName, searchConfig.notifications, filteredResults);
         }
 
         console.log(`Completed ${currentSiteName}: ${filteredResults.length} results`);
@@ -312,7 +312,7 @@ class SearchManager {
     console.log(`Results exported to: ${outputPath}`);
   }
 
-  async processNotifications(searchName, notificationConfig, results) {
+  async processNotifications(searchName, siteName, notificationConfig, results) {
     try {
       const notifier = new EmailNotifier(this.config);
       
@@ -349,9 +349,9 @@ class SearchManager {
         }
       }
 
-      // Send notifications
+      // Send notifications (pass siteName instead of searchName to populate {siteName} template)
       for (const notification of notifications) {
-        await notifier.sendNotification(searchName, notification, notificationConfig);
+        await notifier.sendNotification(siteName, notification, notificationConfig);
       }
 
     } catch (error) {
