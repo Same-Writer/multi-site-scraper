@@ -43,6 +43,76 @@ This document serves as a knowledge transfer mechanism between AI agents across 
 
 ## Current Architecture Overview (Last Updated: September 1, 2025)
 
+### Web UI Architecture
+
+The system now includes a web-based user interface for configuring and managing searches:
+
+1. **Backend API Server** (`src/server.js`):
+   - Express.js RESTful API
+   - Integrates with existing SearchManager and ContinuousScheduler
+   - Provides endpoints for search management, execution, and configuration
+
+2. **Frontend Interface** (`src/webui/dist/index.html`):
+   - Static HTML/CSS/JavaScript frontend
+   - Responsive design for desktop and mobile browsers
+   - Dashboard view with system status and search controls
+
+3. **Integration Points**:
+   - Web server uses existing configuration files (`config/*.json`, `sites/*.json`)
+   - API endpoints directly interact with SearchManager methods
+   - Scheduler control through ContinuousScheduler API
+
+### Extension Points for Web UI
+
+1. **API Endpoints**:
+   - Add new routes in `src/server.js`
+   - Implement corresponding methods in SearchManager or other core components
+   - Follow RESTful conventions for consistency
+
+2. **Frontend Features**:
+   - Extend HTML interface in `src/webui/dist/index.html`
+   - Add new JavaScript functions for API interactions
+   - Implement new UI components for additional functionality
+
+3. **Configuration Management**:
+   - Extend API to handle new configuration options
+   - Update frontend to display and edit new settings
+   - Maintain backward compatibility with existing configurations
+
+### Web UI Development Workflow
+
+1. **Backend Development**:
+   - Modify `src/server.js` to add new API endpoints
+   - Implement business logic in existing core components
+   - Test API endpoints with tools like curl or Postman
+
+2. **Frontend Development**:
+   - Update `src/webui/dist/index.html` for UI changes
+   - Add JavaScript functions for new features
+   - Test in browser with `node src/web.js`
+
+3. **Integration Testing**:
+   - Verify API endpoints return expected data
+   - Test frontend interactions with backend
+   - Validate configuration changes persist correctly
+
+### Web UI Security Considerations
+
+1. **File System Access**:
+   - API endpoints restrict file access to configuration directories
+   - Input validation on all user-provided data
+   - Error handling for file operations
+
+2. **Configuration Validation**:
+   - Validate configuration changes before applying
+   - Maintain backups of working configurations
+   - Provide rollback mechanisms for failed updates
+
+3. **API Security**:
+   - Input sanitization on all API endpoints
+   - Error responses avoid exposing system details
+   - Rate limiting for resource-intensive operations
+
 ### High-Level System Design
 
 The codebase implements a **modular web scraping framework** with the following core architectural patterns:
@@ -555,6 +625,21 @@ During the Craigslist data extraction debugging session, an AI agent made code c
 2. **Validate new scrapers** with real site data
 3. **Verify configuration loading** and validation
 4. **Test Docker deployment** to ensure portability
+
+### Web UI Testing
+For testing the Web UI, a special test script has been created that runs the web server for a limited time and then exits:
+
+```bash
+node src/test-webui.js
+```
+
+This script will:
+1. Start the web server
+2. Wait for 15 seconds
+3. Automatically terminate the server
+4. Provide feedback on whether the server started successfully
+
+This approach prevents the web server from blocking subsequent AI agent execution while still allowing for proper testing of the Web UI functionality.
 
 ### Common Pitfalls to Avoid
 1. **Don't hardcode site-specific logic** in core components

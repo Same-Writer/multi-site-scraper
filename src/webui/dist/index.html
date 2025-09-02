@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workarea UI Scraper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-list {
+            margin-top: 20px;
+        }
+        .search-item {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button.secondary {
+            background-color: #6c757d;
+        }
+        button.secondary:hover {
+            background-color: #545b62;
+        }
+        button.success {
+            background-color: #28a745;
+        }
+        button.success:hover {
+            background-color: #218838;
+        }
+        button.danger {
+            background-color: #dc3545;
+        }
+        button.danger:hover {
+            background-color: #c82333;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .status-running {
+            background-color: #28a745;
+        }
+        .status-stopped {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Workarea UI Scraper</h1>
+            <p>Configure and manage your web scraping searches</p>
+        </header>
+
+        <div class="dashboard">
+            <div class="card">
+                <h2>System Status</h2>
+                <p>Scheduler: <span id="scheduler-status">Loading...</span></p>
+                <p>Active Searches: <span id="active-searches">0</span></p>
+                <button id="start-scheduler">Start Scheduler</button>
+                <button id="stop-scheduler" class="danger">Stop Scheduler</button>
+            </div>
+
+            <div class="card">
+                <h2>Quick Actions</h2>
+                <button id="run-all-searches" class="success">Run All Searches</button>
+                <button id="add-new-search">Add New Search</button>
+                <button id="view-results">View Results</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Configured Searches</h2>
+            <div id="search-list" class="search-list">
+                <!-- Search items will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API base URL
+        const API_BASE = '/api';
+
+        // DOM Elements
+        const schedulerStatusEl = document.getElementById('scheduler-status');
+        const activeSearchesEl = document.getElementById('active-searches');
+        const searchListEl = document.getElementById('search-list');
+        const startSchedulerBtn = document.getElementById('start-scheduler');
+        const stopSchedulerBtn = document.getElementById('stop-scheduler');
+        const runAllSearchesBtn = document.getElementById('run-all-searches');
+        const addNewSearchBtn = document.getElementById('add-new-search');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadSchedulerStatus();
+            await loadSearches();
+        });
+
+        // Load scheduler status
+        async function loadSchedulerStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/scheduler/status`);
+                const status = await response.json();
+                
+                schedulerStatusEl.innerHTML = `
+                    <span class="status-indicator ${status.running ? 'status-running' : 'status-stopped'}"></span>
+                    ${status.running ? 'Running' : 'Stopped'}
+                `;
+                
+                activeSearchesEl.textContent = status.scheduledSearches ? status.scheduledSearches.length : 0;
+            } catch (error) {
+                console.error('Error loading scheduler status:', error);
+                schedulerStatusEl.textContent = 'Error';
+            }
+        }
+
+        // Load searches
+        async function loadSearches() {
+            try {
+                const response = await fetch(`${API_BASE}/searches`);
+                const searches = await response.json();
+                
+                searchListEl.innerHTML = '';
+                
+                for (const [name, config] of Object.entries(searches)) {
+                    const searchEl = document.createElement('div');
+                    searchEl.className = 'search-item';
+                    searchEl.innerHTML = `
+                        <h3>${name} ${config.scrapeSettings.enabled ? '' : '(Disabled)'}</h3>
+                        <p>${config.description || 'No description'}</p>
+                        <p>Frequency: ${config.scrapeSettings.runFrequency || 'N/A'}</p>
+                        <button onclick="runSearch('${name}')">Run</button>
+                        <button onclick="editSearch('${name}')" class="secondary">Edit</button>
+                        <button onclick="deleteSearch('${name}')" class="danger">Delete</button>
+                    `;
+                    searchListEl.appendChild(searchEl);
+                }
+            } catch (error) {
+                console.error('Error loading searches:', error);
+                searchListEl.innerHTML = '<p>Error loading searches</p>';
+            }
+        }
+
+        // Event Listeners
+        startSchedulerBtn.addEventListener('click', async () => {
+            try {
+                await fetch(`${API_BASE}/scheduler/start`, { method: 'POST' });
+                await loadSchedulerStatus();
+            } catch (error) {
+                console.error('Error starting scheduler:', error);
+            }
+        });
+
+        stopSchedulerBtn.addEventListener('click', async () => {
+            try {
+                await fetch(`${API_BASE}/scheduler/stop`, { method: 'POST' });
+                await loadSchedulerStatus();
+            } catch (error) {
+                console.error('Error stopping scheduler:', error);
+            }
+        });
+
+        runAllSearchesBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/run/all`, { method: 'POST' });
+                const results = await response.json();
+                alert(`Ran ${results.length} searches`);
+                await loadSearches();
+            } catch (error) {
+                console.error('Error running all searches:', error);
+            }
+        });
+
+        addNewSearchBtn.addEventListener('click', () => {
+            alert('Add new search functionality would be implemented here');
+        });
+
+        // Functions for search actions
+        async function runSearch(name) {
+            try {
+                const response = await fetch(`${API_BASE}/run/search/${name}`, { method: 'POST' });
+                const result = await response.json();
+                alert(`Search completed with ${result.totalResults} results`);
+            } catch (error) {
+                console.error('Error running search:', error);
+            }
+        }
+
+        function editSearch(name) {
+            alert(`Edit search functionality for "${name}" would be implemented here`);
+        }
+
+        async function deleteSearch(name) {
+            if (confirm(`Are you sure you want to delete search "${name}"?`)) {
+                try {
+                    await fetch(`${API_BASE}/searches/${name}`, { method: 'DELETE' });
+                    await loadSearches();
+                } catch (error) {
+                    console.error('Error deleting search:', error);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

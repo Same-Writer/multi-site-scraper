@@ -32,15 +32,18 @@ class ContinuousScheduler {
    * Schedule a search to run at its configured frequency
    * @param {string} searchName - Name of the search
    * @param {Object} searchConfig - Search configuration
+   * @param {boolean} runImmediately - Whether to run the search immediately
    */
-  scheduleSearch(searchName, searchConfig) {
+  scheduleSearch(searchName, searchConfig, runImmediately = true) {
     const frequency = searchConfig.scrapeSettings.runFrequency;
     const intervalMs = this.getFrequencyInMs(frequency);
     
     console.log(`Scheduling search "${searchName}" to run every ${intervalMs / 1000 / 60} minutes`);
     
-    // Run the search immediately
-    this.runSearch(searchName);
+    // Run the search immediately if requested
+    if (runImmediately) {
+      this.runSearch(searchName);
+    }
     
     // Schedule subsequent runs
     const task = setInterval(async () => {
@@ -114,7 +117,7 @@ class ContinuousScheduler {
     
     // Schedule each enabled search
     enabledSearches.forEach(({ searchName, config }) => {
-      this.scheduleSearch(searchName, config);
+      this.scheduleSearch(searchName, config, false);
     });
     
     this.running = true;

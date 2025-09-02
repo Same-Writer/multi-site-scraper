@@ -14,6 +14,7 @@ A modular, Docker-based web scraping framework with unified search-centric confi
 - **Advanced Anti-Detection**: User agent rotation, random delays, stealth headers, human-like interactions
 - **Command-Line Interface**: Run specific searches or all enabled searches
 - **Change Detection**: Historical tracking for trend analysis and notifications
+- **Web UI**: Browser-based interface for configuring searches and managing the scraper
 
 ## Current Implementation Status
 
@@ -275,6 +276,71 @@ docker-compose run --rm scraper node src/index.js "BMW Z3" facebook_marketplace
 ```bash
 docker-compose run --rm scraper node src/index.js continuous
 ```
+
+#### Run Web UI
+
+To run the web UI in a development environment:
+
+```bash
+docker-compose run --rm scraper node src/web.js
+```
+
+Then open your browser to http://localhost:3001
+
+The web UI will run continuously until stopped with Ctrl+C. For testing purposes, you can also run the web UI with a timeout using the test script:
+
+```bash
+docker-compose run --rm scraper node src/test-webui.js
+```
+
+This will run the web server for 15 seconds and then automatically terminate, providing feedback on whether the server started successfully.
+
+### Web UI Features
+
+The Web UI provides a browser-based interface for configuring and managing your scraper:
+
+1. **Dashboard**: Overview of system status, active searches, and quick actions
+2. **Search Management**: Create, edit, and delete search configurations
+3. **Site Configuration**: Manage site-specific settings and selectors
+4. **Scheduler Control**: Start/stop the continuous scheduler
+5. **Manual Execution**: Run individual searches or all enabled searches
+6. **Results Viewer**: Browse and export scraped data
+
+### Web UI API Endpoints
+
+The web UI exposes the following RESTful API endpoints:
+
+- `GET /api/searches` - Get all search configurations
+- `GET /api/searches/:name` - Get a specific search configuration
+- `POST /api/searches` - Create a new search
+- `PUT /api/searches/:name` - Update a search configuration
+- `DELETE /api/searches/:name` - Delete a search
+
+- `GET /api/sites` - Get all site configurations
+- `GET /api/sites/:name` - Get a specific site configuration
+- `PUT /api/sites/:name` - Update a site configuration
+
+- `POST /api/run/search/:name` - Run a specific search
+- `POST /api/run/all` - Run all enabled searches
+
+- `GET /api/scheduler/status` - Get scheduler status
+- `POST /api/scheduler/start` - Start the scheduler
+- `POST /api/scheduler/stop` - Stop the scheduler
+
+- `GET /api/config` - Get system configuration
+- `PUT /api/config` - Update system configuration
+
+### Web UI Development
+
+The web UI consists of:
+
+1. **Backend**: RESTful API server in `src/server.js`
+2. **Frontend**: Static HTML/CSS/JavaScript files in `src/webui/dist/`
+
+To extend the web UI:
+1. Add new API endpoints in `src/server.js`
+2. Update the frontend HTML/JavaScript in `src/webui/dist/index.html`
+3. Restart the web server with `node src/web.js`
 
 ### Programmatic Usage
 
