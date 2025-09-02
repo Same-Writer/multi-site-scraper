@@ -41,7 +41,7 @@ This document serves as a knowledge transfer mechanism between AI agents across 
 
 ---
 
-## Current Architecture Overview (Last Updated: August 25, 2025)
+## Current Architecture Overview (Last Updated: September 1, 2025)
 
 ### High-Level System Design
 
@@ -63,7 +63,14 @@ The codebase implements a **modular web scraping framework** with the following 
   - Manages CSV export and notification processing
   - Provides programmatic API for search management
 
-#### 2. Modular Scraping Engine
+#### 2. Continuous Scheduler
+- **`ContinuousScheduler.js`**: Continuous execution scheduler
+  - Schedules searches to run at their configured frequencies
+  - Manages multiple concurrent timers for different searches
+  - Provides graceful shutdown handling
+  - Supports "every_30_minutes", "hourly", "daily", and "weekly" frequencies
+
+#### 3. Modular Scraping Engine
 - **`ModularScrapingEngine.js`**: Core scraping orchestrator
   - Uses factory pattern to instantiate appropriate scrapers
   - Manages browser lifecycle and anti-detection measures
@@ -119,7 +126,7 @@ The codebase implements a **modular web scraping framework** with the following 
     "Search Name": {
       "description": "Human-readable description",
       "scrapeSettings": {
-        "runFrequency": "hourly|daily|weekly",
+        "runFrequency": "hourly|daily|weekly|every_30_minutes",
         "maxListingsPerSite": 50,
         "enabled": true,
         "priority": "high|medium|low"
@@ -178,6 +185,16 @@ The codebase implements a **modular web scraping framework** with the following 
    - Export to CSV with timestamp
 5. **Notification Processing**: Send alerts based on configured triggers
 
+### Continuous Execution Mode
+
+The system supports a continuous execution mode that runs searches at their configured frequencies:
+
+1. **Scheduler Initialization**: `ContinuousScheduler` loads all enabled searches
+2. **Frequency Mapping**: Each search is scheduled based on its `runFrequency` setting
+3. **Immediate Execution**: All enabled searches run immediately upon startup
+4. **Scheduled Execution**: Searches continue running at their configured intervals
+5. **Graceful Shutdown**: The scheduler handles Ctrl+C to properly clean up resources
+
 ### File System Organization
 
 ```
@@ -219,6 +236,7 @@ workarea-ui-scraper/
 - Change detection framework
 - Command-line interface
 - Docker containerization
+- Continuous execution mode with configurable frequencies
 
 **Partially Implemented:**
 - Advanced change detection triggers
@@ -253,7 +271,19 @@ workarea-ui-scraper/
 - Add new transformation functions to `BaseScraper.js`
 - Implement additional export formats beyond CSV
 
-### Recent Architectural Improvements (August 31, 2025)
+### Recent Architectural Improvements (September 1, 2025)
+
+**Continuous Execution Mode (September 1, 2025):**
+- **Problem Solved**: Need for a continuous execution mode that runs searches at their configured frequencies without requiring external scheduling (cron jobs)
+- **Solution Implemented**: Complete continuous scheduler system with frequency-based execution
+- **Key Changes**:
+  - `src/core/ContinuousScheduler.js`: New continuous execution scheduler that manages multiple concurrent searches
+  - `src/index.js`: Added command-line interface for continuous mode (`node src/index.js continuous`)
+  - Frequency mapping system supporting "every_30_minutes", "hourly", "daily", and "weekly" intervals
+  - Graceful shutdown handling with proper resource cleanup
+  - Immediate execution of all enabled searches upon startup
+- **Results**: Fully functional continuous execution mode that runs searches at their configured intervals
+- **Test Results**: Successfully ran BMW Z3 search continuously, scheduling it to run every 60 minutes
 
 **Email Integration & Credentials Consolidation (August 31, 2025):**
 - **Problem Solved**: Previous AI agent session was stopped mid-way through implementing email functionality and consolidating credentials

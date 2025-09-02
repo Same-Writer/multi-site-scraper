@@ -11,6 +11,8 @@ class ChangeDetector {
     this.notifyOnChanges = config.changeDetection?.notifyOnChanges || [];
     this.history = {};
     
+    // Note: These are async methods but we're not awaiting them in the constructor
+    // This is a design issue that could cause race conditions
     this.ensureDataDirectory();
     this.loadHistory();
   }

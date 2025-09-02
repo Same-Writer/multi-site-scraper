@@ -1,4 +1,5 @@
 const SearchManager = require('./core/SearchManager');
+const ContinuousScheduler = require('./core/ContinuousScheduler');
 const Logger = require('./core/Logger');
 const config = require('../config/default.json');
 const EmailNotifier = require('./core/EmailNotifier');
@@ -28,6 +29,14 @@ async function main() {
       await emailNotifier.initialize();
       await emailNotifier.sendTestEmail(recipient);
       return; // Exit after sending test email
+    }
+    
+    // Check for continuous mode
+    if (args[0] === 'continuous') {
+      console.log('Starting continuous mode scheduler...');
+      const scheduler = new ContinuousScheduler(config);
+      await scheduler.start();
+      return; // Exit after starting scheduler
     }
     
     // Initialize the search manager

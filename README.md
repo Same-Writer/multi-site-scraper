@@ -271,6 +271,11 @@ docker-compose run --rm scraper node src/index.js "BMW Z3" craigslist
 docker-compose run --rm scraper node src/index.js "BMW Z3" facebook_marketplace
 ```
 
+#### Run in Continuous Mode
+```bash
+docker-compose run --rm scraper node src/index.js continuous
+```
+
 ### Programmatic Usage
 
 ```javascript
@@ -285,6 +290,11 @@ console.log(`Found ${result.totalResults} results`);
 
 // Run all enabled searches
 const results = await searchManager.runAllEnabledSearches();
+
+// Run in continuous mode
+const ContinuousScheduler = require('./src/core/ContinuousScheduler');
+const scheduler = new ContinuousScheduler(config);
+await scheduler.start();
 ```
 
 ## Configuration
