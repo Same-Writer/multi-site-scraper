@@ -35,6 +35,24 @@ class BaseScraper {
       '--disable-renderer-backgrounding'
     ];
 
+    // Add proxy settings if configured and valid
+    let proxySettings = {};
+    if (this.config.scraping.proxy && this.config.scraping.proxy.enabled !== false) {
+      const proxy = this.getProxyForSite(this.siteConfig.name);
+      if (proxy && proxy.server && proxy.server !== "http://proxy.example.com:8080") {
+        puppeteerArgs.push(`--proxy-server=${proxy.server}`);
+        proxySettings = {
+          username: proxy.username,
+          password: proxy.password
+        };
+        console.log(`Using proxy server: ${proxy.server}`);
+      } else {
+        console.log("Proxy configuration found but not valid, proceeding without proxy");
+      }
+    } else {
+      console.log("Proxy not enabled or not configured, proceeding without proxy");
+    }
+
     this.browser = await puppeteer.launch({
       headless: this.config.scraping.headless,
       args: puppeteerArgs,
@@ -45,9 +63,74 @@ class BaseScraper {
     });
 
     this.page = await this.browser.newPage();
+    
+    // Authenticate proxy if needed
+    if (proxySettings.username && proxySettings.password) {
+      await this.page.authenticate({
+        username: proxySettings.username,
+        password: proxySettings.password
+      });
+    }
+    
     await this.setupAntiDetection();
     
     console.log(`${this.siteConfig.name} scraper initialized successfully`);
+  }
+
+  /**
+   * Get proxy configuration for a specific site
+   * @param {string} siteName - Name of the site
+   * @returns {Object|null} Proxy configuration or null if not configured
+   */
+  getProxyForSite(siteName) {
+    if (!this.config.scraping.proxy || !this.config.scraping.proxy.providers) {
+      return null;
+    }
+
+    // Get site-specific proxy settings if they exist
+    if (this.config.scraping.proxy.siteSettings && this.config.scraping.proxy.siteSettings[siteName]) {
+      const siteProxySettings = this.config.scraping.proxy.siteSettings[siteName];
+      if (siteProxySettings.provider) {
+        // Use specific provider for this site
+        const provider = this.config.scraping.proxy.providers[siteProxySettings.provider];
+        if (provider) {
+          return {
+            server: provider.server,
+            username: provider.username,
+            password: provider.password
+          };
+        }
+      }
+    }
+
+    // Use default provider if configured
+    if (this.config.scraping.proxy.defaultProvider) {
+      const provider = this.config.scraping.proxy.providers[this.config.scraping.proxy.defaultProvider];
+      if (provider) {
+        return {
+          server: provider.server,
+          username: provider.username,
+          password: provider.password
+        };
+      }
+    }
+
+    // If no specific provider, use rotating proxy if enabled
+    if (this.config.scraping.proxy.rotate && this.config.scraping.proxy.providers) {
+      const providers = Object.values(this.config.scraping.proxy.providers);
+      if (providers.length > 0) {
+        // Simple round-robin rotation
+        const proxyIndex = Date.now() % providers.length;
+        const provider = providers[proxyIndex];
+        return {
+          server: provider.server,
+          username: provider.username,
+          password: provider.password
+        };
+      }
+    }
+
+    return null;
   }
 
   /**
@@ -56,25 +139,178 @@ class BaseScraper {
   async setupAntiDetection() {
     // Remove automation indicators
     await this.page.evaluateOnNewDocument(() => {
+      // Remove webdriver property
       Object.defineProperty(navigator, 'webdriver', {
         get: () => undefined,
       });
       
+      // Set realistic plugins
       Object.defineProperty(navigator, 'plugins', {
-        get: () => [1, 2, 3, 4, 5],
+        get: () => [
+          {
+            0: { type: 'application/x-google-chrome-pdf', suffixes: 'pdf', description: 'Portable Document Format' },
+            1: { type: 'application/pdf', suffixes: 'pdf', description: 'Portable Document Format' },
+            2: { type: 'application/x-nacl', suffixes: '', description: 'Native Client Executable' },
+            3: { type: 'application/x-pnacl', suffixes: '', description: 'Portable Native Client Executable' },
+            length: 4,
+            item: function (index) { return this[index]; },
+            namedItem: function (name) { return this[name]; },
+            refresh: function () {}
+          }
+        ],
       });
       
+      // Set realistic languages
       Object.defineProperty(navigator, 'languages', {
         get: () => ['en-US', 'en'],
       });
 
+      // Set realistic chrome object
       window.chrome = {
-        runtime: {}
+        runtime: {},
+        loadTimes: () => {},
+        csi: () => {},
+        app: {
+          isInstalled: false,
+          InstallState: {
+            DISABLED: 'disabled',
+            INSTALLED: 'installed',
+            NOT_INSTALLED: 'not_installed'
+          },
+          RunningState: {
+            CANNOT_RUN: 'cannot_run',
+            READY_TO_RUN: 'ready_to_run',
+            RUNNING: 'running'
+          }
+        },
+        webstore: {
+          onInstallStageChanged: {},
+          onDownloadProgress: {}
+        }
       };
 
+      // Remove Puppeteer-specific properties
       delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
       delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
       delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+      
+      // Hide Puppeteer-specific properties
+      if (window.outerWidth && window.outerHeight) {
+        // Make sure window dimensions look realistic
+        window.outerWidth = window.innerWidth;
+        window.outerHeight = window.innerHeight;
+      }
+      
+      // Mock missing browser features that Craigslist is checking for
+      if (!window.speechSynthesis) {
+        window.speechSynthesis = {
+          speak: () => {},
+          cancel: () => {},
+          pause: () => {},
+          resume: () => {},
+          getVoices: () => [],
+          pending: false,
+          speaking: false,
+          paused: false
+        };
+      }
+      
+      if (!window.indexedDB) {
+        window.indexedDB = {
+          open: () => {},
+          deleteDatabase: () => {},
+          cmp: () => {}
+        };
+      }
+    });
+
+    // Advanced fingerprinting protection
+    await this.page.evaluateOnNewDocument(() => {
+      // Canvas fingerprinting protection
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const originalGetImageData = context.getImageData;
+      
+      context.getImageData = function() {
+        // Add slight noise to image data to prevent fingerprinting
+        const imageData = originalGetImageData.apply(this, arguments);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          // Add random noise to RGB values
+          data[i] = Math.min(255, data[i] + Math.floor(Math.random() * 3) - 1); // R
+          data[i + 1] = Math.min(255, data[i + 1] + Math.floor(Math.random() * 3) - 1); // G
+          data[i + 2] = Math.min(255, data[i + 2] + Math.floor(Math.random() * 3) - 1); // B
+        }
+        return imageData;
+      };
+
+      // WebGL fingerprinting protection
+      if (window.WebGLRenderingContext) {
+        const originalGetParameter = WebGLRenderingContext.prototype.getParameter;
+        WebGLRenderingContext.prototype.getParameter = function(parameter) {
+          // Return randomized values for fingerprintable parameters
+          if (parameter === 37445) { // UNMASKED_VENDOR_WEBGL
+            const vendors = ['Intel Inc.', 'NVIDIA Corporation', 'ATI Technologies Inc.'];
+            return vendors[Math.floor(Math.random() * vendors.length)];
+          }
+          if (parameter === 37446) { // UNMASKED_RENDERER_WEBGL
+            const renderers = [
+              'Intel Iris OpenGL Engine',
+              'NVIDIA GeForce GTX 1080 OpenGL Engine',
+              'AMD Radeon Pro 560 OpenGL Engine'
+            ];
+            return renderers[Math.floor(Math.random() * renderers.length)];
+          }
+          return originalGetParameter.apply(this, arguments);
+        };
+      }
+
+      // Audio fingerprinting protection
+      if (window.OfflineAudioContext) {
+        const originalGetChannelData = AudioBuffer.prototype.getChannelData;
+        AudioBuffer.prototype.getChannelData = function() {
+          const channelData = originalGetChannelData.apply(this, arguments);
+          // Add slight noise to audio data
+          for (let i = 0; i < channelData.length; i++) {
+            channelData[i] += Math.random() * 0.0001 - 0.00005;
+          }
+          return channelData;
+        };
+      }
+
+      // Hardware concurrency spoofing
+      Object.defineProperty(navigator, 'hardwareConcurrency', {
+        get: () => {
+          // Return a random value between 2 and 16 (common CPU core counts)
+          const cores = [2, 4, 6, 8, 12, 16];
+          return cores[Math.floor(Math.random() * cores.length)];
+        }
+      });
+
+      // Device memory spoofing
+      if ('deviceMemory' in navigator) {
+        Object.defineProperty(navigator, 'deviceMemory', {
+          get: () => {
+            // Return a random value between 2 and 16 GB (common memory amounts)
+            const memory = [2, 4, 6, 8, 12, 16];
+            return memory[Math.floor(Math.random() * memory.length)];
+          }
+        });
+      }
+
+      // Timezone spoofing
+      const originalDate = window.Date;
+      const timezoneOffset = new originalDate().getTimezoneOffset();
+      window.Date = function() {
+        if (arguments.length === 0) {
+          const date = new originalDate();
+          // Adjust timezone to appear as if from a different region
+          // This is a simplified approach - in practice, you might want to match the proxy location
+          return new originalDate(date.getTime() - (timezoneOffset * 60000));
+        }
+        return new (originalDate.bind.apply(originalDate, [null].concat(Array.prototype.slice.call(arguments))))();
+      };
+      window.Date.prototype = originalDate.prototype;
     });
 
     // Set realistic user agent
@@ -87,14 +323,25 @@ class BaseScraper {
     const randomUserAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
     await this.page.setUserAgent(randomUserAgent);
     
-    await this.page.setViewport(this.config.scraping.viewport);
+    // Set realistic viewport with slight randomization
+    const viewport = {
+      width: this.config.scraping.viewport.width + Math.floor(Math.random() * 20) - 10,
+      height: this.config.scraping.viewport.height + Math.floor(Math.random() * 20) - 10
+    };
+    await this.page.setViewport(viewport);
     
+    // Set realistic HTTP headers
     await this.page.setExtraHTTPHeaders({
       'Accept-Language': 'en-US,en;q=0.9',
       'Accept-Encoding': 'gzip, deflate, br',
       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
       'Connection': 'keep-alive',
-      'Upgrade-Insecure-Requests': '1'
+      'Upgrade-Insecure-Requests': '1',
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'none',
+      'Sec-Fetch-User': '?1',
+      'Cache-Control': 'max-age=0'
     });
   }
 

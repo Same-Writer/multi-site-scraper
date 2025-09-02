@@ -3,10 +3,30 @@
     "headless": true,
     "timeout": 10000,
     "waitForSelector": 2000,
-    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0 Safari/537.36",
     "viewport": {
       "width": 1920,
       "height": 1080
+    },
+    "proxy": {
+      "enabled": false,
+      "rotate": true,
+      "defaultProvider": "default",
+      "providers": {
+        "default": {
+          "server": "http://proxy.example.com:8080",
+          "username": "",
+          "password": ""
+        }
+      },
+      "siteSettings": {
+        "craigslist": {
+          "provider": "default"
+        },
+        "facebook-marketplace": {
+          "provider": "default"
+        }
+      }
     }
   },
   "output": {

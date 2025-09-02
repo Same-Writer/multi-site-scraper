@@ -3,12 +3,12 @@
   "baseUrl": "https://sfbay.craigslist.org",
   "searchConfig": {
     "bmw_z3": {
-      "url": "https://sfbay.craigslist.org/search/sss?query=bmw%20z3#search=2~gallery~0",
+      "url": "https://sfbay.craigslist.org/search/cta?postal=940&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0",
       "selectors": {
-        "listingContainer": ".cl-search-result",
-        "title": "a",
-        "price": ".priceinfo, .price, [class*='price']",
-        "location": ".supertitle, .location, [class*='location']",
+        "listingContainer": ".cl-static-search-result",
+        "title": ".title",
+        "price": ".price",
+        "location": ".location",
         "date": ".meta, .date, [class*='date']",
         "link": "a",
         "image": "img"
@@ -16,27 +16,27 @@
       "dataFields": [
         {
           "name": "title",
-          "selector": "a",
+          "selector": ".title",
           "attribute": "text",
           "required": true
         },
         {
           "name": "price",
-          "selector": "*",
+          "selector": ".price",
           "attribute": "text",
           "required": false,
           "transform": "extractPrice"
         },
         {
           "name": "location",
-          "selector": "*",
+          "selector": ".location",
           "attribute": "text",
           "required": false,
           "transform": "cleanLocation"
         },
         {
           "name": "date",
-          "selector": "*",
+          "selector": ".meta, .date, [class*='date']",
           "attribute": "text",
           "required": false
         },
@@ -265,7 +265,7 @@
     }
   },
   "waitConditions": {
-    "initialLoad": ".result-row, .cl-search-result, .gallery .result-row, li.result-row",
+    "initialLoad": ".cl-content, main, .content",
     "timeout": 15000
   },
   "rateLimit": {

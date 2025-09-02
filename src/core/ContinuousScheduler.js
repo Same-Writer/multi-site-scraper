@@ -43,7 +43,14 @@ class ContinuousScheduler {
     this.runSearch(searchName);
     
     // Schedule subsequent runs
-    const task = setInterval(() => {
+    const task = setInterval(async () => {
+      // Add randomized delay before running search to mimic human behavior
+      const delayMs = this.getRandomDelay(searchConfig);
+      if (delayMs > 0) {
+        console.log(`Adding randomized delay of ${delayMs}ms before running search "${searchName}"`);
+        await this.sleep(delayMs);
+      }
+      
       this.runSearch(searchName);
     }, intervalMs);
     
@@ -141,6 +148,32 @@ class ContinuousScheduler {
     this.logger.displayLogPathOnExit();
     
     process.exit(0);
+  }
+
+  /**
+   * Get randomized delay for a search based on its configuration
+   * @param {Object} searchConfig - Search configuration
+   * @returns {number} Delay in milliseconds
+   */
+  getRandomDelay(searchConfig) {
+    // Check if the search has specific timing settings
+    if (searchConfig.timing && searchConfig.timing.randomDelay) {
+      const minDelay = searchConfig.timing.randomDelay.min || 0;
+      const maxDelay = searchConfig.timing.randomDelay.max || 5000;
+      return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+    }
+    
+    // Default random delay between 0-3 seconds
+    return Math.floor(Math.random() * 3001);
+  }
+
+  /**
+   * Sleep for a specified number of milliseconds
+   * @param {number} ms - Milliseconds to sleep
+   * @returns {Promise} Promise that resolves after the specified time
+   */
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /**

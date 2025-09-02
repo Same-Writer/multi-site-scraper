@@ -273,6 +273,39 @@ workarea-ui-scraper/
 
 ### Recent Architectural Improvements (September 1, 2025)
 
+**Enhanced Anti-Detection Measures (September 1, 2025):**
+- **Problem Solved**: Need for improved anti-detection measures to reduce the likelihood of scrapers being flagged as bot activity
+- **Solution Implemented**: Comprehensive anti-detection system with IP rotation, proxy management, enhanced timing strategies, and advanced browser fingerprinting protection
+- **Key Changes**:
+  - `src/scrapers/BaseScraper.js`: Enhanced `setupAntiDetection()` method with canvas fingerprinting protection, WebGL fingerprinting protection, audio fingerprinting protection, hardware concurrency spoofing, device memory spoofing, and timezone spoofing
+  - `src/scrapers/BaseScraper.js`: Added `getProxyForSite()` method to handle site-specific proxy settings and rotating proxy support
+  - `src/core/ContinuousScheduler.js`: Added `getRandomDelay()` and `sleep()` methods to implement randomized delays between searches
+  - `config/default.json`: Updated with proxy configuration template (disabled by default to prevent connection issues)
+- **Results**: Significantly enhanced anti-detection capabilities that make the scrapers appear more like real users and reduce the likelihood of being blocked
+
+**Craigslist Scraper Fix (September 1, 2025):**
+- **Problem Solved**: Craigslist scraper was being blocked by anti-bot measures and not extracting any listings
+- **Solution Implemented**: Fixed anti-detection issues and updated selectors to match current page structure
+- **Key Changes**:
+  - `src/scrapers/BaseScraper.js`: Enhanced anti-detection measures to bypass Craigslist's bot detection
+  - `sites/craigslist.json`: Updated wait conditions and listing container selectors to use ".cl-static-search-result"
+  - `sites/craigslist.json`: Updated data field selectors to match current page structure (title: ".title", price: ".price", location: ".location")
+- **Results**: Craigslist scraper now successfully extracts 10+ BMW Z3 listings with complete data (title, price, location, URL)
+
+**Facebook Marketplace Scraper Verification (September 1, 2025):**
+- **Problem Solved**: Need to verify that Facebook Marketplace scraper is still working correctly after anti-detection enhancements
+- **Solution Implemented**: Tested Facebook Marketplace scraper with enhanced anti-detection measures
+- **Key Changes**: None required - Facebook Marketplace scraper continued to work correctly
+- **Results**: Successfully extracted 10 BMW Z3 listings with complete data (title, price, location, URL, image URL)
+
+**Proxy Configuration Security (September 1, 2025):**
+- **Problem Solved**: Proxy additions were causing connection issues when no valid proxy was configured
+- **Solution Implemented**: Modified proxy handling to disable proxy usage by default and only enable it when valid proxy settings are provided
+- **Key Changes**:
+  - `src/scrapers/BaseScraper.js`: Added logic to check for valid proxy configuration before enabling proxy
+  - `config/default.json`: Added "enabled" flag to proxy configuration (set to false by default)
+- **Results**: Scrapers work correctly without requiring proxy configuration, preventing connection issues
+
 **Continuous Execution Mode (September 1, 2025):**
 - **Problem Solved**: Need for a continuous execution mode that runs searches at their configured frequencies without requiring external scheduling (cron jobs)
 - **Solution Implemented**: Complete continuous scheduler system with frequency-based execution
