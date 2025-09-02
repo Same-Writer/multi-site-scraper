@@ -6,102 +6,280 @@
     <title>Workarea UI Scraper</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
+            color: #333;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         header {
-            background-color: #333;
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
             color: white;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
         }
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 25px;
+            margin-bottom: 30px;
         }
         .card {
             background: white;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .search-list {
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+        }
+        .search-group {
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .search-header {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .search-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .status-enabled {
+            background: #2ecc71;
+        }
+        .status-disabled {
+            background: #e74c3c;
+        }
+        .search-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        .search-content.expanded {
+            max-height: 2000px;
+            padding: 20px;
+        }
+        .search-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 1200px) {
+            .search-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        .detail-card {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 18px;
+            border-left: 4px solid #3498db;
+        }
+        .detail-card h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .sites-container {
             margin-top: 20px;
         }
-        .search-item {
-            background: white;
-            border-radius: 5px;
+        .site-item {
+            display: flex;
+            align-items: center;
             padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #eee;
         }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-right: 10px;
+        .site-item:last-child {
+            border-bottom: none;
         }
-        button:hover {
-            background-color: #0056b3;
+        .site-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 15px;
         }
-        button.secondary {
-            background-color: #6c757d;
+        .site-enabled {
+            background: #2ecc71;
         }
-        button.secondary:hover {
-            background-color: #545b62;
+        .site-disabled {
+            background: #e74c3c;
         }
-        button.success {
-            background-color: #28a745;
+        .site-info {
+            flex: 1;
         }
-        button.success:hover {
-            background-color: #218838;
-        }
-        button.danger {
-            background-color: #dc3545;
-        }
-        button.danger:hover {
-            background-color: #c82333;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-        label {
+        .site-name {
             font-weight: bold;
-            display: block;
             margin-bottom: 5px;
         }
-        .form-group {
-            margin-bottom: 15px;
+        .site-url {
+            font-size: 0.9rem;
+            color: #6c757d;
+            word-break: break-all;
+        }
+        .notification-card {
+            background: #e8f4fc;
+            border-radius: 6px;
+            padding: 18px;
+            border-left: 4px solid #3498db;
+        }
+        .notifications-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .notifications-table th {
+            background-color: #3498db;
+            color: white;
+            text-align: left;
+            padding: 8px;
+            font-weight: 600;
+        }
+        .notifications-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .notifications-table tr:nth-child(even) {
+            background-color: #f2f9ff;
+        }
+        .notifications-table tr:hover {
+            background-color: #d1e6f9;
+        }
+        .notifications-table a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .notifications-table a:hover {
+            text-decoration: underline;
+        }
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .keyword-tag {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .keyword-tag.exclude {
+            background: #e74c3c;
+        }
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        button.secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+        }
+        button.success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        button.danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
         }
         .status-indicator {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-right: 5px;
+            margin-right: 8px;
         }
         .status-running {
-            background-color: #28a745;
+            background-color: #2ecc71;
         }
         .status-stopped {
-            background-color: #dc3545;
+            background-color: #e74c3c;
+        }
+        .frequency-badge {
+            background: #9b59b6;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .detail-label {
+            font-weight: 600;
+            width: 150px;
+            color: #495057;
+        }
+        .detail-value {
+            flex: 1;
+        }
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .search-details {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -131,8 +309,8 @@
 
         <div class="card">
             <h2>Configured Searches</h2>
-            <div id="search-list" class="search-list">
-                <!-- Search items will be populated here -->
+            <div id="search-list">
+                <!-- Search groups will be populated here -->
             </div>
         </div>
     </div>
@@ -154,6 +332,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             await loadSchedulerStatus();
             await loadSearches();
+            await loadSites();
         });
 
         // Load scheduler status
@@ -182,22 +361,211 @@
                 
                 searchListEl.innerHTML = '';
                 
+                if (Object.keys(searches).length === 0) {
+                    searchListEl.innerHTML = '<div class="no-data">No searches configured</div>';
+                    return;
+                }
+                
                 for (const [name, config] of Object.entries(searches)) {
-                    const searchEl = document.createElement('div');
-                    searchEl.className = 'search-item';
-                    searchEl.innerHTML = `
-                        <h3>${name} ${config.scrapeSettings.enabled ? '' : '(Disabled)'}</h3>
-                        <p>${config.description || 'No description'}</p>
-                        <p>Frequency: ${config.scrapeSettings.runFrequency || 'N/A'}</p>
-                        <button onclick="runSearch('${name}')">Run</button>
-                        <button onclick="editSearch('${name}')" class="secondary">Edit</button>
-                        <button onclick="deleteSearch('${name}')" class="danger">Delete</button>
+                    const searchGroupEl = document.createElement('div');
+                    searchGroupEl.className = 'search-group';
+                    
+                    // Create search header
+                    const searchHeaderEl = document.createElement('div');
+                    searchHeaderEl.className = 'search-header';
+                    searchHeaderEl.innerHTML = `
+                        <h3>${name}</h3>
+                        <div>
+                            <span class="frequency-badge">${config.scrapeSettings.runFrequency || 'N/A'}</span>
+                            <span class="search-status ${config.scrapeSettings.enabled ? 'status-enabled' : 'status-disabled'}">
+                                ${config.scrapeSettings.enabled ? 'Enabled' : 'Disabled'}
+                            </span>
+                        </div>
                     `;
-                    searchListEl.appendChild(searchEl);
+                    
+                    // Create search content
+                    const searchContentEl = document.createElement('div');
+                    searchContentEl.className = 'search-content';
+                    searchContentEl.id = `search-content-${name.replace(/\s+/g, '-')}`;
+                    
+                    // Populate search content
+                    searchContentEl.innerHTML = `
+                        <div class="search-details">
+                            <!-- Left column: Description & Settings -->
+                            <div class="detail-card">
+                                <h4>Description & Settings</h4>
+                                <div class="detail-row">
+                                    <div class="detail-label">Description:</div>
+                                    <div class="detail-value">${config.description || 'No description provided'}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Max Listings:</div>
+                                    <div class="detail-value">${config.scrapeSettings.maxListingsPerSite || 'N/A'}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Priority:</div>
+                                    <div class="detail-value">${config.scrapeSettings.priority || 'N/A'}</div>
+                                </div>
+                            
+                            </div>
+                            
+                            <!-- Middle column: Search Details (including configured sites and action buttons) -->
+                            <div class="detail-card">
+                                <h4>Search Details</h4>
+                                <div class="detail-row">
+                                    <div class="detail-label">Price Range:</div>
+                                    <div class="detail-value">
+                                        $${config.filters.priceRange?.min || 0} - $${config.filters.priceRange?.max || 'N/A'}
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <div class="detail-label">Include Keywords:</div>
+                                    <div class="detail-value">
+                                        ${config.filters.keywords?.include?.length ? 
+                                            `<div class="keyword-list">
+                                                ${config.filters.keywords.include.map(kw => 
+                                                    `<span class="keyword-tag">${kw}</span>`
+                                                ).join('')}
+                                            </div>` : 
+                                            'None'}
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <div class="detail-label">Exclude Keywords:</div>
+                                    <div class="detail-value">
+                                        ${config.filters.keywords?.exclude?.length ? 
+                                            `<div class="keyword-list">
+                                                ${config.filters.keywords.exclude.map(kw => 
+                                                    `<span class="keyword-tag exclude">${kw}</span>`
+                                                ).join('')}
+                                            </div>` : 
+                                            'None'}
+                                    </div>
+                                </div>
+                                
+                                <div class="sites-container">
+                                    <h4>Configured Sites</h4>
+                                    <div id="sites-${name.replace(/\s+/g, '-')}">
+                                        <!-- Sites will be populated here -->
+                                    </div>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <button onclick="runSearch('${name}')">Run Search</button>
+                                    <button onclick="editSearch('${name}')" class="secondary">Edit Search</button>
+                                    <button onclick="deleteSearch('${name}')" class="danger">Delete Search</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Right column: Notifications section -->
+                            <div class="notification-card">
+                                <h4>Notifications</h4>
+                                <div class="detail-row">
+                                    <div class="detail-label">Status:</div>
+                                    <div class="detail-value">
+                                        ${config.notifications.enabled ? 'Enabled' : 'Disabled'}
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <div class="detail-label">Triggers:</div>
+                                    <div class="detail-value">
+                                        ${config.notifications.triggers ? 
+                                            `<div class="keyword-list">
+                                                ${Object.entries(config.notifications.triggers)
+                                                    .filter(([key, value]) => value === true || (typeof value === 'number' && value > 0) || (Array.isArray(value) && value.length > 0))
+                                                    .map(([key, value]) => {
+                                                        let displayValue = key;
+                                                        if (typeof value === 'number') displayValue += ` (${value})`;
+                                                        if (Array.isArray(value) && value.length > 0) displayValue += ` (${value.join(', ')})`;
+                                                        return `<span class="keyword-tag">${displayValue}</span>`;
+                                                    })
+                                                    .join('')}
+                                            </div>` : 
+                                            'None'}
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <div class="detail-label">Recent Notifications:</div>
+                                </div>
+                                <table class="notifications-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Site</th>
+                                            <th>Trigger</th>
+                                            <th>Price</th>
+                                            <th>Title</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4">No notifications sent yet</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add event listener to toggle content
+                    searchHeaderEl.addEventListener('click', () => {
+                        searchContentEl.classList.toggle('expanded');
+                    });
+                    
+                    searchGroupEl.appendChild(searchHeaderEl);
+                    searchGroupEl.appendChild(searchContentEl);
+                    searchListEl.appendChild(searchGroupEl);
+                    
+                    // Load sites for this search
+                    await loadSitesForSearch(name, config);
                 }
             } catch (error) {
                 console.error('Error loading searches:', error);
-                searchListEl.innerHTML = '<p>Error loading searches</p>';
+                searchListEl.innerHTML = '<div class="no-data">Error loading searches</div>';
+            }
+        }
+
+        // Load all sites
+        async function loadSites() {
+            try {
+                const response = await fetch(`${API_BASE}/sites`);
+                const sites = await response.json();
+                window.allSites = sites; // Store for later use
+            } catch (error) {
+                console.error('Error loading sites:', error);
+            }
+        }
+
+        // Load sites for a specific search
+        async function loadSitesForSearch(searchName, searchConfig) {
+            try {
+                const sitesContainer = document.getElementById(`sites-${searchName.replace(/\s+/g, '-')}`);
+                if (!sitesContainer) return;
+                
+                if (!searchConfig.sites || Object.keys(searchConfig.sites).length === 0) {
+                    sitesContainer.innerHTML = '<p>No sites configured for this search</p>';
+                    return;
+                }
+                
+                let sitesHtml = '';
+                for (const [siteName, siteConfig] of Object.entries(searchConfig.sites)) {
+                    sitesHtml += `
+                        <div class="site-item">
+                            <div class="site-status ${siteConfig.enabled ? 'site-enabled' : 'site-disabled'}"></div>
+                            <div class="site-info">
+                                <div class="site-name">${siteName} ${siteConfig.enabled ? '' : '(Disabled)'}</div>
+                                <div class="site-url">${siteConfig.searchUrl || 'No URL configured'}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                sitesContainer.innerHTML = sitesHtml;
+            } catch (error) {
+                console.error('Error loading sites for search:', error);
             }
         }
 
@@ -243,6 +611,7 @@
                 alert(`Search completed with ${result.totalResults} results`);
             } catch (error) {
                 console.error('Error running search:', error);
+                alert('Error running search: ' + error.message);
             }
         }
 
@@ -257,6 +626,7 @@
                     await loadSearches();
                 } catch (error) {
                     console.error('Error deleting search:', error);
+                    alert('Error deleting search: ' + error.message);
                 }
             }
         }

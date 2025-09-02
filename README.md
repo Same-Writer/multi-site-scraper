@@ -285,7 +285,7 @@ To run the web UI in a development environment:
 docker-compose run --rm scraper node src/web.js
 ```
 
-Then open your browser to http://localhost:3001
+Then open your browser to http://localhost:3003
 
 The web UI will run continuously until stopped with Ctrl+C. For testing purposes, you can also run the web UI with a timeout using the test script:
 

@@ -56,6 +56,8 @@ The system now includes a web-based user interface for configuring and managing 
    - Static HTML/CSS/JavaScript frontend
    - Responsive design for desktop and mobile browsers
    - Dashboard view with system status and search controls
+   - Three-column layout for search details with full vertical space utilization
+   - Enhanced notifications section with compact table of sent notifications
 
 3. **Integration Points**:
    - Web server uses existing configuration files (`config/*.json`, `sites/*.json`)
