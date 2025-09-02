@@ -500,6 +500,18 @@ During the Craigslist data extraction debugging session, an AI agent made code c
 4. **Don't modify the factory pattern** without understanding dependencies
 5. **Don't ignore rate limiting** - respect site policies
 
+### Resource Management
+1. **Clear unused Docker containers** to conserve system memory:
+   - Use `docker container prune` to remove stopped containers
+   - Use `docker system prune` to remove unused containers, networks, and images
+   - Always clean up after testing to prevent system resource exhaustion
+
+### Task Focus
+1. **Focus on completing the task(s)** that you were instructed to perform
+2. **Only perform additional actions** after requesting approval from the human developer
+3. **Do not make assumptions** about what additional work might be needed
+4. **Stick to your assigned scope** to prevent scope creep and unintended changes
+
 ---
 
 ## Development Context and History
