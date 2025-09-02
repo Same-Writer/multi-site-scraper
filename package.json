@@ -7,7 +7,11 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest"
+    "test": "jest",
+    "debug-cargurus": "node src/debug-carGurus.js",
+    "debug-cargurus-enhanced": "node src/debug-carGurus-enhanced.js",
+    "debug-base-scraper": "node src/debug-base-scraper.js",
+    "test-carGurus-anti-detection": "node src/test-carGurus-anti-detection.js"
   },
   "keywords": [
     "scraping",
@@ -24,7 +28,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "nodemailer": "^6.9.0",
-    "puppeteer": "^21.11.0"
+    "puppeteer": "^24.18.0"
   },
   "devDependencies": {
     "jest": "^29.0.0",

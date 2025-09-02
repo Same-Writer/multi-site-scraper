@@ -25,14 +25,30 @@ class BaseScraper {
       '--disable-accelerated-2d-canvas',
       '--no-first-run',
       '--no-zygote',
-      '--single-process',
       '--disable-gpu',
       '--disable-web-security',
       '--disable-features=VizDisplayCompositor',
       '--disable-blink-features=AutomationControlled',
       '--disable-background-timer-throttling',
       '--disable-backgrounding-occluded-windows',
-      '--disable-renderer-backgrounding'
+      '--disable-renderer-backgrounding',
+      '--disable-ipc-flooding-protection',
+      '--disable-background-networking',
+      '--disable-default-apps',
+      '--disable-extensions',
+      '--disable-sync',
+      '--disable-translate',
+      '--metrics-recording-only',
+      '--safebrowsing-disable-auto-update',
+      '--disable-features=LeakDetector',
+      '--disable-features=InterestFeedContentSuggestions',
+      '--disable-features=PrivacySandboxSettings4',
+      '--disable-features=AutofillServerCommunication',
+      '--disable-features=PasswordCheck',
+      '--disable-features=SafeBrowsing',
+      '--disable-features=MediaRouter',
+      '--disable-features=OptimizationHints',
+      '--disable-features=AutofillAssistant'
     ];
 
     this.browser = await puppeteer.launch({
@@ -56,32 +72,128 @@ class BaseScraper {
   async setupAntiDetection() {
     // Remove automation indicators
     await this.page.evaluateOnNewDocument(() => {
+      // Remove webdriver property
       Object.defineProperty(navigator, 'webdriver', {
         get: () => undefined,
       });
       
+      // Mock plugins
       Object.defineProperty(navigator, 'plugins', {
-        get: () => [1, 2, 3, 4, 5],
+        get: () => [
+          {
+            0: { type: 'application/pdf' },
+            description: 'Portable Document Format',
+            length: 1,
+            name: 'Chrome PDF Plugin'
+          },
+          {
+            0: { type: 'application/pdf' },
+            description: 'Portable Document Format',
+            length: 1,
+            name: 'Chrome PDF Viewer'
+          },
+          {
+            0: { type: 'application/x-google-chrome-pdf' },
+            description: 'Native PDF Viewer',
+            length: 1,
+            name: 'Native Client'
+          }
+        ],
       });
       
+      // Mock languages
       Object.defineProperty(navigator, 'languages', {
         get: () => ['en-US', 'en'],
       });
-
+      
+      // Mock Chrome object
       window.chrome = {
-        runtime: {}
+        runtime: {},
+        app: {
+          isInstalled: false,
+          InstallState: {
+            DISABLED: "disabled",
+            INSTALLED: "installed",
+            NOT_INSTALLED: "not_installed"
+          },
+          RunningState: {
+            CANNOT_RUN: "cannot_run",
+            READY_TO_RUN: "ready_to_run",
+            RUNNING: "running"
+          }
+        }
       };
 
+      // Remove automation flags
       delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
       delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
       delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+      
+      // Mock WebGL vendor info
+      const getParameter = WebGLRenderingContext.prototype.getParameter;
+      WebGLRenderingContext.prototype.getParameter = function(parameter) {
+        if (parameter === 37445) {
+          return 'Intel Inc.';
+        }
+        if (parameter === 37446) {
+          return 'Intel(R) Iris(TM) Graphics 6100';
+        }
+        return getParameter(parameter);
+      };
+      
+      // Mock screen properties
+      Object.defineProperty(Screen.prototype, 'availWidth', {
+        get: () => window.screen.width,
+      });
+      
+      Object.defineProperty(Screen.prototype, 'availHeight', {
+        get: () => window.screen.height,
+      });
+      
+      // Mock device memory
+      Object.defineProperty(navigator, 'deviceMemory', {
+        get: () => 8, // 8GB device memory
+      });
+      
+      // Mock hardware concurrency
+      Object.defineProperty(navigator, 'hardwareConcurrency', {
+        get: () => 8, // 8 CPU cores
+      });
+      
+      // Hide puppeteer-specific properties
+      delete navigator.__proto__.webdriver;
+      
+      // Mock other browser properties
+      Object.defineProperty(navigator, 'platform', {
+        get: () => 'MacIntel',
+      });
+      
+      Object.defineProperty(navigator, 'vendor', {
+        get: () => 'Google Inc.',
+      });
+      
+      // Mock permissions API
+      if (!navigator.permissions) {
+        navigator.permissions = {
+          query: () => Promise.resolve({state: 'granted'}),
+        };
+      }
+      
+      // Mock other navigator properties
+      Object.defineProperty(navigator, 'cookieEnabled', {
+        get: () => true,
+      });
+      
+      Object.defineProperty(navigator, 'onLine', {
+        get: () => true,
+      });
     });
 
     // Set realistic user agent
     const userAgents = [
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0 Safari/537.36',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0 Safari/537.36',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0 Safari/537.36'
     ];
     
     const randomUserAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
@@ -89,13 +201,30 @@ class BaseScraper {
     
     await this.page.setViewport(this.config.scraping.viewport);
     
+    // Set realistic headers
     await this.page.setExtraHTTPHeaders({
       'Accept-Language': 'en-US,en;q=0.9',
       'Accept-Encoding': 'gzip, deflate, br',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
       'Connection': 'keep-alive',
-      'Upgrade-Insecure-Requests': '1'
+      'Upgrade-Insecure-Requests': '1',
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'none',
+      'Sec-Fetch-User': '?1'
     });
+    
+    // Emulate timezone
+    await this.page.emulateTimezone('America/Los_Angeles');
+    
+    // Emulate media features
+    await this.page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: 'light' },
+      { name: 'prefers-reduced-motion', value: 'no-preference' }
+    ]);
+    
+    // Set cache enabled
+    await this.page.setCacheEnabled(true);
   }
 
   /**

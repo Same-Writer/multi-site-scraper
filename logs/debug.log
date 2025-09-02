@@ -1,75 +1,49 @@
-=== Debug Log Started: 2025-09-01T22:47:16.284Z ===
+=== Debug Log Started: 2025-09-02T00:03:42.125Z ===
 Log Mode: overwrite
 Log File: ./logs/debug.log
 ============================================================
 
-[2025-09-01T22:47:16.285Z] [INFO] Initializing Workarea UI Scraper...
-[2025-09-01T22:47:16.286Z] [INFO] Initializing Workarea UI Scraper...
-[2025-09-01T22:47:16.289Z] [INFO] 
+[2025-09-02T00:03:42.126Z] [INFO] Initializing Workarea UI Scraper...
+[2025-09-02T00:03:42.127Z] [INFO] Initializing Workarea UI Scraper...
+[2025-09-02T00:03:42.131Z] [INFO] 
 Available searches:
-[2025-09-01T22:47:16.289Z] [INFO] 
+[2025-09-02T00:03:42.132Z] [INFO] 
 BMW Z3 (ENABLED):
-[2025-09-01T22:47:16.290Z] [INFO]   Description: BMW Z3 coupe listings
-[2025-09-01T22:47:16.290Z] [INFO]   Frequency: hourly
-[2025-09-01T22:47:16.290Z] [INFO]   Priority: high
-[2025-09-01T22:47:16.291Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
-[2025-09-01T22:47:16.291Z] [INFO]   Price range: 0 - 50000
-[2025-09-01T22:47:16.291Z] [INFO]   Notifications: enabled
-[2025-09-01T22:47:16.292Z] [INFO] 
+[2025-09-02T00:03:42.132Z] [INFO]   Description: BMW Z3 coupe listings
+[2025-09-02T00:03:42.132Z] [INFO]   Frequency: hourly
+[2025-09-02T00:03:42.132Z] [INFO]   Priority: high
+[2025-09-02T00:03:42.133Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-02T00:03:42.133Z] [INFO]   Price range: 0 - 50000
+[2025-09-02T00:03:42.133Z] [INFO]   Notifications: enabled
+[2025-09-02T00:03:42.134Z] [INFO] 
 Mazda Miata (DISABLED):
-[2025-09-01T22:47:16.292Z] [INFO]   Description: Mazda Miata listings
-[2025-09-01T22:47:16.293Z] [INFO]   Frequency: daily
-[2025-09-01T22:47:16.293Z] [INFO]   Priority: medium
-[2025-09-01T22:47:16.294Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
-[2025-09-01T22:47:16.294Z] [INFO]   Price range: 2000 - 30000
-[2025-09-01T22:47:16.296Z] [INFO]   Notifications: enabled
-[2025-09-01T22:47:16.296Z] [INFO] 
+[2025-09-02T00:03:42.134Z] [INFO]   Description: Mazda Miata listings
+[2025-09-02T00:03:42.134Z] [INFO]   Frequency: daily
+[2025-09-02T00:03:42.135Z] [INFO]   Priority: medium
+[2025-09-02T00:03:42.135Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-02T00:03:42.135Z] [INFO]   Price range: 2000 - 30000
+[2025-09-02T00:03:42.136Z] [INFO]   Notifications: enabled
+[2025-09-02T00:03:42.136Z] [INFO] 
 Porsche 911 (DISABLED):
-[2025-09-01T22:47:16.297Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-09-01T22:47:16.297Z] [INFO]   Frequency: every_30_minutes
-[2025-09-01T22:47:16.297Z] [INFO]   Priority: high
-[2025-09-01T22:47:16.298Z] [INFO]   Active sites: craigslist
-[2025-09-01T22:47:16.298Z] [INFO]   Price range: 15000 - 200000
-[2025-09-01T22:47:16.298Z] [INFO]   Notifications: enabled
-[2025-09-01T22:47:16.299Z] [INFO] 
-Available searches:
-[2025-09-01T22:47:16.299Z] [INFO] 
-BMW Z3 (ENABLED):
-[2025-09-01T22:47:16.299Z] [INFO]   Description: BMW Z3 coupe listings
-[2025-09-01T22:47:16.299Z] [INFO]   Frequency: hourly
-[2025-09-01T22:47:16.300Z] [INFO]   Priority: high
-[2025-09-01T22:47:16.300Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
-[2025-09-01T22:47:16.300Z] [INFO]   Price range: 0 - 50000
-[2025-09-01T22:47:16.301Z] [INFO]   Notifications: enabled
-[2025-09-01T22:47:16.301Z] [INFO] 
-Mazda Miata (DISABLED):
-[2025-09-01T22:47:16.301Z] [INFO]   Description: Mazda Miata listings
-[2025-09-01T22:47:16.301Z] [INFO]   Frequency: daily
-[2025-09-01T22:47:16.302Z] [INFO]   Priority: medium
-[2025-09-01T22:47:16.302Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
-[2025-09-01T22:47:16.302Z] [INFO]   Price range: 2000 - 30000
-[2025-09-01T22:47:16.303Z] [INFO]   Notifications: enabled
-[2025-09-01T22:47:16.303Z] [INFO] 
-Porsche 911 (DISABLED):
-[2025-09-01T22:47:16.303Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-09-01T22:47:16.303Z] [INFO]   Frequency: every_30_minutes
-[2025-09-01T22:47:16.304Z] [INFO]   Priority: high
-[2025-09-01T22:47:16.304Z] [INFO]   Active sites: craigslist
-[2025-09-01T22:47:16.304Z] [INFO]   Price range: 15000 - 200000
-[2025-09-01T22:47:16.304Z] [INFO]   Notifications: enabled
-[2025-09-01T22:47:16.305Z] [INFO] Workarea UI Scraper initialized successfully
-[2025-09-01T22:47:16.305Z] [INFO] Workarea UI Scraper initialized successfully
-[2025-09-01T22:47:16.305Z] [INFO] 
+[2025-09-02T00:03:42.136Z] [INFO]   Description: Porsche 911 sports car listings
+[2025-09-02T00:03:42.137Z] [INFO]   Frequency: every_30_minutes
+[2025-09-02T00:03:42.137Z] [INFO]   Priority: high
+[2025-09-02T00:03:42.138Z] [INFO]   Active sites: craigslist
+[2025-09-02T00:03:42.138Z] [INFO]   Price range: 15000 - 200000
+[2025-09-02T00:03:42.139Z] [INFO]   Notifications: enabled
+[2025-09-02T00:03:42.139Z] [INFO] Workarea UI Scraper initialized successfully
+[2025-09-02T00:03:42.139Z] [INFO] Workarea UI Scraper initialized successfully
+[2025-09-02T00:03:42.140Z] [INFO] 
 === Running specific search: BMW Z3 (cargurus only) ===
-[2025-09-01T22:47:16.306Z] [INFO] 
+[2025-09-02T00:03:42.140Z] [INFO] 
 === Running search: BMW Z3 ===
-[2025-09-01T22:47:16.306Z] [INFO] Description: BMW Z3 coupe listings
-[2025-09-01T22:47:16.307Z] [INFO] 
+[2025-09-02T00:03:42.140Z] [INFO] Description: BMW Z3 coupe listings
+[2025-09-02T00:03:42.141Z] [INFO] 
 --- Scraping cargurus for BMW Z3 ---
-[2025-09-01T22:47:16.307Z] [INFO] Starting modular scrape of: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
-[2025-09-01T22:47:16.308Z] [INFO] Using scraper for: CarGurus
-[2025-09-01T22:47:16.308Z] [INFO] Initializing CarGurus scraper...
-[2025-09-01T22:47:16.308Z] [WARN] [1m[43m[30m
+[2025-09-02T00:03:42.142Z] [INFO] Starting modular scrape of: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
+[2025-09-02T00:03:42.142Z] [INFO] Using scraper for: CarGurus
+[2025-09-02T00:03:42.142Z] [INFO] Initializing CarGurus scraper...
+[2025-09-02T00:03:42.143Z] [WARN] [1m[43m[30m
   Puppeteer old Headless deprecation warning:[0m[33m
     In the near future `headless: true` will default to the new Headless mode
     for Chrome instead of the old Headless implementation. For more
@@ -77,23 +51,50 @@ Porsche 911 (DISABLED):
     Consider opting in early by passing `headless: "new"` to `puppeteer.launch()`
     If you encounter any bugs, please report them to https://github.com/puppeteer/puppeteer/issues/new/choose.[0m
 
-[2025-09-01T22:47:18.319Z] [INFO] CarGurus scraper initialized successfully
-[2025-09-01T22:47:18.321Z] [INFO] Starting CarGurus scrape of: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
-[2025-09-01T22:47:18.321Z] [INFO] Navigating to CarGurus search: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
-[2025-09-01T22:47:35.010Z] [INFO] Alternative selector div[data-cg-ft*='listing'] not found
-[2025-09-01T22:47:38.054Z] [INFO] Alternative selector .searchResults not found
-[2025-09-01T22:47:41.070Z] [INFO] Alternative selector #searchResultsContainer not found
-[2025-09-01T22:47:44.079Z] [INFO] Alternative selector div.listing not found
-[2025-09-01T22:47:44.080Z] [ERROR] Error scraping CarGurus: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
-[2025-09-01T22:47:44.080Z] [ERROR] Error in modular scraping for CarGurus: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
-[2025-09-01T22:47:44.456Z] [INFO] CarGurus scraper closed
-[2025-09-01T22:47:44.458Z] [ERROR] Error scraping cargurus for BMW Z3: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
-[2025-09-01T22:47:44.460Z] [INFO] 
+[2025-09-02T00:03:42.144Z] [INFO] Configurations loaded successfully
+[2025-09-02T00:03:42.144Z] [INFO] 
+Available searches:
+[2025-09-02T00:03:42.144Z] [INFO] 
+BMW Z3 (ENABLED):
+[2025-09-02T00:03:42.144Z] [INFO]   Description: BMW Z3 coupe listings
+[2025-09-02T00:03:42.145Z] [INFO]   Frequency: hourly
+[2025-09-02T00:03:42.145Z] [INFO]   Priority: high
+[2025-09-02T00:03:42.145Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-02T00:03:42.145Z] [INFO]   Price range: 0 - 50000
+[2025-09-02T00:03:42.146Z] [INFO]   Notifications: enabled
+[2025-09-02T00:03:42.146Z] [INFO] 
+Mazda Miata (DISABLED):
+[2025-09-02T00:03:42.146Z] [INFO]   Description: Mazda Miata listings
+[2025-09-02T00:03:42.147Z] [INFO]   Frequency: daily
+[2025-09-02T00:03:42.147Z] [INFO]   Priority: medium
+[2025-09-02T00:03:42.147Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-02T00:03:42.147Z] [INFO]   Price range: 2000 - 30000
+[2025-09-02T00:03:42.149Z] [INFO]   Notifications: enabled
+[2025-09-02T00:03:42.149Z] [INFO] 
+Porsche 911 (DISABLED):
+[2025-09-02T00:03:42.149Z] [INFO]   Description: Porsche 911 sports car listings
+[2025-09-02T00:03:42.149Z] [INFO]   Frequency: every_30_minutes
+[2025-09-02T00:03:42.150Z] [INFO]   Priority: high
+[2025-09-02T00:03:42.150Z] [INFO]   Active sites: craigslist
+[2025-09-02T00:03:42.150Z] [INFO]   Price range: 15000 - 200000
+[2025-09-02T00:03:42.150Z] [INFO]   Notifications: enabled
+[2025-09-02T00:03:43.266Z] [INFO] CarGurus scraper initialized successfully
+[2025-09-02T00:03:43.266Z] [INFO] Starting CarGurus scrape of: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
+[2025-09-02T00:03:43.267Z] [INFO] Navigating to CarGurus search: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
+[2025-09-02T00:04:00.860Z] [INFO] Alternative selector div[data-cg-ft*='listing'] not found
+[2025-09-02T00:04:03.870Z] [INFO] Alternative selector .searchResults not found
+[2025-09-02T00:04:06.879Z] [INFO] Alternative selector #searchResultsContainer not found
+[2025-09-02T00:04:09.883Z] [INFO] Alternative selector div.listing not found
+[2025-09-02T00:04:09.885Z] [ERROR] Error scraping CarGurus: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
+[2025-09-02T00:04:09.885Z] [ERROR] Error in modular scraping for CarGurus: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
+[2025-09-02T00:04:10.081Z] [INFO] CarGurus scraper closed
+[2025-09-02T00:04:10.081Z] [ERROR] Error scraping cargurus for BMW Z3: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
+[2025-09-02T00:04:10.082Z] [INFO] 
 === Search completed: 0 total results ===
-[2025-09-01T22:47:44.462Z] [INFO] 
+[2025-09-02T00:04:10.082Z] [INFO] 
 Scraping completed successfully!
-[2025-09-01T22:47:44.463Z] [INFO] Scraping completed successfully
+[2025-09-02T00:04:10.082Z] [INFO] Scraping completed successfully
 
 ============================================================
-=== Debug Log Ended: 2025-09-01T22:47:44.465Z ===
-Total log entries: 70
+=== Debug Log Ended: 2025-09-02T00:04:10.083Z ===
+Total log entries: 71
