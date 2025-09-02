@@ -1,7 +1,7 @@
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const fs = require('fs-extra');
-const path = require('path');
-const moment = require('moment');
+import { createObjectCsvWriter } from 'csv-writer';
+import fs from 'fs-extra';
+import path from 'path';
+import moment from 'moment';
 
 class CsvExporter {
   constructor(config) {
@@ -258,4 +258,4 @@ class CsvExporter {
   }
 }
 
-module.exports = CsvExporter;
+export default CsvExporter;

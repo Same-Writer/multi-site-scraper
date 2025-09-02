@@ -1,10 +1,15 @@
-const fs = require('fs-extra');
-const path = require('path');
-const _ = require('lodash');
-const ModularScrapingEngine = require('./ModularScrapingEngine');
-const CsvExporter = require('./CsvExporter');
-const EmailNotifier = require('./EmailNotifier');
-const ChangeDetector = require('./ChangeDetector');
+import fs from 'fs-extra';
+import path from 'path';
+import _ from 'lodash';
+import ModularScrapingEngine from './ModularScrapingEngine.js';
+import CsvExporter from './CsvExporter.js';
+import EmailNotifier from './EmailNotifier.js';
+import ChangeDetector from './ChangeDetector.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 class SearchManager {
   constructor() {
@@ -415,4 +420,4 @@ class SearchManager {
   }
 }
 
-module.exports = SearchManager;
+export default SearchManager;

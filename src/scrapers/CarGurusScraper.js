@@ -1,0 +1,255 @@
+import BaseScraper from './BaseScraper.js';
+import moment from 'moment';
+
+/**
+ * CarGurus-specific scraper implementation
+ */
+class CarGurusScraper extends BaseScraper {
+  constructor(config, siteConfig) {
+    super(config, siteConfig);
+  }
+
+  /**
+   * CarGurus doesn't require authentication for basic searches
+   */
+  async authenticate() {
+    // No authentication required for basic CarGurus searches
+    return true;
+  }
+
+  /**
+   * Navigate to CarGurus search URL and wait for content to load
+   */
+  async navigateToSearch(url, searchKey) {
+    console.log(`Navigating to CarGurus search: ${url}`);
+    
+    await this.page.goto(url, { 
+      waitUntil: 'networkidle2',
+      timeout: this.config.scraping.timeout 
+    });
+
+    // Add human-like delay after navigation
+    await this.humanDelay(2000, 4000);
+
+    // Wait for the initial content to load
+    try {
+      await this.page.waitForSelector(
+        this.siteConfig.waitConditions.initialLoad, 
+        { timeout: 10000 }
+      );
+      console.log('CarGurus search page loaded successfully');
+    } catch (error) {
+      // If the primary selector fails, try alternative selectors
+      const alternativeSelectors = this.siteConfig.waitConditions.alternativeSelectors || [];
+      let found = false;
+      
+      for (const selector of alternativeSelectors) {
+        try {
+          await this.page.waitForSelector(selector, { timeout: 3000 });
+          console.log(`Found content using alternative selector: ${selector}`);
+          found = true;
+          break;
+        } catch (altError) {
+          console.log(`Alternative selector ${selector} not found`);
+        }
+      }
+      
+      if (!found) {
+        throw new Error(`Could not find expected content on CarGurus page using selectors: ${this.siteConfig.waitConditions.initialLoad}, ${alternativeSelectors.join(', ')}`);
+      }
+    }
+  }
+
+  /**
+   * Handle CarGurus pagination
+   */
+  async handlePagination(paginationConfig) {
+    if (!paginationConfig.enabled) return;
+
+    console.log('Handling CarGurus pagination...');
+    
+    const maxPages = paginationConfig.maxPages || 3;
+    let currentPage = 1;
+    
+    while (currentPage < maxPages) {
+      try {
+        // Look for the next button
+        const nextButton = await this.page.$(paginationConfig.nextButtonSelector);
+        
+        if (!nextButton) {
+          console.log('No more pages available');
+          break;
+        }
+
+        // Check if the next button is disabled
+        const isDisabled = await this.page.evaluate((selector) => {
+          const button = document.querySelector(selector);
+          return !button || button.disabled || button.getAttribute('aria-disabled') === 'true';
+        }, paginationConfig.nextButtonSelector);
+
+        if (isDisabled) {
+          console.log('Next button is disabled, reached end of results');
+          break;
+        }
+
+        console.log(`Navigating to page ${currentPage + 1}...`);
+        
+        // Click the next button and wait for navigation
+        await Promise.all([
+          this.page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 15000 }),
+          nextButton.click()
+        ]);
+
+        // Wait for new content to load
+        await this.page.waitForSelector(
+          this.siteConfig.waitConditions.initialLoad, 
+          { timeout: 10000 }
+        );
+
+        // Add delay between page loads
+        await this.humanDelay(3000, 5000);
+        
+        currentPage++;
+        
+      } catch (error) {
+        console.warn(`Error on page ${currentPage + 1}:`, error.message);
+        break;
+      }
+    }
+    
+    console.log(`Pagination completed, processed ${currentPage} pages`);
+  }
+
+  /**
+   * Extract data from CarGurus search results
+   */
+  async extractData(searchConfig, maxListings = null) {
+    const results = [];
+    
+    try {
+      console.log('Extracting data from CarGurus...');
+      
+      // Extract all data using page.evaluate to avoid DOM handle issues
+      const extractedData = await this.page.evaluate((config) => {
+        const containers = document.querySelectorAll(config.selectors.listingContainer);
+        const results = [];
+        
+        console.log(`Found ${containers.length} listing containers on CarGurus`);
+        
+        for (let i = 0; i < containers.length; i++) {
+          const container = containers[i];
+          const item = {};
+          let skipListing = false;
+          
+          // Extract each configured data field
+          for (const field of config.dataFields) {
+            try {
+              let value = null;
+              
+              if (field.selector === '*' && field.attribute === 'text') {
+                // Special handling for wildcard selector - extract from entire container text
+                value = container.textContent?.trim();
+              } else {
+                // Standard extraction - handle multiple selectors separated by commas
+                let targetElement = null;
+                const selectors = field.selector.split(',').map(s => s.trim());
+                
+                for (const selector of selectors) {
+                  targetElement = container.querySelector(selector);
+                  if (targetElement) break;
+                }
+                
+                if (!targetElement) {
+                  if (field.required) {
+                    throw new Error(`Required selector not found: ${field.selector}`);
+                  }
+                  value = null;
+                } else {
+                  switch (field.attribute) {
+                    case 'text':
+                      value = targetElement.textContent?.trim();
+                      break;
+                    case 'href':
+                      value = targetElement.href;
+                      break;
+                    case 'src':
+                      value = targetElement.src;
+                      break;
+                    case 'datetime':
+                      value = targetElement.getAttribute('datetime');
+                      break;
+                    default:
+                      value = targetElement.getAttribute(field.attribute);
+                  }
+                }
+              }
+              
+              item[field.name] = value;
+              
+            } catch (error) {
+              console.warn(`Failed to extract ${field.name} from listing ${i + 1}:`, error.message);
+              if (field.required) {
+                skipListing = true;
+                break;
+              }
+              item[field.name] = null;
+            }
+          }
+          
+          // Skip this listing if a required field failed or if it doesn't have essential data
+          if (!skipListing && item.title && item.url) {
+            results.push(item);
+          }
+        }
+        
+        console.log(`Extracted ${results.length} valid CarGurus listings`);
+        return results;
+      }, searchConfig);
+      
+      console.log(`Extracted ${extractedData.length} raw items from CarGurus`);
+      
+      // Process each extracted item
+      for (let i = 0; i < extractedData.length; i++) {
+        const item = extractedData[i];
+        
+        // Apply transformations
+        for (const field of searchConfig.dataFields) {
+          if (field.transform && item[field.name]) {
+            item[field.name] = this.transformValue(item[field.name], field.transform);
+          }
+        }
+
+        // Add metadata
+        item.scrapedAt = moment().toISOString();
+        item.source = this.siteConfig.name.toLowerCase().replace(/\s+/g, '-');
+
+        // Apply filters
+        if (this.passesFilters(item, searchConfig.filters)) {
+          results.push(item);
+          console.log(`Successfully extracted CarGurus listing ${results.length}: "${item.title}" - $${item.price}`);
+          
+          // Check if we've reached the limit
+          if (maxListings && results.length >= maxListings) {
+            console.log(`Reached maxListings limit of ${maxListings} for CarGurus`);
+            break;
+          }
+        } else {
+          console.log(`CarGurus listing ${i + 1} filtered out: "${item.title}"`);
+        }
+        
+        // Add delay between processing listings
+        if (i > 0 && i % 3 === 0) {
+          await this.humanDelay(1000, 2000);
+        }
+      }
+
+    } catch (error) {
+      console.error('Error extracting data from CarGurus:', error.message);
+      throw error;
+    }
+
+    return results;
+  }
+}
+
+export default CarGurusScraper;

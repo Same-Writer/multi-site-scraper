@@ -1,5 +1,5 @@
-const puppeteer = require('puppeteer');
-const moment = require('moment');
+import puppeteer from 'puppeteer';
+import moment from 'moment';
 
 /**
  * Base scraper class that provides common functionality for all site scrapers
@@ -153,6 +153,11 @@ class BaseScraper {
         const idMatch = value.match(/post id:\s*(\d+)/i);
         return idMatch ? idMatch[1] : value;
       
+      case 'extractMileage':
+        if (!value) return null;
+        const mileageMatch = value.match(/([\d,]+)\s*miles?/i);
+        return mileageMatch ? parseInt(mileageMatch[1].replace(/[,]/g, '')) : null;
+      
       default:
         return value;
     }
@@ -289,4 +294,4 @@ class BaseScraper {
   }
 }
 
-module.exports = BaseScraper;
+export default BaseScraper;

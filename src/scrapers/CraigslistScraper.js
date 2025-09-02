@@ -1,5 +1,5 @@
-const BaseScraper = require('./BaseScraper');
-const moment = require('moment');
+import BaseScraper from './BaseScraper.js';
+import moment from 'moment';
 
 /**
  * Craigslist-specific scraper implementation
@@ -462,4 +462,4 @@ class CraigslistScraper extends BaseScraper {
   }
 }
 
-module.exports = CraigslistScraper;
+export default CraigslistScraper;

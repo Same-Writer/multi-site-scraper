@@ -1,0 +1,202 @@
+{
+  "name": "CarGurus",
+  "baseUrl": "https://www.cargurus.com",
+  "searchConfig": {
+    "bmw_z3": {
+      "url": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL",
+      "selectors": {
+        "listingContainer": "div[data-cg-ft*='listing']",
+        "title": "[data-cg-ft*='title']",
+        "price": "[data-cg-ft*='price']",
+        "location": "[data-cg-ft*='location']",
+        "date": "[data-cg-ft*='date']",
+        "link": "a[href*='/Cars/inventorylisting']",
+        "image": "img[src*='car']"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "[data-cg-ft*='title']",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": "[data-cg-ft*='price']",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "[data-cg-ft*='location']",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "date",
+          "selector": "[data-cg-ft*='date']",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": "a[href*='/Cars/inventorylisting']",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img[src*='car']",
+          "attribute": "src",
+          "required": false
+        },
+        {
+          "name": "mileage",
+          "selector": "[data-cg-ft*='mileage']",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractMileage"
+        },
+        {
+          "name": "dealer",
+          "selector": "[data-cg-ft*='dealer']",
+          "attribute": "text",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": "[data-cg-ft*='next']",
+        "maxPages": 5
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["z3", "bmw"],
+          "exclude": ["parts", "salvage", "junk"]
+        }
+      }
+    },
+    "mazda_miata": {
+      "url": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL",
+      "selectors": {
+        "listingContainer": "div[data-cg-ft*='listing']",
+        "title": "[data-cg-ft*='title']",
+        "price": "[data-cg-ft*='price']",
+        "location": "[data-cg-ft*='location']",
+        "date": "[data-cg-ft*='date']",
+        "link": "a[href*='/Cars/inventorylisting']",
+        "image": "img[src*='car']"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": "[data-cg-ft*='title']",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": "[data-cg-ft*='price']",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": "[data-cg-ft*='location']",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "date",
+          "selector": "[data-cg-ft*='date']",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": "a[href*='/Cars/inventorylisting']",
+          "attribute": "href",
+          "required": true,
+          "transform": "absoluteUrl"
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img[src*='car']",
+          "attribute": "src",
+          "required": false
+        },
+        {
+          "name": "mileage",
+          "selector": "[data-cg-ft*='mileage']",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractMileage"
+        },
+        {
+          "name": "dealer",
+          "selector": "[data-cg-ft*='dealer']",
+          "attribute": "text",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": "[data-cg-ft*='next']",
+        "maxPages": 5
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["miata", "mx-5", "mazda"],
+          "exclude": ["parts", "salvage", "junk"]
+        }
+      }
+    }
+  },
+  "waitConditions": {
+    "initialLoad": "div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main']",
+    "alternativeSelectors": [
+      "div[data-cg-ft*='listing']",
+      ".searchResults",
+      "#searchResultsContainer",
+      "div.listing"
+    ],
+    "timeout": 15000
+  },
+  "rateLimit": {
+    "requestDelay": 3000,
+    "maxConcurrent": 1,
+    "randomDelay": true,
+    "delayRange": [2000, 5000]
+  },
+  "antiDetection": {
+    "enabled": true,
+    "userAgentRotation": true,
+    "viewportRandomization": true,
+    "mouseMovements": true,
+    "scrollBehavior": "human",
+    "cookieHandling": true,
+    "sessionPersistence": true
+  },
+  "changeDetection": {
+    "enabled": true,
+    "storageFile": "data/cargurus_change_history.json",
+    "notifyOnChanges": ["price", "title", "description", "images"]
+  }
+}

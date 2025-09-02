@@ -1,5 +1,6 @@
-const CraigslistScraper = require('./CraigslistScraper');
-const FacebookMarketplaceScraper = require('./FacebookMarketplaceScraper');
+import CraigslistScraper from './CraigslistScraper.js';
+import FacebookMarketplaceScraper from './FacebookMarketplaceScraper.js';
+import CarGurusScraper from './CarGurusScraper.js';
 
 /**
  * Factory class for creating site-specific scrapers
@@ -21,6 +22,9 @@ class ScraperFactory {
       case 'facebook-marketplace':
         return new FacebookMarketplaceScraper(config, siteConfig);
       
+      case 'cargurus':
+        return new CarGurusScraper(config, siteConfig);
+      
       default:
         throw new Error(`No scraper implementation found for site: ${siteConfig.name}`);
     }
@@ -33,7 +37,8 @@ class ScraperFactory {
   static getSupportedSites() {
     return [
       'craigslist',
-      'facebook-marketplace'
+      'facebook-marketplace',
+      'cargurus'
     ];
   }
 
@@ -59,4 +64,4 @@ class ScraperFactory {
   }
 }
 
-module.exports = ScraperFactory;
+export default ScraperFactory;

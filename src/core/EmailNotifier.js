@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
-const fs = require('fs-extra');
-const path = require('path');
+import nodemailer from 'nodemailer';
+import fs from 'fs-extra';
+import path from 'path';
 
 class EmailNotifier {
   constructor(config) {
@@ -198,4 +198,4 @@ class EmailNotifier {
   }
 }
 
-module.exports = EmailNotifier;
+export default EmailNotifier;

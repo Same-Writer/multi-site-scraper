@@ -1,51 +1,75 @@
-=== Debug Log Started: 2025-08-30T02:08:33.932Z ===
+=== Debug Log Started: 2025-09-01T22:47:16.284Z ===
 Log Mode: overwrite
 Log File: ./logs/debug.log
 ============================================================
 
-[2025-08-30T02:08:33.933Z] [INFO] Initializing Workarea UI Scraper...
-[2025-08-30T02:08:33.935Z] [INFO] Initializing Workarea UI Scraper...
-[2025-08-30T02:08:33.940Z] [INFO] Search configurations loaded successfully
-[2025-08-30T02:08:33.941Z] [INFO] 
+[2025-09-01T22:47:16.285Z] [INFO] Initializing Workarea UI Scraper...
+[2025-09-01T22:47:16.286Z] [INFO] Initializing Workarea UI Scraper...
+[2025-09-01T22:47:16.289Z] [INFO] 
 Available searches:
-[2025-08-30T02:08:33.942Z] [INFO] 
+[2025-09-01T22:47:16.289Z] [INFO] 
 BMW Z3 (ENABLED):
-[2025-08-30T02:08:33.943Z] [INFO]   Description: BMW Z3 roadster and coupe listings
-[2025-08-30T02:08:33.945Z] [INFO]   Frequency: hourly
-[2025-08-30T02:08:33.946Z] [INFO]   Priority: high
-[2025-08-30T02:08:33.948Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-08-30T02:08:33.950Z] [INFO]   Price range: $1000 - $50000
-[2025-08-30T02:08:33.951Z] [INFO]   Notifications: enabled
-[2025-08-30T02:08:33.952Z] [INFO] 
+[2025-09-01T22:47:16.290Z] [INFO]   Description: BMW Z3 coupe listings
+[2025-09-01T22:47:16.290Z] [INFO]   Frequency: hourly
+[2025-09-01T22:47:16.290Z] [INFO]   Priority: high
+[2025-09-01T22:47:16.291Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-01T22:47:16.291Z] [INFO]   Price range: 0 - 50000
+[2025-09-01T22:47:16.291Z] [INFO]   Notifications: enabled
+[2025-09-01T22:47:16.292Z] [INFO] 
 Mazda Miata (DISABLED):
-[2025-08-30T02:08:33.953Z] [INFO]   Description: Mazda Miata (MX-5) convertible listings
-[2025-08-30T02:08:33.954Z] [INFO]   Frequency: daily
-[2025-08-30T02:08:33.955Z] [INFO]   Priority: medium
-[2025-08-30T02:08:33.956Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-08-30T02:08:33.959Z] [INFO]   Price range: $2000 - $30000
-[2025-08-30T02:08:33.963Z] [INFO]   Notifications: enabled
-[2025-08-30T02:08:33.964Z] [INFO] 
+[2025-09-01T22:47:16.292Z] [INFO]   Description: Mazda Miata listings
+[2025-09-01T22:47:16.293Z] [INFO]   Frequency: daily
+[2025-09-01T22:47:16.293Z] [INFO]   Priority: medium
+[2025-09-01T22:47:16.294Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-01T22:47:16.294Z] [INFO]   Price range: 2000 - 30000
+[2025-09-01T22:47:16.296Z] [INFO]   Notifications: enabled
+[2025-09-01T22:47:16.296Z] [INFO] 
 Porsche 911 (DISABLED):
-[2025-08-30T02:08:33.966Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-08-30T02:08:33.968Z] [INFO]   Frequency: every_30_minutes
-[2025-08-30T02:08:33.971Z] [INFO]   Priority: high
-[2025-08-30T02:08:33.972Z] [INFO]   Active sites: craigslist
-[2025-08-30T02:08:33.972Z] [INFO]   Price range: $15000 - $200000
-[2025-08-30T02:08:33.973Z] [INFO]   Notifications: enabled
-[2025-08-30T02:08:33.974Z] [INFO] Workarea UI Scraper initialized successfully
-[2025-08-30T02:08:33.975Z] [INFO] Workarea UI Scraper initialized successfully
-[2025-08-30T02:08:33.981Z] [INFO] 
-=== Running all enabled searches ===
-[2025-08-30T02:08:33.984Z] [INFO] Running 1 enabled searches...
-[2025-08-30T02:08:33.986Z] [INFO] 
+[2025-09-01T22:47:16.297Z] [INFO]   Description: Porsche 911 sports car listings
+[2025-09-01T22:47:16.297Z] [INFO]   Frequency: every_30_minutes
+[2025-09-01T22:47:16.297Z] [INFO]   Priority: high
+[2025-09-01T22:47:16.298Z] [INFO]   Active sites: craigslist
+[2025-09-01T22:47:16.298Z] [INFO]   Price range: 15000 - 200000
+[2025-09-01T22:47:16.298Z] [INFO]   Notifications: enabled
+[2025-09-01T22:47:16.299Z] [INFO] 
+Available searches:
+[2025-09-01T22:47:16.299Z] [INFO] 
+BMW Z3 (ENABLED):
+[2025-09-01T22:47:16.299Z] [INFO]   Description: BMW Z3 coupe listings
+[2025-09-01T22:47:16.299Z] [INFO]   Frequency: hourly
+[2025-09-01T22:47:16.300Z] [INFO]   Priority: high
+[2025-09-01T22:47:16.300Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-01T22:47:16.300Z] [INFO]   Price range: 0 - 50000
+[2025-09-01T22:47:16.301Z] [INFO]   Notifications: enabled
+[2025-09-01T22:47:16.301Z] [INFO] 
+Mazda Miata (DISABLED):
+[2025-09-01T22:47:16.301Z] [INFO]   Description: Mazda Miata listings
+[2025-09-01T22:47:16.301Z] [INFO]   Frequency: daily
+[2025-09-01T22:47:16.302Z] [INFO]   Priority: medium
+[2025-09-01T22:47:16.302Z] [INFO]   Active sites: craigslist, facebook_marketplace, cargurus
+[2025-09-01T22:47:16.302Z] [INFO]   Price range: 2000 - 30000
+[2025-09-01T22:47:16.303Z] [INFO]   Notifications: enabled
+[2025-09-01T22:47:16.303Z] [INFO] 
+Porsche 911 (DISABLED):
+[2025-09-01T22:47:16.303Z] [INFO]   Description: Porsche 911 sports car listings
+[2025-09-01T22:47:16.303Z] [INFO]   Frequency: every_30_minutes
+[2025-09-01T22:47:16.304Z] [INFO]   Priority: high
+[2025-09-01T22:47:16.304Z] [INFO]   Active sites: craigslist
+[2025-09-01T22:47:16.304Z] [INFO]   Price range: 15000 - 200000
+[2025-09-01T22:47:16.304Z] [INFO]   Notifications: enabled
+[2025-09-01T22:47:16.305Z] [INFO] Workarea UI Scraper initialized successfully
+[2025-09-01T22:47:16.305Z] [INFO] Workarea UI Scraper initialized successfully
+[2025-09-01T22:47:16.305Z] [INFO] 
+=== Running specific search: BMW Z3 (cargurus only) ===
+[2025-09-01T22:47:16.306Z] [INFO] 
 === Running search: BMW Z3 ===
-[2025-08-30T02:08:33.988Z] [INFO] Description: BMW Z3 roadster and coupe listings
-[2025-08-30T02:08:33.989Z] [INFO] 
---- Scraping craigslist for BMW Z3 ---
-[2025-08-30T02:08:33.990Z] [INFO] Starting modular scrape of: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-08-30T02:08:33.994Z] [INFO] Using scraper for: Craigslist
-[2025-08-30T02:08:33.996Z] [INFO] Initializing Craigslist scraper...
-[2025-08-30T02:08:33.996Z] [WARN] [1m[43m[30m
+[2025-09-01T22:47:16.306Z] [INFO] Description: BMW Z3 coupe listings
+[2025-09-01T22:47:16.307Z] [INFO] 
+--- Scraping cargurus for BMW Z3 ---
+[2025-09-01T22:47:16.307Z] [INFO] Starting modular scrape of: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
+[2025-09-01T22:47:16.308Z] [INFO] Using scraper for: CarGurus
+[2025-09-01T22:47:16.308Z] [INFO] Initializing CarGurus scraper...
+[2025-09-01T22:47:16.308Z] [WARN] [1m[43m[30m
   Puppeteer old Headless deprecation warning:[0m[33m
     In the near future `headless: true` will default to the new Headless mode
     for Chrome instead of the old Headless implementation. For more
@@ -53,143 +77,23 @@ Porsche 911 (DISABLED):
     Consider opting in early by passing `headless: "new"` to `puppeteer.launch()`
     If you encounter any bugs, please report them to https://github.com/puppeteer/puppeteer/issues/new/choose.[0m
 
-[2025-08-30T02:08:33.998Z] [DEBUG] [{"siteName":"facebook-marketplace","configKeys":3}] Loaded site configuration
-[2025-08-30T02:08:33.999Z] [INFO] Search configurations loaded successfully
-[2025-08-30T02:08:33.999Z] [INFO] [{"totalSearches":3,"totalSites":2}] Search configurations loaded successfully
-[2025-08-30T02:08:34.000Z] [INFO] 
-Available searches:
-[2025-08-30T02:08:34.000Z] [INFO] 
-BMW Z3 (ENABLED):
-[2025-08-30T02:08:34.001Z] [INFO]   Description: BMW Z3 roadster and coupe listings
-[2025-08-30T02:08:34.002Z] [INFO]   Frequency: hourly
-[2025-08-30T02:08:34.003Z] [INFO]   Priority: high
-[2025-08-30T02:08:34.004Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-08-30T02:08:34.004Z] [INFO]   Price range: $1000 - $50000
-[2025-08-30T02:08:34.005Z] [INFO]   Notifications: enabled
-[2025-08-30T02:08:34.007Z] [INFO] 
-Mazda Miata (DISABLED):
-[2025-08-30T02:08:34.009Z] [INFO]   Description: Mazda Miata (MX-5) convertible listings
-[2025-08-30T02:08:34.010Z] [INFO]   Frequency: daily
-[2025-08-30T02:08:34.014Z] [INFO]   Priority: medium
-[2025-08-30T02:08:34.015Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-08-30T02:08:34.016Z] [INFO]   Price range: $2000 - $30000
-[2025-08-30T02:08:34.017Z] [INFO]   Notifications: enabled
-[2025-08-30T02:08:34.017Z] [INFO] 
-Porsche 911 (DISABLED):
-[2025-08-30T02:08:34.018Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-08-30T02:08:34.019Z] [INFO]   Frequency: every_30_minutes
-[2025-08-30T02:08:34.020Z] [INFO]   Priority: high
-[2025-08-30T02:08:34.020Z] [INFO]   Active sites: craigslist
-[2025-08-30T02:08:34.022Z] [INFO]   Price range: $15000 - $200000
-[2025-08-30T02:08:34.023Z] [INFO]   Notifications: enabled
-[2025-08-30T02:08:36.347Z] [INFO] Craigslist scraper initialized successfully
-[2025-08-30T02:08:36.350Z] [INFO] Starting Craigslist scrape of: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-08-30T02:08:36.352Z] [INFO] Navigating to Craigslist search: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-08-30T02:08:42.122Z] [INFO] Selector .result-row not found, trying next...
-[2025-08-30T02:08:43.058Z] [INFO] Found content using selector: .cl-search-result
-[2025-08-30T02:08:43.061Z] [INFO] Craigslist search page loaded successfully
-[2025-08-30T02:08:43.064Z] [INFO] Handling Craigslist pagination...
-[2025-08-30T02:08:44.134Z] [INFO] No more pages available
-[2025-08-30T02:08:44.140Z] [INFO] Pagination completed, processed 1 pages
-[2025-08-30T02:08:44.142Z] [INFO] Extracting data from Craigslist...
-[2025-08-30T02:08:44.310Z] [INFO] Extracted 21 raw items from Craigslist
-[2025-08-30T02:08:44.313Z] [INFO] Successfully extracted Craigslist listing 1: "2008 BMW Z4 3.0I  ROADSTER CONVERTIBLE (ONLY 56K) MANUAL TRANSMISSION" - $12400
-[2025-08-30T02:08:44.314Z] [INFO] Successfully extracted Craigslist listing 2: "2009 BMW Z4 SDRIVE 35I HARDTOP CONVERTIBLE*6 SP MANUAL*LOW MILES 43K*" - $23995
-[2025-08-30T02:08:44.316Z] [INFO] Successfully extracted Craigslist listing 3: "1999 BMW Z3 M Coupe Manual Transmission ONLY 75k Miles!" - $33880
-[2025-08-30T02:08:44.317Z] [INFO] Successfully extracted Craigslist listing 4: "2001 BMW Z3 CONVERTIBLE 2.5 MANUAL NICE CONDITION" - $5750
-[2025-08-30T02:08:44.318Z] [INFO] Successfully extracted Craigslist listing 5: "1999 BMW Z3 2.3 2dr Convertible" - $8995
-[2025-08-30T02:08:44.320Z] [INFO] Successfully extracted Craigslist listing 6: "2002 Bmw Z3 model 6 speed," - $10500
-[2025-08-30T02:08:44.870Z] [INFO] Successfully extracted Craigslist listing 7: "2008 BMW Z4 3.0si For Sale" - $9900
-[2025-08-30T02:08:44.872Z] [INFO] Successfully extracted Craigslist listing 8: "2005 BMW Z4 Manual" - $8500
-[2025-08-30T02:08:44.875Z] [INFO] Successfully extracted Craigslist listing 9: "2000*BMW Z3*2.8*RDSTR-CONVERT* POWER TOP*5-SPD*1-FAMILY OWNED**6-CYL*" - $8900
-[2025-08-30T02:08:44.877Z] [INFO] Successfully extracted Craigslist listing 10: "1999 BMW Z3 2.5L 5-Speed" - $3247
-[2025-08-30T02:08:44.878Z] [INFO] Reached maxListings limit of 10 for Craigslist
-[2025-08-30T02:08:44.880Z] [INFO] Extracted 10 items from Craigslist
-[2025-08-30T02:08:44.882Z] [INFO] Modular scraping completed: 10 results from Craigslist
-[2025-08-30T02:08:45.154Z] [INFO] Craigslist scraper closed
-[2025-08-30T02:08:45.163Z] [INFO] Successfully exported 10 records to output/bmw_z3_craigslist_2025-08-30T02:08:45.156Z.csv
-[2025-08-30T02:08:45.164Z] [INFO] Results exported to: output/bmw_z3_craigslist_2025-08-30T02:08:45.156Z.csv
-[2025-08-30T02:08:45.165Z] [INFO] 
-=== EMAIL NOTIFICATION (PLACEHOLDER) ===
-[2025-08-30T02:08:45.166Z] [INFO] Search: BMW Z3
-[2025-08-30T02:08:45.167Z] [INFO] Trigger: Keyword Match
-[2025-08-30T02:08:45.167Z] [INFO] New matches found: 5
-[2025-08-30T02:08:45.168Z] [INFO] 
-New listings:
-[2025-08-30T02:08:45.170Z] [INFO] 1. 2008 BMW Z4 3.0I  ROADSTER CONVERTIBLE (ONLY 56K) MANUAL TRANSMISSION
-[2025-08-30T02:08:45.170Z] [INFO]    Price: $12400
-[2025-08-30T02:08:45.171Z] [INFO]    Location: •••••••••••••••••••••2008 BMW Z4 3.0I  ROADSTER CONVERTIBLE ONLY 56K MANUAL TRANSMISSION7h ago56k milos gatos$12,400
-[2025-08-30T02:08:45.171Z] [INFO]    URL: https://sfbay.craigslist.org/sby/cto/d/los-gatos-2008-bmw-z4-30i-roadster/7877546990.html
-[2025-08-30T02:08:45.172Z] [INFO] 
-[2025-08-30T02:08:45.172Z] [INFO] 2. 2009 BMW Z4 SDRIVE 35I HARDTOP CONVERTIBLE*6 SP MANUAL*LOW MILES 43K*
-[2025-08-30T02:08:45.173Z] [INFO]    Price: $23995
-[2025-08-30T02:08:45.173Z] [INFO]    Location: ••••••••••••••••••••••••2009 BMW Z4 SDRIVE 35I HARDTOP CONVERTIBLE*6 SP MANUAL*LOW MILES 43K*8/2943k miwalnut creek$23,995
-[2025-08-30T02:08:45.174Z] [INFO]    URL: https://sfbay.craigslist.org/eby/ctd/d/ross-2009-bmw-z4-sdrive-35i-hardtop/7877412986.html
-[2025-08-30T02:08:45.174Z] [INFO] 
-[2025-08-30T02:08:45.175Z] [INFO] 3. 1999 BMW Z3 M Coupe Manual Transmission ONLY 75k Miles!
-[2025-08-30T02:08:45.175Z] [INFO]    Price: $33880
-[2025-08-30T02:08:45.176Z] [INFO]    Location: ••••••••••••••••••••••••1999 BMW Z3 M Coupe Manual Transmission ONLY 75k Miles!8/2175k misan bruno$33,880
-[2025-08-30T02:08:45.176Z] [INFO]    URL: https://sfbay.craigslist.org/pen/ctd/d/san-bruno-1999-bmw-z3-coupe-manual/7875461734.html
-[2025-08-30T02:08:45.177Z] [INFO] 
-[2025-08-30T02:08:45.178Z] [INFO] === END EMAIL NOTIFICATION ===
-
-[2025-08-30T02:08:45.178Z] [INFO] Completed craigslist: 10 results
-[2025-08-30T02:08:45.179Z] [INFO] 
---- Scraping facebook_marketplace for BMW Z3 ---
-[2025-08-30T02:08:45.179Z] [INFO] Starting modular scrape of: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-08-30T02:08:45.180Z] [INFO] Using scraper for: Facebook Marketplace
-[2025-08-30T02:08:45.180Z] [INFO] Initializing Facebook Marketplace scraper...
-[2025-08-30T02:08:45.181Z] [WARN] [1m[43m[30m
-  Puppeteer old Headless deprecation warning:[0m[33m
-    In the near future `headless: true` will default to the new Headless mode
-    for Chrome instead of the old Headless implementation. For more
-    information, please see https://developer.chrome.com/articles/new-headless/.
-    Consider opting in early by passing `headless: "new"` to `puppeteer.launch()`
-    If you encounter any bugs, please report them to https://github.com/puppeteer/puppeteer/issues/new/choose.[0m
-
-[2025-08-30T02:08:47.008Z] [INFO] Facebook Marketplace scraper initialized successfully
-[2025-08-30T02:08:47.009Z] [INFO] Starting Facebook Marketplace scrape of: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-08-30T02:08:47.011Z] [INFO] Authentication required, logging in to Facebook...
-[2025-08-30T02:08:47.012Z] [INFO] Navigating to Facebook login page...
-[2025-08-30T02:08:47.683Z] [INFO] Waiting for login form...
-[2025-08-30T02:08:51.484Z] [INFO] Filling email field...
-[2025-08-30T02:09:02.853Z] [INFO] Filling password field...
-[2025-08-30T02:09:10.019Z] [INFO] Clicking login button...
-[2025-08-30T02:09:10.261Z] [INFO] Waiting for login success...
-[2025-08-30T02:09:13.577Z] [INFO] Login successful, waiting for page to stabilize...
-[2025-08-30T02:09:22.380Z] [INFO] Successfully authenticated with Facebook
-[2025-08-30T02:09:22.383Z] [INFO] Navigating to Facebook Marketplace search: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-08-30T02:09:28.189Z] [INFO] Facebook Marketplace search page loaded successfully
-[2025-08-30T02:09:28.193Z] [INFO] Extracting data from Facebook Marketplace...
-[2025-08-30T02:09:28.323Z] [INFO] Extracted 25 raw items from Facebook Marketplace
-[2025-08-30T02:09:28.326Z] [INFO] Facebook Marketplace listing 1 filtered out: "Se vende tengo más fotos por si te interesa solo para compradores serios"
-[2025-08-30T02:09:28.703Z] [INFO] Successfully extracted Facebook Marketplace listing 1: "2001 BMW z3 6-Cyl Roadster 2D" - $4900
-[2025-08-30T02:09:29.008Z] [INFO] Facebook Marketplace listing 3 filtered out: "2000 BMW z3 m roadster"
-[2025-08-30T02:09:29.373Z] [INFO] Successfully extracted Facebook Marketplace listing 2: "2000 BMW z3 2.3 Roadster 2D" - $5000
-[2025-08-30T02:09:29.624Z] [INFO] Successfully extracted Facebook Marketplace listing 3: "2001 BMW z3 2.5i" - $7980
-[2025-08-30T02:09:30.218Z] [INFO] Successfully extracted Facebook Marketplace listing 4: "1998 BMW z3 2.8 Roadster 2D" - $6000
-[2025-08-30T02:09:30.775Z] [INFO] Successfully extracted Facebook Marketplace listing 5: "1999 BMW z3 2.3" - $3500
-[2025-08-30T02:09:31.183Z] [INFO] Successfully extracted Facebook Marketplace listing 6: "1997 BMW z3 6-Cyl Roadster 2D" - $1234
-[2025-08-30T02:09:31.599Z] [INFO] Successfully extracted Facebook Marketplace listing 7: "2000 BMW z3 6-Cyl Roadster 2D" - $6000
-[2025-08-30T02:09:31.819Z] [INFO] Successfully extracted Facebook Marketplace listing 8: "2000 BMW z3 6-Cyl Roadster 2D" - $3500
-[2025-08-30T02:09:32.268Z] [INFO] Successfully extracted Facebook Marketplace listing 9: "1997 BMW z3 4-Cyl Roadster 2D" - $3800
-[2025-08-30T02:09:32.656Z] [INFO] Successfully extracted Facebook Marketplace listing 10: "2002 BMW z3 convertible" - $5996
-[2025-08-30T02:09:32.658Z] [INFO] Reached maxListings limit of 10 for Facebook Marketplace
-[2025-08-30T02:09:32.661Z] [INFO] Extracted 10 items from Facebook Marketplace
-[2025-08-30T02:09:32.662Z] [INFO] Modular scraping completed: 10 results from Facebook Marketplace
-[2025-08-30T02:09:32.772Z] [INFO] Facebook Marketplace scraper closed
-[2025-08-30T02:09:32.775Z] [INFO] Successfully exported 10 records to output/bmw_z3_facebook_marketplace_2025-08-30T02:09:32.773Z.csv
-[2025-08-30T02:09:32.775Z] [INFO] Results exported to: output/bmw_z3_facebook_marketplace_2025-08-30T02:09:32.773Z.csv
-[2025-08-30T02:09:32.776Z] [INFO] Completed facebook_marketplace: 10 results
-[2025-08-30T02:09:32.776Z] [INFO] 
-=== All searches completed ===
-[2025-08-30T02:09:32.777Z] [INFO] BMW Z3: 20 results
-[2025-08-30T02:09:32.777Z] [INFO] 
-Grand total: 20 results across 1 searches
-[2025-08-30T02:09:32.777Z] [INFO] 
+[2025-09-01T22:47:18.319Z] [INFO] CarGurus scraper initialized successfully
+[2025-09-01T22:47:18.321Z] [INFO] Starting CarGurus scrape of: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
+[2025-09-01T22:47:18.321Z] [INFO] Navigating to CarGurus search: https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL
+[2025-09-01T22:47:35.010Z] [INFO] Alternative selector div[data-cg-ft*='listing'] not found
+[2025-09-01T22:47:38.054Z] [INFO] Alternative selector .searchResults not found
+[2025-09-01T22:47:41.070Z] [INFO] Alternative selector #searchResultsContainer not found
+[2025-09-01T22:47:44.079Z] [INFO] Alternative selector div.listing not found
+[2025-09-01T22:47:44.080Z] [ERROR] Error scraping CarGurus: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
+[2025-09-01T22:47:44.080Z] [ERROR] Error in modular scraping for CarGurus: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
+[2025-09-01T22:47:44.456Z] [INFO] CarGurus scraper closed
+[2025-09-01T22:47:44.458Z] [ERROR] Error scraping cargurus for BMW Z3: Could not find expected content on CarGurus page using selectors: div[data-cg-ft*='search-results'], div[data-cg-ft*='listings'], #mainContent, [data-cg-ft*='main'], div[data-cg-ft*='listing'], .searchResults, #searchResultsContainer, div.listing
+[2025-09-01T22:47:44.460Z] [INFO] 
+=== Search completed: 0 total results ===
+[2025-09-01T22:47:44.462Z] [INFO] 
 Scraping completed successfully!
-[2025-08-30T02:09:32.777Z] [INFO] Scraping completed successfully
+[2025-09-01T22:47:44.463Z] [INFO] Scraping completed successfully
 
 ============================================================
-=== Debug Log Ended: 2025-08-30T02:09:32.778Z ===
-Total log entries: 154
+=== Debug Log Ended: 2025-09-01T22:47:44.465Z ===
+Total log entries: 70

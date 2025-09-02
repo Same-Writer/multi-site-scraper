@@ -1,6 +1,6 @@
-const ScraperFactory = require('../scrapers/ScraperFactory');
-const ChangeDetector = require('./ChangeDetector');
-const moment = require('moment');
+import ChangeDetector from './ChangeDetector.js';
+import moment from 'moment';
+import ScraperFactory from '../scrapers/ScraperFactory.js';
 
 /**
  * Modular scraping engine that uses site-specific scrapers
@@ -218,4 +218,4 @@ class ModularScrapingEngine {
   }
 }
 
-module.exports = ModularScrapingEngine;
+export default ModularScrapingEngine;

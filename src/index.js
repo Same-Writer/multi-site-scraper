@@ -1,7 +1,12 @@
-const SearchManager = require('./core/SearchManager');
-const Logger = require('./core/Logger');
-const config = require('../config/default.json');
-const EmailNotifier = require('./core/EmailNotifier');
+import SearchManager from './core/SearchManager.js';
+import Logger from './core/Logger.js';
+import config from '../config/default.json' assert { type: 'json' };
+import EmailNotifier from './core/EmailNotifier.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Global logger instance
 let logger = null;
@@ -154,11 +159,11 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Run the application
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch(error => {
     console.error('Unhandled error:', error);
     process.exit(1);
   });
 }
 
-module.exports = { main };
+export { main };

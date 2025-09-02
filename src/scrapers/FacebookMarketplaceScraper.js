@@ -1,8 +1,8 @@
-const BaseScraper = require('./BaseScraper');
-const moment = require('moment');
-const crypto = require('crypto');
-const path = require('path');
-const fs = require('fs-extra');
+import BaseScraper from './BaseScraper.js';
+import moment from 'moment';
+import crypto from 'crypto';
+import path from 'path';
+import fs from 'fs-extra';
 
 /**
  * Facebook Marketplace-specific scraper implementation
@@ -1092,4 +1092,4 @@ class FacebookMarketplaceScraper extends BaseScraper {
   }
 }
 
-module.exports = FacebookMarketplaceScraper;
+export default FacebookMarketplaceScraper;

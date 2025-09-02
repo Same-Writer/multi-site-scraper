@@ -46,11 +46,17 @@
           "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3",
           "siteConfig": "facebook-marketplace",
           "searchKey": "bmw_z3"
+        },
+        "cargurus": {
+          "enabled": true,
+          "searchUrl": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL",
+          "siteConfig": "cargurus",
+          "searchKey": "bmw_z3"
         }
       }
     },
     "Mazda Miata": {
-      "description": "BMW 340i Listings",
+      "description": "Mazda Miata listings",
       "scrapeSettings": {
         "runFrequency": "daily",
         "maxListingsPerSite": 3,
@@ -86,15 +92,21 @@
       "sites": {
         "craigslist": {
           "enabled": true,
-          "searchUrl": "https://sfbay.craigslist.org/search/cta?auto_transmission=1&postal=94040&query=bmw%20340i%20-dodge%20-nissan&search_distance=500#search=2~gallery~0",
+          "searchUrl": "https://sfbay.craigslist.org/search/cta?auto_transmission=1&postal=940&query=miata%20mx-5&search_distance=500#search=2~gallery~0",
           "siteConfig": "craigslist",
-          "searchKey": "bmw_340i"
+          "searchKey": "mazda_miata"
         },
         "facebook_marketplace": {
           "enabled": true,
           "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search?query=340i%20manual",
           "siteConfig": "facebook-marketplace", 
           "searchKey": "bmw_340i"
+        },
+        "cargurus": {
+          "enabled": true,
+          "searchUrl": "https://www.cargurus.com/Cars/inventorylisting/viewDetailsFilterViewInventoryListing.action?sourceContext=carGurusHomePageModel&entitySelectingHelper.selectedEntity=&maxMileage=90000&transmissionTypes=MANUAL",
+          "siteConfig": "cargurus",
+          "searchKey": "mazda_miata"
         }
       }
     },

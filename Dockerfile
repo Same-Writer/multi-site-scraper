@@ -19,6 +19,11 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install --only=production
 
+# Install Playwright and its dependencies before switching to non-privileged user
+RUN npm install playwright
+RUN npx playwright install-deps
+RUN npx playwright install chromium
+
 # Copy app source
 COPY . .
 
@@ -33,6 +38,9 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
 
 # Run everything after as non-privileged user
 USER pptruser
+
+# Set environment variable to indicate Docker environment for Playwright
+ENV DOCKER_ENV_PLAYWRIGHT=true
 
 # Set environment variable to indicate Docker environment
 ENV DOCKER_ENV=true

@@ -1,7 +1,7 @@
-const fs = require('fs-extra');
-const path = require('path');
-const crypto = require('crypto');
-const moment = require('moment');
+import fs from 'fs-extra';
+import path from 'path';
+import crypto from 'crypto';
+import moment from 'moment';
 
 class ChangeDetector {
   constructor(config) {
@@ -222,4 +222,4 @@ class ChangeDetector {
   }
 }
 
-module.exports = ChangeDetector;
+export default ChangeDetector;
