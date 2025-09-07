@@ -1,5 +1,6 @@
 const CraigslistScraper = require('./CraigslistScraper');
 const FacebookMarketplaceScraper = require('./FacebookMarketplaceScraper');
+const MockScraper = require('./MockScraper');
 
 /**
  * Factory class for creating site-specific scrapers
@@ -21,6 +22,9 @@ class ScraperFactory {
       case 'facebook-marketplace':
         return new FacebookMarketplaceScraper(config, siteConfig);
       
+      case 'mock-scraper':
+        return new MockScraper(config, siteConfig);
+      
       default:
         throw new Error(`No scraper implementation found for site: ${siteConfig.name}`);
     }
@@ -33,7 +37,8 @@ class ScraperFactory {
   static getSupportedSites() {
     return [
       'craigslist',
-      'facebook-marketplace'
+      'facebook-marketplace',
+      'mock-scraper'
     ];
   }
 

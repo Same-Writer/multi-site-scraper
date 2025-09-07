@@ -3,7 +3,7 @@
     "BMW Z3": {
       "description": "BMW Z3 coupe listings",
       "scrapeSettings": {
-        "runFrequency": "hourly",
+        "runFrequency": "every_30_minutes",
         "maxListingsPerSite": 10,
         "enabled": true,
         "priority": "high"
@@ -46,15 +46,21 @@
           "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3",
           "siteConfig": "facebook-marketplace",
           "searchKey": "bmw_z3"
+        },
+        "mock_scraper": {
+          "enabled": true,
+          "searchUrl": "https://mocksite.com/search/bmw-z3",
+          "siteConfig": "mock-scraper",
+          "searchKey": "bmw_z3"
         }
       }
     },
     "Mazda Miata": {
       "description": "BMW 340i Listings",
       "scrapeSettings": {
-        "runFrequency": "daily",
+        "runFrequency": "every_30_minutes",
         "maxListingsPerSite": 3,
-        "enabled": false,
+        "enabled": true,
         "priority": "medium"
       },
       "filters": {
@@ -79,7 +85,7 @@
         },
         "emailSettings": {
 
-          "subject": "Mazda Miata Alert: {{trigger}} - {{title}}",
+          "subject": "BMW 340i Alert: {{trigger}} - {{title}}",
           "maxEmailsPerHour": 3
         }
       },
@@ -103,7 +109,7 @@
       "scrapeSettings": {
         "runFrequency": "every_30_minutes",
         "maxListingsPerSite": 10,
-        "enabled": false,
+        "enabled": true,
         "priority": "high"
       },
       "filters": {
@@ -140,7 +146,7 @@
           "searchKey": "porsche_911"
         },
         "facebook_marketplace": {
-          "enabled": false,
+          "enabled": true,
           "searchUrl": "https://www.facebook.com/marketplace/mountain-view-ca/search/?query=porsche%20911",
           "siteConfig": "facebook-marketplace",
           "searchKey": "porsche_911"

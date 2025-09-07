@@ -1,0 +1,159 @@
+{
+  "name": "Mock Scraper",
+  "baseUrl": "https://mocksite.com",
+  "searchConfig": {
+    "bmw_z3": {
+      "url": "https://mocksite.com/search/bmw-z3",
+      "selectors": {
+        "listingContainer": ".listing-item",
+        "title": ".title",
+        "price": ".price",
+        "location": ".location",
+        "date": ".date",
+        "link": "a",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": ".title",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": ".price",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": ".location",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "date",
+          "selector": ".date",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": "a",
+          "attribute": "href",
+          "required": true
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".next",
+        "maxPages": 3
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 50000
+        },
+        "keywords": {
+          "include": ["z3", "bmw"],
+          "exclude": ["parts", "salvage", "junk"]
+        }
+      }
+    },
+    "mazda_miata": {
+      "url": "https://mocksite.com/search/mazda-miata",
+      "selectors": {
+        "listingContainer": ".listing-item",
+        "title": ".title",
+        "price": ".price",
+        "location": ".location",
+        "date": ".date",
+        "link": "a",
+        "image": "img"
+      },
+      "dataFields": [
+        {
+          "name": "title",
+          "selector": ".title",
+          "attribute": "text",
+          "required": true
+        },
+        {
+          "name": "price",
+          "selector": ".price",
+          "attribute": "text",
+          "required": false,
+          "transform": "extractPrice"
+        },
+        {
+          "name": "location",
+          "selector": ".location",
+          "attribute": "text",
+          "required": false,
+          "transform": "cleanLocation"
+        },
+        {
+          "name": "date",
+          "selector": ".date",
+          "attribute": "text",
+          "required": false
+        },
+        {
+          "name": "url",
+          "selector": "a",
+          "attribute": "href",
+          "required": true
+        },
+        {
+          "name": "imageUrl",
+          "selector": "img",
+          "attribute": "src",
+          "required": false
+        }
+      ],
+      "detailedScraping": {
+        "enabled": false
+      },
+      "pagination": {
+        "enabled": true,
+        "nextButtonSelector": ".next",
+        "maxPages": 3
+      },
+      "filters": {
+        "priceRange": {
+          "min": 0,
+          "max": 30000
+        },
+        "keywords": {
+          "include": ["miata", "mx-5", "mazda"],
+          "exclude": ["parts", "salvage", "junk"]
+        }
+      }
+    }
+  },
+  "waitConditions": {
+    "initialLoad": ".content, main, .listings",
+    "timeout": 10000
+  },
+  "rateLimit": {
+    "requestDelay": 1000,
+    "maxConcurrent": 1
+  },
+  "changeDetection": {
+    "enabled": true,
+    "storageFile": "data/mock_change_history.json",
+    "notifyOnChanges": ["price", "title", "description", "images"]
+  }
+}

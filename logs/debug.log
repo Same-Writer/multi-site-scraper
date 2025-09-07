@@ -1,512 +1,70 @@
-=== Debug Log Started: 2025-09-02T00:47:42.366Z ===
+=== Debug Log Started: 2025-09-07T19:41:17.677Z ===
 Log Mode: overwrite
 Log File: ./logs/debug.log
 ============================================================
 
-[2025-09-02T00:47:42.366Z] [INFO] Starting continuous scheduler...
-[2025-09-02T00:47:42.367Z] [INFO] Starting continuous scheduler...
-[2025-09-02T00:47:42.371Z] [INFO] 
+[2025-09-07T19:41:17.679Z] [INFO] Starting continuous scheduler...
+[2025-09-07T19:41:17.685Z] [INFO] 
 Available searches:
-[2025-09-02T00:47:42.371Z] [INFO] 
+[2025-09-07T19:41:17.685Z] [INFO] 
+BMW Z3 (ENABLED):
+[2025-09-07T19:41:17.685Z] [INFO]   Description: BMW Z3 coupe listings
+[2025-09-07T19:41:17.686Z] [INFO]   Frequency: every_30_minutes
+[2025-09-07T19:41:17.687Z] [INFO]   Priority: high
+[2025-09-07T19:41:17.687Z] [INFO]   Active sites: craigslist, facebook_marketplace, mock_scraper
+[2025-09-07T19:41:17.687Z] [INFO]   Price range: 0 - 50000
+[2025-09-07T19:41:17.687Z] [INFO]   Notifications: enabled
+[2025-09-07T19:41:17.687Z] [INFO] 
+Mazda Miata (ENABLED):
+[2025-09-07T19:41:17.687Z] [INFO]   Description: BMW 340i Listings
+[2025-09-07T19:41:17.687Z] [INFO]   Frequency: every_30_minutes
+[2025-09-07T19:41:17.688Z] [INFO]   Priority: medium
+[2025-09-07T19:41:17.688Z] [INFO]   Active sites: craigslist, facebook_marketplace
+[2025-09-07T19:41:17.688Z] [INFO]   Price range: 2000 - 30000
+[2025-09-07T19:41:17.689Z] [INFO]   Notifications: enabled
+[2025-09-07T19:41:17.689Z] [INFO] 
+Porsche 911 (ENABLED):
+[2025-09-07T19:41:17.689Z] [INFO]   Description: Porsche 911 sports car listings
+[2025-09-07T19:41:17.689Z] [INFO]   Frequency: every_30_minutes
+[2025-09-07T19:41:17.689Z] [INFO]   Priority: high
+[2025-09-07T19:41:17.689Z] [INFO]   Active sites: craigslist, facebook_marketplace
+[2025-09-07T19:41:17.689Z] [INFO]   Price range: 15000 - 200000
+[2025-09-07T19:41:17.689Z] [INFO]   Notifications: enabled
+[2025-09-07T19:41:17.690Z] [INFO] 
 Available searches:
-[2025-09-02T00:47:42.372Z] [INFO] 
+[2025-09-07T19:41:17.690Z] [INFO] 
 BMW Z3 (ENABLED):
-[2025-09-02T00:47:42.372Z] [INFO] 
-BMW Z3 (ENABLED):
-[2025-09-02T00:47:42.372Z] [INFO]   Description: BMW Z3 coupe listings
-[2025-09-02T00:47:42.372Z] [INFO]   Description: BMW Z3 coupe listings
-[2025-09-02T00:47:42.372Z] [INFO]   Frequency: hourly
-[2025-09-02T00:47:42.372Z] [INFO]   Frequency: hourly
-[2025-09-02T00:47:42.372Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.372Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.372Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.372Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.372Z] [INFO]   Price range: 0 - 50000
-[2025-09-02T00:47:42.372Z] [INFO]   Price range: 0 - 50000
-[2025-09-02T00:47:42.372Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.372Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.372Z] [INFO] 
-Mazda Miata (DISABLED):
-[2025-09-02T00:47:42.372Z] [INFO] 
-Mazda Miata (DISABLED):
-[2025-09-02T00:47:42.373Z] [INFO]   Description: BMW 340i Listings
-[2025-09-02T00:47:42.373Z] [INFO]   Description: BMW 340i Listings
-[2025-09-02T00:47:42.373Z] [INFO]   Frequency: daily
-[2025-09-02T00:47:42.373Z] [INFO]   Frequency: daily
-[2025-09-02T00:47:42.373Z] [INFO]   Priority: medium
-[2025-09-02T00:47:42.373Z] [INFO]   Priority: medium
-[2025-09-02T00:47:42.373Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.373Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.373Z] [INFO]   Price range: 2000 - 30000
-[2025-09-02T00:47:42.373Z] [INFO]   Price range: 2000 - 30000
-[2025-09-02T00:47:42.373Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.373Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.373Z] [INFO] 
-Porsche 911 (DISABLED):
-[2025-09-02T00:47:42.373Z] [INFO] 
-Porsche 911 (DISABLED):
-[2025-09-02T00:47:42.373Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-09-02T00:47:42.373Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-09-02T00:47:42.373Z] [INFO]   Frequency: every_30_minutes
-[2025-09-02T00:47:42.373Z] [INFO]   Frequency: every_30_minutes
-[2025-09-02T00:47:42.373Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.373Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.373Z] [INFO]   Active sites: craigslist
-[2025-09-02T00:47:42.373Z] [INFO]   Active sites: craigslist
-[2025-09-02T00:47:42.373Z] [INFO]   Price range: 15000 - 200000
-[2025-09-02T00:47:42.373Z] [INFO]   Price range: 15000 - 200000
-[2025-09-02T00:47:42.373Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.373Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.373Z] [INFO] Found 1 enabled searches:
-[2025-09-02T00:47:42.374Z] [INFO] Found 1 enabled searches:
-[2025-09-02T00:47:42.374Z] [INFO]   - BMW Z3 (hourly)
-[2025-09-02T00:47:42.374Z] [INFO]   - BMW Z3 (hourly)
-[2025-09-02T00:47:42.374Z] [INFO] Scheduling search "BMW Z3" to run every 60 minutes
-[2025-09-02T00:47:42.374Z] [INFO] Scheduling search "BMW Z3" to run every 60 minutes
-[2025-09-02T00:47:42.374Z] [INFO] 
-=== Running scheduled search: BMW Z3 ===
-[2025-09-02T00:47:42.374Z] [INFO] 
-=== Running scheduled search: BMW Z3 ===
-[2025-09-02T00:47:42.374Z] [INFO] Time: 2025-09-02T00:47:42.374Z
-[2025-09-02T00:47:42.374Z] [INFO] Time: 2025-09-02T00:47:42.374Z
-[2025-09-02T00:47:42.374Z] [INFO] 
-=== Running search: BMW Z3 ===
-[2025-09-02T00:47:42.375Z] [INFO] 
-=== Running search: BMW Z3 ===
-[2025-09-02T00:47:42.375Z] [INFO] Description: BMW Z3 coupe listings
-[2025-09-02T00:47:42.375Z] [INFO] Description: BMW Z3 coupe listings
-[2025-09-02T00:47:42.375Z] [INFO] 
---- Scraping craigslist for BMW Z3 ---
-[2025-09-02T00:47:42.375Z] [INFO] 
---- Scraping craigslist for BMW Z3 ---
-[2025-09-02T00:47:42.375Z] [INFO] Starting modular scrape of: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-09-02T00:47:42.375Z] [INFO] Starting modular scrape of: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-09-02T00:47:42.375Z] [INFO] Using scraper for: Craigslist
-[2025-09-02T00:47:42.375Z] [INFO] Using scraper for: Craigslist
-[2025-09-02T00:47:42.375Z] [INFO] Initializing Craigslist scraper...
-[2025-09-02T00:47:42.375Z] [INFO] Initializing Craigslist scraper...
-[2025-09-02T00:47:42.377Z] [INFO] Search "BMW Z3" scheduled. Next run: 2025-09-01 18:47:42
-[2025-09-02T00:47:42.377Z] [INFO] Search "BMW Z3" scheduled. Next run: 2025-09-01 18:47:42
-[2025-09-02T00:47:42.377Z] [INFO] 
+[2025-09-07T19:41:17.690Z] [INFO]   Description: BMW Z3 coupe listings
+[2025-09-07T19:41:17.690Z] [INFO]   Frequency: every_30_minutes
+[2025-09-07T19:41:17.690Z] [INFO]   Priority: high
+[2025-09-07T19:41:17.690Z] [INFO]   Active sites: craigslist, facebook_marketplace, mock_scraper
+[2025-09-07T19:41:17.690Z] [INFO]   Price range: 0 - 50000
+[2025-09-07T19:41:17.690Z] [INFO]   Notifications: enabled
+[2025-09-07T19:41:17.690Z] [INFO] 
+Mazda Miata (ENABLED):
+[2025-09-07T19:41:17.690Z] [INFO]   Description: BMW 340i Listings
+[2025-09-07T19:41:17.690Z] [INFO]   Frequency: every_30_minutes
+[2025-09-07T19:41:17.690Z] [INFO]   Priority: medium
+[2025-09-07T19:41:17.690Z] [INFO]   Active sites: craigslist, facebook_marketplace
+[2025-09-07T19:41:17.690Z] [INFO]   Price range: 2000 - 30000
+[2025-09-07T19:41:17.690Z] [INFO]   Notifications: enabled
+[2025-09-07T19:41:17.690Z] [INFO] 
+Porsche 911 (ENABLED):
+[2025-09-07T19:41:17.690Z] [INFO]   Description: Porsche 911 sports car listings
+[2025-09-07T19:41:17.691Z] [INFO]   Frequency: every_30_minutes
+[2025-09-07T19:41:17.691Z] [INFO]   Priority: high
+[2025-09-07T19:41:17.691Z] [INFO]   Active sites: craigslist, facebook_marketplace
+[2025-09-07T19:41:17.691Z] [INFO]   Price range: 15000 - 200000
+[2025-09-07T19:41:17.691Z] [INFO]   Notifications: enabled
+[2025-09-07T19:41:17.691Z] [INFO] Found 3 enabled searches:
+[2025-09-07T19:41:17.691Z] [INFO]   - BMW Z3 (every_30_minutes)
+[2025-09-07T19:41:17.691Z] [INFO]   - Mazda Miata (every_30_minutes)
+[2025-09-07T19:41:17.691Z] [INFO]   - Porsche 911 (every_30_minutes)
+[2025-09-07T19:41:17.692Z] [INFO] Scheduling search "BMW Z3" to run every 30 minutes
+[2025-09-07T19:41:17.696Z] [INFO] Search "BMW Z3" scheduled. Next run: 2025-09-07 13:11:17
+[2025-09-07T19:41:17.696Z] [INFO] Scheduling search "Mazda Miata" to run every 30 minutes
+[2025-09-07T19:41:17.697Z] [INFO] Search "Mazda Miata" scheduled. Next run: 2025-09-07 13:11:17
+[2025-09-07T19:41:17.697Z] [INFO] Scheduling search "Porsche 911" to run every 30 minutes
+[2025-09-07T19:41:17.697Z] [INFO] Search "Porsche 911" scheduled. Next run: 2025-09-07 13:11:17
+[2025-09-07T19:41:17.697Z] [INFO] 
 Continuous scheduler started. Press Ctrl+C to stop.
-[2025-09-02T00:47:42.377Z] [INFO] 
-Continuous scheduler started. Press Ctrl+C to stop.
-[2025-09-02T00:47:42.377Z] [INFO] Configurations loaded successfully
-[2025-09-02T00:47:42.377Z] [INFO] [INFO] Configurations loaded successfully {}
-[2025-09-02T00:47:42.378Z] [INFO] 
-Available searches:
-[2025-09-02T00:47:42.378Z] [INFO] 
-Available searches:
-[2025-09-02T00:47:42.378Z] [INFO] 
-BMW Z3 (ENABLED):
-[2025-09-02T00:47:42.378Z] [INFO] 
-BMW Z3 (ENABLED):
-[2025-09-02T00:47:42.378Z] [INFO]   Description: BMW Z3 coupe listings
-[2025-09-02T00:47:42.378Z] [INFO]   Description: BMW Z3 coupe listings
-[2025-09-02T00:47:42.378Z] [INFO]   Frequency: hourly
-[2025-09-02T00:47:42.378Z] [INFO]   Frequency: hourly
-[2025-09-02T00:47:42.378Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.378Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.378Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.378Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.378Z] [INFO]   Price range: 0 - 50000
-[2025-09-02T00:47:42.378Z] [INFO]   Price range: 0 - 50000
-[2025-09-02T00:47:42.378Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.378Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.378Z] [INFO] 
-Mazda Miata (DISABLED):
-[2025-09-02T00:47:42.378Z] [INFO] 
-Mazda Miata (DISABLED):
-[2025-09-02T00:47:42.378Z] [INFO]   Description: BMW 340i Listings
-[2025-09-02T00:47:42.378Z] [INFO]   Description: BMW 340i Listings
-[2025-09-02T00:47:42.378Z] [INFO]   Frequency: daily
-[2025-09-02T00:47:42.378Z] [INFO]   Frequency: daily
-[2025-09-02T00:47:42.378Z] [INFO]   Priority: medium
-[2025-09-02T00:47:42.378Z] [INFO]   Priority: medium
-[2025-09-02T00:47:42.378Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.378Z] [INFO]   Active sites: craigslist, facebook_marketplace
-[2025-09-02T00:47:42.378Z] [INFO]   Price range: 2000 - 30000
-[2025-09-02T00:47:42.378Z] [INFO]   Price range: 2000 - 30000
-[2025-09-02T00:47:42.378Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.378Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.378Z] [INFO] 
-Porsche 911 (DISABLED):
-[2025-09-02T00:47:42.378Z] [INFO] 
-Porsche 911 (DISABLED):
-[2025-09-02T00:47:42.378Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-09-02T00:47:42.378Z] [INFO]   Description: Porsche 911 sports car listings
-[2025-09-02T00:47:42.378Z] [INFO]   Frequency: every_30_minutes
-[2025-09-02T00:47:42.378Z] [INFO]   Frequency: every_30_minutes
-[2025-09-02T00:47:42.378Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.379Z] [INFO]   Priority: high
-[2025-09-02T00:47:42.379Z] [INFO]   Active sites: craigslist
-[2025-09-02T00:47:42.379Z] [INFO]   Active sites: craigslist
-[2025-09-02T00:47:42.379Z] [INFO]   Price range: 15000 - 200000
-[2025-09-02T00:47:42.379Z] [INFO]   Price range: 15000 - 200000
-[2025-09-02T00:47:42.379Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:42.379Z] [INFO]   Notifications: enabled
-[2025-09-02T00:47:44.344Z] [INFO] Craigslist scraper initialized successfully
-[2025-09-02T00:47:44.344Z] [INFO] Craigslist scraper initialized successfully
-[2025-09-02T00:47:44.345Z] [INFO] Starting Craigslist scrape of: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-09-02T00:47:44.345Z] [INFO] Starting Craigslist scrape of: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-09-02T00:47:44.345Z] [INFO] Navigating to Craigslist search: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-09-02T00:47:44.345Z] [INFO] Navigating to Craigslist search: https://sfbay.craigslist.org/search/cta?postal=94040&query=bmw%20z3%7Cz4%20manual%7Cmt%7C%225%20speed%22%20-mercedes&search_distance=100#search=2~gallery~0
-[2025-09-02T00:47:49.987Z] [INFO] Selector .result-row not found, trying next...
-[2025-09-02T00:47:49.988Z] [INFO] Selector .result-row not found, trying next...
-[2025-09-02T00:47:50.712Z] [INFO] Found content using selector: .cl-search-result
-[2025-09-02T00:47:50.713Z] [INFO] Found content using selector: .cl-search-result
-[2025-09-02T00:47:50.714Z] [INFO] Craigslist search page loaded successfully
-[2025-09-02T00:47:50.714Z] [INFO] Craigslist search page loaded successfully
-[2025-09-02T00:47:50.714Z] [INFO] Handling Craigslist pagination...
-[2025-09-02T00:47:50.715Z] [INFO] Handling Craigslist pagination...
-[2025-09-02T00:47:51.201Z] [INFO] No more pages available
-[2025-09-02T00:47:51.202Z] [INFO] No more pages available
-[2025-09-02T00:47:51.202Z] [INFO] Pagination completed, processed 1 pages
-[2025-09-02T00:47:51.202Z] [INFO] Pagination completed, processed 1 pages
-[2025-09-02T00:47:51.203Z] [INFO] Extracting data from Craigslist...
-[2025-09-02T00:47:51.203Z] [INFO] Extracting data from Craigslist...
-[2025-09-02T00:47:51.331Z] [INFO] Extracted 24 raw items from Craigslist
-[2025-09-02T00:47:51.332Z] [INFO] Extracted 24 raw items from Craigslist
-[2025-09-02T00:47:51.334Z] [INFO] Successfully extracted Craigslist listing 1: "2008 BMW Z4 3.0I  ROADSTER CONVERTIBLE (ONLY 56K) MANUAL TRANSMISSION" - $11900
-[2025-09-02T00:47:51.334Z] [INFO] Successfully extracted Craigslist listing 1: "2008 BMW Z4 3.0I  ROADSTER CONVERTIBLE (ONLY 56K) MANUAL TRANSMISSION" - $11900
-[2025-09-02T00:47:51.334Z] [INFO] Successfully extracted Craigslist listing 2: "2009 BMW Z4 SDRIVE 35I HARDTOP CONVERTIBLE*6 SP MANUAL*LOW MILES 43K*" - $23995
-[2025-09-02T00:47:51.335Z] [INFO] Successfully extracted Craigslist listing 2: "2009 BMW Z4 SDRIVE 35I HARDTOP CONVERTIBLE*6 SP MANUAL*LOW MILES 43K*" - $23995
-[2025-09-02T00:47:51.335Z] [INFO] Successfully extracted Craigslist listing 3: "1999 BMW Z3 M Coupe Manual Transmission ONLY 75k Miles!" - $33880
-[2025-09-02T00:47:51.335Z] [INFO] Successfully extracted Craigslist listing 3: "1999 BMW Z3 M Coupe Manual Transmission ONLY 75k Miles!" - $33880
-[2025-09-02T00:47:51.335Z] [INFO] Successfully extracted Craigslist listing 4: "BMW Z3 M Roadster" - $12900
-[2025-09-02T00:47:51.335Z] [INFO] Successfully extracted Craigslist listing 4: "BMW Z3 M Roadster" - $12900
-[2025-09-02T00:47:51.336Z] [INFO] Successfully extracted Craigslist listing 5: "2001 BMW Z3 CONVERTIBLE 2.5 MANUAL NICE CONDITION" - $5750
-[2025-09-02T00:47:51.336Z] [INFO] Successfully extracted Craigslist listing 5: "2001 BMW Z3 CONVERTIBLE 2.5 MANUAL NICE CONDITION" - $5750
-[2025-09-02T00:47:51.336Z] [INFO] Successfully extracted Craigslist listing 6: "1999 BMW Z3 2.3 2dr Convertible" - $8995
-[2025-09-02T00:47:51.336Z] [INFO] Successfully extracted Craigslist listing 6: "1999 BMW Z3 2.3 2dr Convertible" - $8995
-[2025-09-02T00:47:52.103Z] [INFO] Successfully extracted Craigslist listing 7: "2002 Bmw Z3 model 6 speed," - $10500
-[2025-09-02T00:47:52.103Z] [INFO] Successfully extracted Craigslist listing 7: "2002 Bmw Z3 model 6 speed," - $10500
-[2025-09-02T00:47:52.104Z] [INFO] Successfully extracted Craigslist listing 8: "2008 BMW Z4 3.0si For Sale" - $9900
-[2025-09-02T00:47:52.105Z] [INFO] Successfully extracted Craigslist listing 8: "2008 BMW Z4 3.0si For Sale" - $9900
-[2025-09-02T00:47:52.105Z] [INFO] Successfully extracted Craigslist listing 9: "2000*BMW Z3*2.8*RDSTR-CONVERT* POWER TOP*5-SPD*1-FAMILY OWNED**6-CYL*" - $8900
-[2025-09-02T00:47:52.105Z] [INFO] Successfully extracted Craigslist listing 9: "2000*BMW Z3*2.8*RDSTR-CONVERT* POWER TOP*5-SPD*1-FAMILY OWNED**6-CYL*" - $8900
-[2025-09-02T00:47:52.106Z] [INFO] Successfully extracted Craigslist listing 10: "2005 BMW Z4 Manual" - $8500
-[2025-09-02T00:47:52.106Z] [INFO] Successfully extracted Craigslist listing 10: "2005 BMW Z4 Manual" - $8500
-[2025-09-02T00:47:52.106Z] [INFO] Reached maxListings limit of 10 for Craigslist
-[2025-09-02T00:47:52.106Z] [INFO] Reached maxListings limit of 10 for Craigslist
-[2025-09-02T00:47:52.106Z] [INFO] Extracted 10 items from Craigslist
-[2025-09-02T00:47:52.106Z] [INFO] Extracted 10 items from Craigslist
-[2025-09-02T00:47:52.110Z] [INFO] Change detection: 10 new, 0 changed, 0 unchanged
-[2025-09-02T00:47:52.111Z] [INFO] Change detection: 10 new, 0 changed, 0 unchanged
-[2025-09-02T00:47:52.111Z] [INFO] Modular scraping completed: 10 results from Craigslist
-[2025-09-02T00:47:52.111Z] [INFO] Modular scraping completed: 10 results from Craigslist
-[2025-09-02T00:47:52.282Z] [INFO] Craigslist scraper closed
-[2025-09-02T00:47:52.282Z] [INFO] Craigslist scraper closed
-[2025-09-02T00:47:52.285Z] [INFO] Successfully exported 10 records to output/bmw_z3_craigslist_2025-09-02T00:47:52.283Z.csv
-[2025-09-02T00:47:52.285Z] [INFO] Successfully exported 10 records to output/bmw_z3_craigslist_2025-09-02T00:47:52.283Z.csv
-[2025-09-02T00:47:52.286Z] [INFO] Results exported to: output/bmw_z3_craigslist_2025-09-02T00:47:52.283Z.csv
-[2025-09-02T00:47:52.286Z] [INFO] Results exported to: output/bmw_z3_craigslist_2025-09-02T00:47:52.283Z.csv
-[2025-09-02T00:47:52.946Z] [INFO] Email transporter initialized successfully
-[2025-09-02T00:47:52.947Z] [INFO] Email transporter initialized successfully
-[2025-09-02T00:47:53.845Z] [INFO] Email notification sent successfully: <40f48c93-03cf-0534-fe10-5aa237e84791@gmail.com>
-[2025-09-02T00:47:53.845Z] [INFO] Email notification sent successfully: <40f48c93-03cf-0534-fe10-5aa237e84791@gmail.com>
-[2025-09-02T00:47:55.333Z] [INFO] Email notification sent successfully: <61ed53ec-a674-ea46-47e9-6e33acddaeab@gmail.com>
-[2025-09-02T00:47:55.334Z] [INFO] Email notification sent successfully: <61ed53ec-a674-ea46-47e9-6e33acddaeab@gmail.com>
-[2025-09-02T00:47:55.334Z] [INFO] Completed craigslist: 10 results
-[2025-09-02T00:47:55.335Z] [INFO] Completed craigslist: 10 results
-[2025-09-02T00:47:55.335Z] [INFO] 
---- Scraping facebook_marketplace for BMW Z3 ---
-[2025-09-02T00:47:55.335Z] [INFO] 
---- Scraping facebook_marketplace for BMW Z3 ---
-[2025-09-02T00:47:55.336Z] [INFO] Starting modular scrape of: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:47:55.336Z] [INFO] Starting modular scrape of: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:47:55.336Z] [INFO] Using scraper for: Facebook Marketplace
-[2025-09-02T00:47:55.336Z] [INFO] Using scraper for: Facebook Marketplace
-[2025-09-02T00:47:55.336Z] [INFO] Initializing Facebook Marketplace scraper...
-[2025-09-02T00:47:55.336Z] [INFO] Initializing Facebook Marketplace scraper...
-[2025-09-02T00:47:56.777Z] [INFO] Facebook Marketplace scraper initialized successfully
-[2025-09-02T00:47:56.778Z] [INFO] Facebook Marketplace scraper initialized successfully
-[2025-09-02T00:47:56.779Z] [INFO] Starting Facebook Marketplace scrape of: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:47:56.779Z] [INFO] Starting Facebook Marketplace scrape of: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:47:56.779Z] [INFO] Authentication required, logging in to Facebook...
-[2025-09-02T00:47:56.780Z] [INFO] Authentication required, logging in to Facebook...
-[2025-09-02T00:47:56.780Z] [INFO] Navigating to Facebook login page...
-[2025-09-02T00:47:56.780Z] [INFO] Navigating to Facebook login page...
-[2025-09-02T00:47:57.315Z] [INFO] Waiting for login form...
-[2025-09-02T00:47:57.315Z] [INFO] Waiting for login form...
-[2025-09-02T00:48:01.061Z] [INFO] Filling email field...
-[2025-09-02T00:48:01.061Z] [INFO] Filling email field...
-[2025-09-02T00:48:08.267Z] [INFO] Filling password field...
-[2025-09-02T00:48:08.267Z] [INFO] Filling password field...
-[2025-09-02T00:48:14.358Z] [INFO] Clicking login button...
-[2025-09-02T00:48:14.359Z] [INFO] Clicking login button...
-[2025-09-02T00:48:14.510Z] [INFO] Waiting for login success...
-[2025-09-02T00:48:14.510Z] [INFO] Waiting for login success...
-[2025-09-02T00:48:18.933Z] [INFO] Login successful, waiting for page to stabilize...
-[2025-09-02T00:48:18.933Z] [INFO] Login successful, waiting for page to stabilize...
-[2025-09-02T00:48:24.409Z] [INFO] Successfully authenticated with Facebook
-[2025-09-02T00:48:24.409Z] [INFO] Successfully authenticated with Facebook
-[2025-09-02T00:48:24.409Z] [INFO] Navigating to Facebook Marketplace search: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:48:24.410Z] [INFO] Navigating to Facebook Marketplace search: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:48:29.540Z] [INFO] Waiting for page to stabilize...
-[2025-09-02T00:48:29.540Z] [INFO] Waiting for page to stabilize...
-[2025-09-02T00:48:32.663Z] [INFO] Waiting for page stabilization indicators...
-[2025-09-02T00:48:32.664Z] [INFO] Waiting for page stabilization indicators...
-[2025-09-02T00:48:47.668Z] [INFO] Page stabilized with 3 indicators present
-[2025-09-02T00:48:47.669Z] [INFO] Page stabilized with 3 indicators present
-[2025-09-02T00:48:50.258Z] [INFO] Facebook Marketplace search page loaded successfully (validation will occur after pagination)
-[2025-09-02T00:48:50.259Z] [INFO] Facebook Marketplace search page loaded successfully (validation will occur after pagination)
-[2025-09-02T00:48:50.259Z] [INFO] Handling Facebook Marketplace scroll-based pagination...
-[2025-09-02T00:48:50.259Z] [INFO] Handling Facebook Marketplace scroll-based pagination...
-[2025-09-02T00:48:50.260Z] [INFO] Scroll 1/5
-[2025-09-02T00:48:50.260Z] [INFO] Scroll 1/5
-[2025-09-02T00:48:54.280Z] [INFO] Listings before scroll: 1, after scroll: 2
-[2025-09-02T00:48:54.280Z] [INFO] Listings before scroll: 1, after scroll: 2
-[2025-09-02T00:48:55.817Z] [INFO] Scroll 2/5
-[2025-09-02T00:48:55.817Z] [INFO] Scroll 2/5
-[2025-09-02T00:49:00.685Z] [INFO] Listings before scroll: 2, after scroll: 3
-[2025-09-02T00:49:00.686Z] [INFO] Listings before scroll: 2, after scroll: 3
-[2025-09-02T00:49:02.593Z] [INFO] Scroll 3/5
-[2025-09-02T00:49:02.593Z] [INFO] Scroll 3/5
-[2025-09-02T00:49:06.383Z] [INFO] Listings before scroll: 3, after scroll: 3
-[2025-09-02T00:49:06.384Z] [INFO] Listings before scroll: 3, after scroll: 3
-[2025-09-02T00:49:06.384Z] [INFO] No new listings loaded, stopping pagination
-[2025-09-02T00:49:06.385Z] [INFO] No new listings loaded, stopping pagination
-[2025-09-02T00:49:06.386Z] [INFO] Extracting data from Facebook Marketplace...
-[2025-09-02T00:49:06.386Z] [INFO] Extracting data from Facebook Marketplace...
-[2025-09-02T00:49:06.457Z] [INFO] === FACEBOOK MARKETPLACE DEBUG INFO ===
-[2025-09-02T00:49:06.457Z] [INFO] === FACEBOOK MARKETPLACE DEBUG INFO ===
-[2025-09-02T00:49:06.458Z] [INFO] Current URL: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:49:06.458Z] [INFO] Current URL: https://www.facebook.com/marketplace/mountain-view-ca/search/?query=bmw%20z3
-[2025-09-02T00:49:06.459Z] [INFO] Page Title: Facebook
-[2025-09-02T00:49:06.459Z] [INFO] Page Title: Facebook
-[2025-09-02T00:49:06.459Z] [INFO] Total links on page: 29
-[2025-09-02T00:49:06.459Z] [INFO] Total links on page: 29
-[2025-09-02T00:49:06.459Z] [INFO] Marketplace links: 24
-[2025-09-02T00:49:06.459Z] [INFO] Marketplace links: 24
-[2025-09-02T00:49:06.460Z] [INFO] Item links: 3
-[2025-09-02T00:49:06.460Z] [INFO] Item links: 3
-[2025-09-02T00:49:06.460Z] [INFO] Sample marketplace links: [
-  {
-    "href": "https://www.facebook.com/marketplace/",
-    "text": "Marketplace",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/create/",
-    "text": "Create new listing",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/vehicles/",
-    "text": "Vehicles",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/propertyrentals/",
-    "text": "Property Rentals",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/apparel/",
-    "text": "Apparel",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/classifieds/",
-    "text": "Classifieds",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/electronics/",
-    "text": "Electronics",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/entertainment/",
-    "text": "Entertainment",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/family/",
-    "text": "Family",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/free/",
-    "text": "Free Stuff",
-    "hasImage": false
-  }
-]
-[2025-09-02T00:49:06.460Z] [INFO] Sample marketplace links: [
-  {
-    "href": "https://www.facebook.com/marketplace/",
-    "text": "Marketplace",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/create/",
-    "text": "Create new listing",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/vehicles/",
-    "text": "Vehicles",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/propertyrentals/",
-    "text": "Property Rentals",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/apparel/",
-    "text": "Apparel",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/classifieds/",
-    "text": "Classifieds",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/electronics/",
-    "text": "Electronics",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/entertainment/",
-    "text": "Entertainment",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/family/",
-    "text": "Family",
-    "hasImage": false
-  },
-  {
-    "href": "https://www.facebook.com/marketplace/mountain-view-ca/free/",
-    "text": "Free Stuff",
-    "hasImage": false
-  }
-]
-[2025-09-02T00:49:06.461Z] [INFO] Sample container elements: [
-  {
-    "selector": "div[role=\"main\"] > div > div",
-    "count": 1,
-    "sampleText": "Mountain View · 250 miFiltersNotify Me$6,7001997 BMW z3 2.8 Roadster 2DSacramento, CA135K miles$15,0",
-    "hasLinks": true,
-    "hasImages": true
-  },
-  {
-    "selector": "div[aria-label*=\"Collection\"]",
-    "count": 1,
-    "sampleText": "Mountain View · 250 miFiltersNotify Me$6,7001997 BMW z3 2.8 Roadster 2DSacramento, CA135K miles$15,0",
-    "hasLinks": true,
-    "hasImages": true
-  },
-  {
-    "selector": "a[href*=\"/marketplace/item/\"]",
-    "count": 3,
-    "sampleText": "$6,7001997 BMW z3 2.8 Roadster 2DSacramento, CA135K miles",
-    "hasLinks": false,
-    "hasImages": true
-  }
-]
-[2025-09-02T00:49:06.461Z] [INFO] Sample container elements: [
-  {
-    "selector": "div[role=\"main\"] > div > div",
-    "count": 1,
-    "sampleText": "Mountain View · 250 miFiltersNotify Me$6,7001997 BMW z3 2.8 Roadster 2DSacramento, CA135K miles$15,0",
-    "hasLinks": true,
-    "hasImages": true
-  },
-  {
-    "selector": "div[aria-label*=\"Collection\"]",
-    "count": 1,
-    "sampleText": "Mountain View · 250 miFiltersNotify Me$6,7001997 BMW z3 2.8 Roadster 2DSacramento, CA135K miles$15,0",
-    "hasLinks": true,
-    "hasImages": true
-  },
-  {
-    "selector": "a[href*=\"/marketplace/item/\"]",
-    "count": 3,
-    "sampleText": "$6,7001997 BMW z3 2.8 Roadster 2DSacramento, CA135K miles",
-    "hasLinks": false,
-    "hasImages": true
-  }
-]
-[2025-09-02T00:49:06.461Z] [INFO] === END DEBUG INFO ===
-[2025-09-02T00:49:06.461Z] [INFO] === END DEBUG INFO ===
-[2025-09-02T00:49:06.461Z] [INFO] Handling Facebook Marketplace pagination with scrolling...
-[2025-09-02T00:49:06.461Z] [INFO] Handling Facebook Marketplace pagination with scrolling...
-[2025-09-02T00:49:06.461Z] [INFO] Handling Facebook Marketplace scroll-based pagination...
-[2025-09-02T00:49:06.462Z] [INFO] Handling Facebook Marketplace scroll-based pagination...
-[2025-09-02T00:49:06.462Z] [INFO] Scroll 1/5
-[2025-09-02T00:49:06.462Z] [INFO] Scroll 1/5
-[2025-09-02T00:49:11.190Z] [INFO] Listings before scroll: 3, after scroll: 4
-[2025-09-02T00:49:11.190Z] [INFO] Listings before scroll: 3, after scroll: 4
-[2025-09-02T00:49:12.286Z] [INFO] Scroll 2/5
-[2025-09-02T00:49:12.287Z] [INFO] Scroll 2/5
-[2025-09-02T00:49:17.286Z] [INFO] Listings before scroll: 4, after scroll: 5
-[2025-09-02T00:49:17.287Z] [INFO] Listings before scroll: 4, after scroll: 5
-[2025-09-02T00:49:19.090Z] [INFO] Scroll 3/5
-[2025-09-02T00:49:19.090Z] [INFO] Scroll 3/5
-[2025-09-02T00:49:23.826Z] [INFO] Listings before scroll: 5, after scroll: 6
-[2025-09-02T00:49:23.827Z] [INFO] Listings before scroll: 5, after scroll: 6
-[2025-09-02T00:49:25.566Z] [INFO] Scroll 4/5
-[2025-09-02T00:49:25.567Z] [INFO] Scroll 4/5
-[2025-09-02T00:49:30.345Z] [INFO] Listings before scroll: 6, after scroll: 7
-[2025-09-02T00:49:30.346Z] [INFO] Listings before scroll: 6, after scroll: 7
-[2025-09-02T00:49:31.890Z] [INFO] Scroll 5/5
-[2025-09-02T00:49:31.891Z] [INFO] Scroll 5/5
-[2025-09-02T00:49:36.399Z] [INFO] Listings before scroll: 7, after scroll: 8
-[2025-09-02T00:49:36.400Z] [INFO] Listings before scroll: 7, after scroll: 8
-[2025-09-02T00:49:37.617Z] [INFO] Validating Facebook Marketplace layout after pagination...
-[2025-09-02T00:49:37.617Z] [INFO] Validating Facebook Marketplace layout after pagination...
-[2025-09-02T00:49:37.684Z] [INFO] ✅ Facebook Marketplace validation successful: Found 8 listing containers with high-quality content
-[2025-09-02T00:49:37.684Z] [INFO] ✅ Facebook Marketplace validation successful: Found 8 listing containers with high-quality content
-[2025-09-02T00:49:37.752Z] [INFO] Extracted 8 raw items from Facebook Marketplace
-[2025-09-02T00:49:37.752Z] [INFO] Extracted 8 raw items from Facebook Marketplace
-[2025-09-02T00:49:37.753Z] [INFO] Successfully extracted Facebook Marketplace listing 1: "1997 BMW z3 2.8 Roadster 2D" - $6700
-[2025-09-02T00:49:37.753Z] [INFO] Successfully extracted Facebook Marketplace listing 1: "1997 BMW z3 2.8 Roadster 2D" - $6700
-[2025-09-02T00:49:38.177Z] [INFO] Successfully extracted Facebook Marketplace listing 2: "2000 BMW z3 M Roadster 2D" - $15000
-[2025-09-02T00:49:38.177Z] [INFO] Successfully extracted Facebook Marketplace listing 2: "2000 BMW z3 M Roadster 2D" - $15000
-[2025-09-02T00:49:38.685Z] [INFO] Successfully extracted Facebook Marketplace listing 3: "1998 BMW z3 2.8 Roadster 2D" - $6000
-[2025-09-02T00:49:38.685Z] [INFO] Successfully extracted Facebook Marketplace listing 3: "1998 BMW z3 2.8 Roadster 2D" - $6000
-[2025-09-02T00:49:39.083Z] [INFO] Successfully extracted Facebook Marketplace listing 4: "2000 BMW z3 6-Cyl Roadster 2D" - $6000
-[2025-09-02T00:49:39.083Z] [INFO] Successfully extracted Facebook Marketplace listing 4: "2000 BMW z3 6-Cyl Roadster 2D" - $6000
-[2025-09-02T00:49:39.384Z] [INFO] Successfully extracted Facebook Marketplace listing 5: "2000 BMW z3 2.3 Roadster 2D" - $5000
-[2025-09-02T00:49:39.384Z] [INFO] Successfully extracted Facebook Marketplace listing 5: "2000 BMW z3 2.3 Roadster 2D" - $5000
-[2025-09-02T00:49:39.902Z] [INFO] Successfully extracted Facebook Marketplace listing 6: "2001 BMW z3 2.5i" - $7980
-[2025-09-02T00:49:39.903Z] [INFO] Successfully extracted Facebook Marketplace listing 6: "2001 BMW z3 2.5i" - $7980
-[2025-09-02T00:49:40.255Z] [INFO] Successfully extracted Facebook Marketplace listing 7: "2001 BMW z3 6-Cyl Roadster 2D" - $4250
-[2025-09-02T00:49:40.256Z] [INFO] Successfully extracted Facebook Marketplace listing 7: "2001 BMW z3 6-Cyl Roadster 2D" - $4250
-[2025-09-02T00:49:40.932Z] [INFO] Successfully extracted Facebook Marketplace listing 8: "1999 BMW z3 2.3" - $3500
-[2025-09-02T00:49:40.933Z] [INFO] Successfully extracted Facebook Marketplace listing 8: "1999 BMW z3 2.3" - $3500
-[2025-09-02T00:49:40.933Z] [INFO] Extracted 8 items from Facebook Marketplace
-[2025-09-02T00:49:40.934Z] [INFO] Extracted 8 items from Facebook Marketplace
-[2025-09-02T00:49:40.936Z] [INFO] Change detection: 8 new, 0 changed, 0 unchanged
-[2025-09-02T00:49:40.936Z] [INFO] Change detection: 8 new, 0 changed, 0 unchanged
-[2025-09-02T00:49:40.936Z] [INFO] Modular scraping completed: 8 results from Facebook Marketplace
-[2025-09-02T00:49:40.937Z] [INFO] Modular scraping completed: 8 results from Facebook Marketplace
-[2025-09-02T00:49:41.223Z] [INFO] Facebook Marketplace scraper closed
-[2025-09-02T00:49:41.223Z] [INFO] Facebook Marketplace scraper closed
-[2025-09-02T00:49:41.224Z] [INFO] Successfully exported 8 records to output/bmw_z3_facebook_marketplace_2025-09-02T00:49:41.223Z.csv
-[2025-09-02T00:49:41.224Z] [INFO] Successfully exported 8 records to output/bmw_z3_facebook_marketplace_2025-09-02T00:49:41.223Z.csv
-[2025-09-02T00:49:41.224Z] [INFO] Results exported to: output/bmw_z3_facebook_marketplace_2025-09-02T00:49:41.223Z.csv
-[2025-09-02T00:49:41.224Z] [INFO] Results exported to: output/bmw_z3_facebook_marketplace_2025-09-02T00:49:41.223Z.csv
-[2025-09-02T00:49:41.773Z] [INFO] Email transporter initialized successfully
-[2025-09-02T00:49:41.773Z] [INFO] Email transporter initialized successfully
-[2025-09-02T00:49:42.491Z] [INFO] Email notification sent successfully: <c0c508a2-081f-e5b5-af60-6723456f9435@gmail.com>
-[2025-09-02T00:49:42.491Z] [INFO] Email notification sent successfully: <c0c508a2-081f-e5b5-af60-6723456f9435@gmail.com>
-[2025-09-02T00:49:42.492Z] [INFO] Completed facebook_marketplace: 8 results
-[2025-09-02T00:49:42.492Z] [INFO] Completed facebook_marketplace: 8 results
-[2025-09-02T00:49:42.492Z] [INFO] 
-=== Search completed: 18 total results ===
-[2025-09-02T00:49:42.492Z] [INFO] 
-=== Search completed: 18 total results ===
-[2025-09-02T00:50:07.313Z] [INFO] 
-Received SIGINT, shutting down gracefully...
-[2025-09-02T00:50:07.314Z] [INFO] 
-Received SIGINT, shutting down gracefully...
-[2025-09-02T00:50:07.314Z] [INFO] Received SIGINT, shutting down gracefully
-
-============================================================
-=== Debug Log Ended: 2025-09-02T00:50:07.315Z ===
-Total log entries: 167

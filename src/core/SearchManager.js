@@ -331,6 +331,57 @@ class SearchManager {
         }
       }
 
+      // Price drop notifications
+      if (notificationConfig.triggers.priceDropPercent || notificationConfig.triggers.priceDropAmount) {
+        const priceDropListings = results.filter(result => {
+          // Check if this listing has price changes
+          if (!result.changes || result.changes.length === 0) return false;
+          
+          // Look for price changes
+          const priceChanges = result.changes.filter(change => 
+            change.field && change.field.toLowerCase().includes('price')
+          );
+          
+          if (priceChanges.length === 0) return false;
+          
+          // Check if the price drop meets the threshold
+          for (const change of priceChanges) {
+            const previousPrice = parseFloat(change.previousValue) || 0;
+            const currentPrice = parseFloat(change.currentValue) || 0;
+            
+            // Only consider price drops (not increases)
+            if (currentPrice >= previousPrice) continue;
+            
+            const priceDrop = previousPrice - currentPrice;
+            
+            // Check percentage drop
+            if (notificationConfig.triggers.priceDropPercent) {
+              const percentDrop = (priceDrop / previousPrice) * 100;
+              if (percentDrop >= notificationConfig.triggers.priceDropPercent) {
+                return true;
+              }
+            }
+            
+            // Check absolute amount drop
+            if (notificationConfig.triggers.priceDropAmount) {
+              if (priceDrop >= notificationConfig.triggers.priceDropAmount) {
+                return true;
+              }
+            }
+          }
+          
+          return false;
+        });
+        
+        if (priceDropListings.length > 0) {
+          notifications.push({
+            trigger: 'Price Drop',
+            count: priceDropListings.length,
+            listings: priceDropListings.slice(0, 5)
+          });
+        }
+      }
+
       // Keyword matches
       if (notificationConfig.triggers.keywordMatch && notificationConfig.triggers.keywordMatch.length > 0) {
         const keywordMatches = results.filter(result => {

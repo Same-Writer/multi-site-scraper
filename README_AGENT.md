@@ -332,6 +332,27 @@ workarea-ui-scraper/
 4. Create site configuration file in `sites/` directory
 5. Update search configurations to reference new site
 
+#### Mock Scraper for Notification Testing (September 7, 2025)
+- **Problem Solved**: Need for a reliable way to test notification logic without relying on actual web scraping
+- **Solution Implemented**: Created a mock scraper that generates test data with various notification triggers
+- **Key Changes**:
+  - `src/scrapers/MockScraper.js`: New mock scraper implementation that generates test data
+  - `src/scrapers/ScraperFactory.js`: Updated to register the mock scraper
+  - `sites/mock-scraper.json`: Site configuration for the mock scraper
+  - `config/searches.json`: Updated to include mock scraper as a site option for BMW Z3 search
+  - `src/test-mock-scraper.js`: Test script to verify mock scraper functionality
+  - `src/test-notifications.js`: Comprehensive test script for notification triggers
+  - `docs/MOCK_SCRAPER.md`: Documentation for using the mock scraper
+  - `src/core/SearchManager.js`: Updated to handle price drop notifications
+  - `src/core/ModularScrapingEngine.js`: Added special handling for mock scraper to simulate price drops consistently
+- **Features**:
+  - Generates realistic mock listings with various attributes
+  - Simulates different notification triggers (new listings, price drops, keyword matches)
+  - No authentication required for simplified testing
+  - Configurable mock data generation
+  - Integration with existing notification and CSV export systems
+- **Results**: Successfully tested all notification triggers with mock data, verified email notifications are sent correctly for new listings, price drops, and keyword matches
+
 #### Adding New Search Types
 1. Add search definition to `config/searches.json`
 2. Configure site-specific search URLs and parameters
@@ -661,6 +682,28 @@ This approach prevents the web server from blocking subsequent AI agent executio
 2. **Only perform additional actions** after requesting approval from the human developer
 3. **Do not make assumptions** about what additional work might be needed
 4. **Stick to your assigned scope** to prevent scope creep and unintended changes
+
+### Mock Scraper Maintenance and Testing
+1. **Mirror Real Scraper Design**: The mock scraper (`src/scrapers/MockScraper.js`) should always mirror the design and functionality of implemented scrapers as closely as possible. When making changes to the base scraper or any site-specific scraper, ensure corresponding updates are made to the mock scraper to maintain consistency.
+
+2. **Use for Engine Testing**: The mock scraper serves as a test layer to verify any changes made to the core engine systems. Before deploying changes to production, test them with the mock scraper to ensure:
+   - Notification logic works correctly
+   - Change detection functions as expected
+   - CSV export functionality remains intact
+   - Error handling is properly implemented
+
+3. **Update Test Scripts**: When adding new features or modifying existing ones, update the test scripts (`src/test-mock-scraper.js` and `src/test-notifications.js`) to verify the new functionality works with the mock scraper.
+
+4. **Maintain Configuration Consistency**: Keep the mock scraper configuration (`sites/mock-scraper.json`) aligned with real scraper configurations. This ensures the mock scraper accurately simulates real-world scenarios.
+
+5. **Verify All Notification Types**: Use the mock scraper to test all notification types:
+   - New listings (`isNew` flag)
+   - Price drops (`hasPriceDrop` flag with proper change detection)
+   - Keyword matches (`isKeywordMatch` flag)
+
+6. **Run Tests Regularly**: Regularly run `node src/test-notifications.js` to verify that all notification triggers are working correctly after making changes to the system.
+
+7. **Document Changes**: When making changes to the mock scraper or its supporting systems, document these changes in the "Mock Scraper for Notification Testing" section of this document, following the same format as previous updates.
 
 ---
 
